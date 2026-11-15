@@ -578,11 +578,18 @@ function renderGameMenu(){
  $("gameLogoWrap").style.display=(active==="gta3"||active.startsWith("ratchet"))?"block":"none";
  $("menuLocation").textContent=cfg.place;
  $("menuTaskCount").textContent=total+" заданий · "+game.platform;
- const titles={all:"Все задания","Сюжет":"Сюжетные миссии","Телефонные миссии":"Телефонные миссии","Побочные":"Побочные миссии","Миссии-профессии":"Миссии-профессии","Импорт/Экспорт":"Импорт / Экспорт","Коллекционные":"Коллекционные предметы","Своё":"Мои задания","island:Portland":"Портленд · Portland","island:Staunton Island":"Стонтон-Айленд · Staunton","island:Shoreside Vale":"Шорсайд-Вейл · Shoreside"};
- $("menuSectionTitle").textContent=titles[currentFilter]||"Все задания";
- $("menuNav").querySelectorAll("button").forEach(b=>b.classList.toggle("selected",b.dataset.filter===currentFilter));
+ const titles={all:"Все задания","Сюжет":"Сюжетные миссии","Телефонные миссии":"Телефонные миссии","Побочные":"Побочные миссии","Миссии-профессии":"Миссии-профессии","Импорт/Экспорт":"Импорт / Экспорт","Коллекционные":"Коллекционные предметы","Skill Points":"Skill Points","Арсенал":"Оружие и улучшения","Своё":"Мои задания","island:Portland":"Портленд · Portland","island:Staunton Island":"Стонтон-Айленд · Staunton","island:Shoreside Vale":"Шорсайд-Вейл · Shoreside"};
+ const isRatchet=active.startsWith("ratchet"),nav=$("menuNav");
+ if(isRatchet){
+  if(!nav.dataset.original)nav.dataset.original=nav.innerHTML;
+  const categories=[["all","Все задания"],["Сюжет","Сюжет"],["Коллекционные","Коллекционные"],["Skill Points","Skill Points"],["Арсенал","Арсенал"]];
+  nav.innerHTML=categories.map(([v,l])=>'<button data-filter="'+v+'">'+l+'</button>').join("")+'<div class="planet-nav-label">ПЛАНЕТЫ И ЛОКАЦИИ</div>'+ratchetCatalog[active].places.map(([p,ico])=>'<button class="planet-nav-button" data-filter="planet:'+p+'"><span>'+ico+'</span>'+p+'</button>').join("");
+ }else if(nav.dataset.ratchetBuilt==="1"){nav.innerHTML=nav.dataset.original;delete nav.dataset.ratchetBuilt}
+ if(isRatchet)nav.dataset.ratchetBuilt="1";
+ $("menuSectionTitle").textContent=titles[currentFilter]||(currentFilter.startsWith("planet:")?currentFilter.slice(7):"Все задания");
+ nav.querySelectorAll("button").forEach(b=>b.classList.toggle("selected",b.dataset.filter===currentFilter));
  const list=$("menuTasks");list.innerHTML="";
- const filtered=game.tasks.filter(t=>currentFilter==="all"||(currentFilter.startsWith("island:")?t.island===currentFilter.slice(7):(currentFilter==="Побочные"?["Миссии по бездорожью","RC-миссии"].includes(t.category):t.category===currentFilter)));
+ const filtered=game.tasks.filter(t=>currentFilter==="all"||(currentFilter.startsWith("planet:")?t.planet===currentFilter.slice(7):(currentFilter.startsWith("island:")?t.island===currentFilter.slice(7):(currentFilter==="Побочные"?["Миссии по бездорожью","RC-миссии"].includes(t.category):t.category===currentFilter))));
  const sectionDone=filtered.filter(t=>t.done).length,sectionTotal=filtered.length,sectionPct=sectionTotal?Math.round(sectionDone/sectionTotal*100):0;
  $("menuPercent").textContent=sectionDone+" / "+sectionTotal;$("menuBar").style.width=sectionPct+"%";renderProgress(active,game);
  $("gta3Warnings").classList.toggle("hidden",active!=="gta3");
