@@ -329,12 +329,14 @@ function renderGameMenu(){
  $("gameLogo").src=cfg.logo;$("gameLogo").alt=cfg.alt;$("gameEdition").textContent=cfg.edition;
  $("gameLogoWrap").style.display=active==="gta3"?"block":"none";
  $("menuLocation").textContent=cfg.place;
- $("menuPercent").textContent=eligibleDone+" / "+eligible.length;$("menuBar").style.width=pct+"%";$("menuTaskCount").textContent=total+" заданий · "+game.platform;
+ $("menuTaskCount").textContent=total+" заданий · "+game.platform;
  const titles={all:"Все задания","Сюжет":"Сюжетные миссии","Телефонные миссии":"Телефонные миссии","Побочные":"Побочные миссии","Миссии-профессии":"Миссии-профессии","Импорт/Экспорт":"Импорт / Экспорт","Коллекционные":"Коллекционные предметы","Своё":"Мои задания","island:Portland":"Портленд · Portland","island:Staunton Island":"Стонтон-Айленд · Staunton","island:Shoreside Vale":"Шорсайд-Вейл · Shoreside"};
  $("menuSectionTitle").textContent=titles[currentFilter]||"Все задания";
  $("menuNav").querySelectorAll("button").forEach(b=>b.classList.toggle("selected",b.dataset.filter===currentFilter));
  const list=$("menuTasks");list.innerHTML="";
  const filtered=game.tasks.filter(t=>currentFilter==="all"||(currentFilter.startsWith("island:")?t.island===currentFilter.slice(7):(currentFilter==="Побочные"?["Миссии по бездорожью","RC-миссии"].includes(t.category):t.category===currentFilter)));
+ const sectionDone=filtered.filter(t=>t.done).length,sectionTotal=filtered.length,sectionPct=sectionTotal?Math.round(sectionDone/sectionTotal*100):0;
+ $("menuPercent").textContent=sectionDone+" / "+sectionTotal;$("menuBar").style.width=sectionPct+"%";
  $("gta3Warnings").classList.toggle("hidden",active!=="gta3");
  if(!filtered.length){const empty=document.createElement("div");empty.className="menu-empty";empty.textContent=currentFilter==="all"?"Здесь появятся задания проверенного чек-листа "+game.short+". Пока можешь добавлять свои пункты ниже.":"В этом разделе задания появятся после добавления полного проверенного чек-листа.";list.append(empty)}
  filtered.forEach(task=>{const row=document.createElement("label");row.className="menu-task"+(task.done?" done":"");const cb=document.createElement("input");cb.type="checkbox";cb.checked=task.done;cb.onchange=()=>{task.done=cb.checked;save();render()};row.append(cb);
