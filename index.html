@@ -47,15 +47,74 @@ let active="gta3";
 const $=id=>document.getElementById(id);
 function save(){localStorage.setItem("zeta-tracker-v1",JSON.stringify(state))}
 function render(){
- const game=state[active];$("games").innerHTML="";
- Object.entries(state).forEach(([key,g])=>{const b=document.createElement("button");b.className="game game-"+key+(key===active?" active":"");const covers={gta3:"https://www.powerupgaming.ca/cdn/shop/products/12649_front.jpg?v=1729454680",vice:"https://retrogamefan.com/cdn/shop/files/PS2-Grand-Theft-Auto-ViceCity-GTA-Good-1-Case-Front.webp?v=1776207628",sa:"https://images.tcdn.com.br/img/img_prod/684553/grand_theft_auto_san_andreas_gta_san_andreas_ps2_8727_1_c8bf44b370cfee984431bf6ca67a4d8f.jpg"};const logo=key==="gta3"?"GRAND THEFT AUTO III":key==="vice"?"VICE CITY":"SAN ANDREAS";b.innerHTML='<div class="cover"><img src="'+covers[key]+'" alt="Обложка '+g.title+'" loading="lazy" onerror="this.style.display=\'none\';this.parentElement.insertAdjacentHTML(\'beforeend\',\'<span class=&quot;cover-logo&quot;>'+logo+\'</span>\')"></div><div class="game-meta"><div class="game-name">'+g.title+'</div><div class="game-sub"><span>'+g.tasks.filter(t=>t.done).length+' / '+g.tasks.length+' выполнено</span><span>'+(g.platform==="Не выбрана"?"ПЛАТФОРМА —":g.platform)+'</span></div></div>';b.onclick=()=>{active=key;render()};$("games").append(b)});
- $("gameTitle").textContent=game.title;$("gameDesc").textContent=game.tasks.length?"Твой прогресс прохождения":"Список заданий пока не добавлен";
- $("platform").value=game.platform;$("count").textContent=game.tasks.filter(t=>t.done).length+" / "+game.tasks.length;
+ const game=state[active];
+ $("games").innerHTML="";
+ const covers={
+  gta3:"https://www.powerupgaming.ca/cdn/shop/products/12649_front.jpg?v=1729454680",
+  vice:"https://retrogamefan.com/cdn/shop/files/PS2-Grand-Theft-Auto-ViceCity-GTA-Good-1-Case-Front.webp?v=1776207628",
+  sa:"https://images.tcdn.com.br/img/img_prod/684553/grand_theft_auto_san_andreas_gta_san_andreas_ps2_8727_1_c8bf44b370cfee984431bf6ca67a4d8f.jpg"
+ };
+ const logos={gta3:"GRAND THEFT AUTO III",vice:"GRAND THEFT AUTO VICE CITY",sa:"GRAND THEFT AUTO SAN ANDREAS"};
+ Object.entries(state).forEach(([key,g])=>{
+  const b=document.createElement("button");
+  b.type="button";
+  b.className="game game-"+key+(key===active?" active":"");
+  const cover=document.createElement("div");
+  cover.className="cover";
+  const img=document.createElement("img");
+  img.src=covers[key];
+  img.alt="Обложка "+g.title;
+  img.loading="lazy";
+  img.onerror=()=>{
+   img.remove();
+   const fallback=document.createElement("span");
+   fallback.className="cover-logo";
+   fallback.textContent=logos[key];
+   cover.append(fallback);
+  };
+  cover.append(img);
+  const meta=document.createElement("div");
+  meta.className="game-meta";
+  const name=document.createElement("div");
+  name.className="game-name";
+  name.textContent=g.title;
+  const sub=document.createElement("div");
+  sub.className="game-sub";
+  const done=document.createElement("span");
+  done.textContent=g.tasks.filter(t=>t.done).length+" / "+g.tasks.length+" выполнено";
+  const platform=document.createElement("span");
+  platform.textContent=g.platform==="Не выбрана"?"ПЛАТФОРМА —":g.platform;
+  sub.append(done,platform);
+  meta.append(name,sub);
+  b.append(cover,meta);
+  b.onclick=()=>{active=key;render()};
+  $("games").append(b);
+ });
+ $("gameTitle").textContent=game.title;
+ $("gameDesc").textContent=game.tasks.length?"Твой прогресс прохождения":"Список заданий пока не добавлен";
+ $("platform").value=game.platform;
+ $("count").textContent=game.tasks.filter(t=>t.done).length+" / "+game.tasks.length;
  const pct=game.tasks.length?Math.round(game.tasks.filter(t=>t.done).length/game.tasks.length*100):0;
- $("percent").textContent=pct+"%";$("bar").style.width=pct+"%";$("taskCount").textContent=game.tasks.length+" пунктов";
+ $("percent").textContent=pct+"%";
+ $("bar").style.width=pct+"%";
+ $("taskCount").textContent=game.tasks.length+" пунктов";
  $("tasks").innerHTML="";
- if(!game.tasks.length){$("tasks").innerHTML='<div class="empty">Здесь появится проверенный чек-лист этой игры.<br>Пока можешь добавлять собственные задания ниже.</div>'}
- game.tasks.forEach(task=>{const row=document.createElement("label");row.className="task"+(task.done?" done":"");const cb=document.createElement("input");cb.type="checkbox";cb.checked=task.done;cb.onchange=()=>{task.done=cb.checked;save();render()};const name=document.createElement("span");name.className="task-name";name.textContent=task.name;const tag=document.createElement("span");tag.className="tag";tag.textContent=task.category||"Своё";row.append(cb,name,tag);$("tasks").append(row)});
+ if(!game.tasks.length){
+  $("tasks").innerHTML='<div class="empty">Здесь появится проверенный чек-лист этой игры.<br>Пока можешь добавлять собственные задания ниже.</div>';
+ }
+ game.tasks.forEach(task=>{
+  const row=document.createElement("label");
+  row.className="task"+(task.done?" done":"");
+  const cb=document.createElement("input");
+  cb.type="checkbox";cb.checked=task.done;
+  cb.onchange=()=>{task.done=cb.checked;save();render()};
+  const name=document.createElement("span");
+  name.className="task-name";name.textContent=task.name;
+  const tag=document.createElement("span");
+  tag.className="tag";tag.textContent=task.category||"Своё";
+  row.append(cb,name,tag);
+  $("tasks").append(row);
+ });
 }
 $("platform").onchange=e=>{state[active].platform=e.target.value;save();render()};
 function addTask(){const input=$("newTask"),name=input.value.trim();if(!name)return;state[active].tasks.push({id:"custom-"+Date.now(),name,category:"Своё",done:false});input.value="";save();render()}
