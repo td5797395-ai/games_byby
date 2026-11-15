@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#09090f"><title>ZETA — Game Tracker</title>
+<style>
+:root{color-scheme:dark;--bg:#09090f;--panel:#11111b;--panel2:#171725;--line:#29283a;--muted:#9290a8;--text:#f4f1ff;--purple:#9a6cff;--purple2:#6d43d7;--green:#65d6a0}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -10%,#241640 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer}.wrap{max-width:1120px;margin:auto;padding:28px 22px 60px}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px}.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.18em;font-size:21px}.logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,#b58cff,#6538d0);display:grid;place-items:center;box-shadow:0 0 28px #8d5aff55;font-size:18px}.status{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:7px 11px;border-radius:99px}
+.eyebrow{color:#b69aff;font-size:11px;letter-spacing:.2em;font-weight:800;text-transform:uppercase}.hero{margin-bottom:26px}.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.08;margin:8px 0 10px;letter-spacing:-.04em}.hero p{color:var(--muted);margin:0;max-width:620px}
+.layout{display:grid;grid-template-columns:280px 1fr;gap:18px}.panel{background:linear-gradient(160deg,#151421,#101019);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 14px 45px #0003}.section-title{display:flex;align-items:center;justify-content:space-between;margin:0 0 14px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#c8c3dc}
+.game-list{display:grid;gap:9px}.game{width:100%;text-align:left;border:1px solid transparent;background:#171623;color:var(--text);padding:13px;border-radius:13px;display:flex;gap:12px;align-items:center;transition:.2s}.game:hover{border-color:#51406f}.game.active{background:linear-gradient(100deg,#342052,#1b1728);border-color:#8d63e5;box-shadow:inset 3px 0 #a77bff}.cover{width:45px;height:55px;flex:none;border-radius:8px;display:grid;place-items:center;font-weight:900;font-size:12px;letter-spacing:-.05em;background:linear-gradient(145deg,#3b3155,#171521);border:1px solid #51436c;color:#d6c5ff}.game-name{font-weight:750}.game-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.main{display:grid;gap:16px;align-content:start}.game-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}.game-head h2{font-size:25px;margin:3px 0}.game-head p{color:var(--muted);margin:0;font-size:13px}.platform{display:grid;gap:5px;min-width:145px}.platform label,.field label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}.platform select,.field input{background:#0d0c14;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:9px 10px;outline:none}.platform select:focus,.field input:focus{border-color:var(--purple)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}.stat{background:#0d0c14;border:1px solid var(--line);border-radius:13px;padding:14px}.stat small{color:var(--muted);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.12em}.stat strong{display:block;font-size:25px;margin-top:4px}.progress{height:7px;background:#282437;border-radius:20px;overflow:hidden;margin-top:12px}.progress>span{display:block;height:100%;width:0;background:linear-gradient(90deg,#7044cf,#bb91ff);border-radius:20px;transition:width .25s}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.toolbar h3{margin:0;font-size:15px}.btn{border:1px solid #60449a;background:#251a39;color:#e6d9ff;border-radius:10px;padding:8px 12px;font-size:12px;font-weight:700}.btn:hover{background:#382451}.task-list{display:grid;gap:8px}.task{display:flex;align-items:center;gap:11px;padding:12px;background:#0d0c14;border:1px solid #252333;border-radius:11px}.task input{accent-color:#a57aff;width:17px;height:17px;flex:none}.task.done .task-name{color:#777489;text-decoration:line-through}.task-name{font-weight:600;flex:1}.tag{font-size:10px;color:#bba5ed;background:#2a203a;padding:4px 7px;border-radius:99px;white-space:nowrap}.empty{padding:24px;text-align:center;color:var(--muted);border:1px dashed #393448;border-radius:12px;font-size:13px}
+.add-row{display:flex;gap:8px;margin-top:12px}.add-row input{flex:1;min-width:0;background:#0d0c14;border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--text);outline:none}.note{color:var(--muted);font-size:11px;margin:12px 2px 0}.footer{color:#666477;text-align:center;font-size:11px;margin-top:25px}
+@media(max-width:760px){.wrap{padding:20px 14px 40px}.layout{grid-template-columns:1fr}.game-list{grid-template-columns:repeat(3,minmax(0,1fr))}.game{display:block;padding:10px}.cover{width:100%;height:54px;margin-bottom:8px}.game-name{font-size:12px}.game-sub{font-size:10px}.game-head{flex-direction:column}.platform{width:100%}.platform select{width:100%}}
+</style>
+</head>
+<body><div class="wrap">
+<header><div class="brand"><div class="logo">Z</div><span>ZETA</span></div><div class="status">● ЛИЧНЫЙ ТРЕКЕР</div></header>
+<section class="hero"><div class="eyebrow">Your completion archive</div><h1>Игры. Цели. <span style="color:#ae88ff">100%.</span></h1><p>Твоя библиотека прохождений — отмечай задания, следи за прогрессом и собирай полное завершение каждой игры.</p></section>
+<div class="layout">
+<aside class="panel"><div class="section-title"><span>Библиотека</span><span style="color:#77738c">03</span></div><div class="game-list" id="games"></div></aside>
+<main class="main">
+<section class="panel">
+<div class="game-head"><div><div class="eyebrow">Текущая игра</div><h2 id="gameTitle">Grand Theft Auto III</h2><p id="gameDesc">100% completion checklist</p></div><div class="platform"><label for="platform">Платформа</label><select id="platform"><option>PS4</option><option>PS5</option><option>PC</option><option>Xbox</option><option>Nintendo Switch</option><option>Другое</option><option>Не выбрана</option></select></div></div>
+<div class="stats"><div class="stat"><small>Выполнено заданий</small><strong id="count">3 / 3</strong></div><div class="stat"><small>Общий прогресс</small><strong id="percent">100%</strong></div></div><div class="progress"><span id="bar"></span></div>
+</section>
+<section class="panel"><div class="toolbar"><h3>Чек-лист прохождения</h3><span class="tag" id="taskCount">3 пункта</span></div><div class="task-list" id="tasks"></div>
+<div class="add-row"><input id="newTask" placeholder="Добавить своё задание…" maxlength="100"><button class="btn" id="addBtn">+ Добавить</button></div>
+<p class="note">Список GTA III пока содержит только подтверждённые тобой отметки. Полный перечень требований для 100% добавим после проверки по надёжному руководству.</p></section>
+</main></div><div class="footer">ZETA TRACKER · EARLY BUILD 0.1 · Данные сохраняются в этом браузере</div></div>
+<script>
+const initial={
+ gta3:{title:"Grand Theft Auto III",short:"GTA III",platform:"PS4",tasks:[
+ {id:"gta3-story-1",name:"Give Me Liberty",category:"Сюжет",done:true},
+ {id:"gta3-story-2",name:"Don't Spank Ma Bitch Up",category:"Сюжет",done:true},
+ {id:"gta3-side-1",name:"Taxi Driver — перевезти 100 пассажиров",category:"Доп. активность",done:true}
+ ]},
+ vice:{title:"Grand Theft Auto: Vice City",short:"VICE CITY",platform:"Не выбрана",tasks:[]},
+ sa:{title:"Grand Theft Auto: San Andreas",short:"SAN ANDREAS",platform:"Не выбрана",tasks:[]}
+};
+let state;try{state=JSON.parse(localStorage.getItem("zeta-tracker-v1"))||structuredClone(initial)}catch{state=structuredClone(initial)}
+let active="gta3";
+const $=id=>document.getElementById(id);
+function save(){localStorage.setItem("zeta-tracker-v1",JSON.stringify(state))}
+function render(){
+ const game=state[active];$("games").innerHTML="";
+ Object.entries(state).forEach(([key,g])=>{const b=document.createElement("button");b.className="game"+(key===active?" active":"");b.innerHTML='<div class="cover">'+g.short+'</div><div class="game-name">'+g.title+'</div><div class="game-sub">'+g.tasks.filter(t=>t.done).length+' / '+g.tasks.length+' выполнено</div>';b.onclick=()=>{active=key;render()};$("games").append(b)});
+ $("gameTitle").textContent=game.title;$("gameDesc").textContent=game.tasks.length?"Твой прогресс прохождения":"Список заданий пока не добавлен";
+ $("platform").value=game.platform;$("count").textContent=game.tasks.filter(t=>t.done).length+" / "+game.tasks.length;
+ const pct=game.tasks.length?Math.round(game.tasks.filter(t=>t.done).length/game.tasks.length*100):0;
+ $("percent").textContent=pct+"%";$("bar").style.width=pct+"%";$("taskCount").textContent=game.tasks.length+" пунктов";
+ $("tasks").innerHTML="";
+ if(!game.tasks.length){$("tasks").innerHTML='<div class="empty">Здесь появится проверенный чек-лист этой игры.<br>Пока можешь добавлять собственные задания ниже.</div>'}
+ game.tasks.forEach(task=>{const row=document.createElement("label");row.className="task"+(task.done?" done":"");const cb=document.createElement("input");cb.type="checkbox";cb.checked=task.done;cb.onchange=()=>{task.done=cb.checked;save();render()};const name=document.createElement("span");name.className="task-name";name.textContent=task.name;const tag=document.createElement("span");tag.className="tag";tag.textContent=task.category||"Своё";row.append(cb,name,tag);$("tasks").append(row)});
+}
+$("platform").onchange=e=>{state[active].platform=e.target.value;save();render()};
+function addTask(){const input=$("newTask"),name=input.value.trim();if(!name)return;state[active].tasks.push({id:"custom-"+Date.now(),name,category:"Своё",done:false});input.value="";save();render()}
+$("addBtn").onclick=addTask;$("newTask").addEventListener("keydown",e=>{if(e.key==="Enter")addTask()});
+render();
+</script></body></html>
