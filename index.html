@@ -289,6 +289,8 @@ function ensureGta3Checklist(){
   add(gta3Task("gta3-vigilante-"+slug+"-20","Полицейский — устранить 20 преступников · "+island,"Миссии-профессии",island,{scoreType:"vigilante",done:oldDone}));
  });
  gta3Story.forEach(([name,giver],i)=>{
+ // If a later story mission is complete, the opening Luigi mission has necessarily been completed too.
+ if(g.tasks.some(t=>t.category==="Сюжет"&&t.storyNumber>=3&&t.done)){const luigiIntro=g.tasks.find(t=>t.id==="gta3-story-2");if(luigiIntro)luigiIntro.done=true;}
   const n=i+1,island=n<=22?"Portland":n<=49?"Staunton Island":"Shoreside Vale";
   const id="gta3-story-"+n;
   const old=byId.get(id);if(old){old.name=name;old.category="Сюжет";old.island=island;old.giver=giver;old.portrait=gta3Portraits[giver];old.storyNumber=n;old.countsFor100=n>2;old.missable=[3,4,5,6,7,8,9,10,11,12,27,28,29,30,31,32].includes(n);}
@@ -447,6 +449,7 @@ function getProgressStats(key,game){
  const jumps=count(t=>t.collectible==="jump");
  let points=0;
  points+=count(t=>t.category==="Сюжет"&&t.storyNumber>=3);
+ if(done("gta3-story-1")&&done("gta3-story-2"))points+=1;
  points+=count(t=>t.category==="Телефонные миссии");
  points+=count(t=>t.category==="Миссии по бездорожью");
  points+=count(t=>t.category==="RC-миссии");
