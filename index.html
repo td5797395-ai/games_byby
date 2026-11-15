@@ -203,6 +203,7 @@ function gta3Task(id,name,category,island,extra={}){return {id,name,category,isl
 function ensureGta3Checklist(){
  const g=state.gta3;if(!g)return;
  const oldParamedicDone=!!g.tasks.find(t=>t.id==="gta3-paramedic"&&t.done);
+ const oldHiddenDone=!!g.tasks.find(t=>t.id==="gta3-hidden"&&t.done),oldRampagesDone=!!g.tasks.find(t=>t.id==="gta3-rampages"&&t.done),oldJumpsDone=!!g.tasks.find(t=>t.id==="gta3-jumps"&&t.done);
  const oldVigilanteDone={Portland:!!g.tasks.find(t=>t.id==="gta3-vigilante-portland"&&t.done),"Staunton Island":!!g.tasks.find(t=>t.id==="gta3-vigilante-staunton"&&t.done),"Shoreside Vale":!!g.tasks.find(t=>t.id==="gta3-vigilante-shoreside"&&t.done)};
  g.tasks=g.tasks.filter(t=>!["gta3-story-all","gta3-hidden","gta3-rampages","gta3-jumps","gta3-paramedic","gta3-vigilante-portland","gta3-vigilante-staunton","gta3-vigilante-shoreside"].includes(t.id));
  const legacyStoryTwo=g.tasks.find(t=>t.id==="gta3-story-2"&&t.name==="Don't Spank Ma Bitch Up");if(legacyStoryTwo)legacyStoryTwo.id="gta3-story-3";
@@ -239,13 +240,13 @@ function ensureGta3Checklist(){
  g.tasks.forEach(t=>{if(phoneGivers[t.id])t.giver=phoneGivers[t.id];});
  for(let i=1;i<=100;i++){
   const island=(i<=32||i===52)?"Portland":(i<=69?"Staunton Island":"Shoreside Vale");
-  add(gta3Task("gta3-package-"+i,"Скрытый пакет №"+String(i).padStart(3,"0"),"Коллекционные",island,{collectible:"package",packageNumber:i}));
+  add(gta3Task("gta3-package-"+i,"Скрытый пакет №"+String(i).padStart(3,"0"),"Коллекционные",island,{collectible:"package",packageNumber:i,done:oldHiddenDone}));
  }
  const groups=[
   ["rampage","Буйство","Portland",6],["rampage","Буйство","Staunton Island",7],["rampage","Буйство","Shoreside Vale",7],
   ["jump","Уникальный прыжок","Portland",8],["jump","Уникальный прыжок","Staunton Island",4],["jump","Уникальный прыжок","Shoreside Vale",8]
  ];
- groups.forEach(([kind,label,island,count])=>{for(let i=1;i<=count;i++)add(gta3Task("gta3-"+kind+"-"+island.toLowerCase().replaceAll(" ","-")+"-"+i,label+" "+i+" / "+count,"Коллекционные",island,{collectible:kind}))});
+ groups.forEach(([kind,label,island,count])=>{for(let i=1;i<=count;i++)add(gta3Task("gta3-"+kind+"-"+island.toLowerCase().replaceAll(" ","-")+"-"+i,label+" "+i+" / "+count,"Коллекционные",island,{collectible:kind,done:kind==="rampage"?oldRampagesDone:oldJumpsDone}))});
  g.tasks.forEach(t=>{if(!t.island)t.island="Все острова";});
  g.tasks.forEach(t=>{if(["gta3-fire-portland","gta3-fire-staunton","gta3-fire-shoreside"].includes(t.id))t.scoreType="firefighter";});
  save();
@@ -274,7 +275,8 @@ function getProgressStats(key,game){
  points+=count(t=>t.category==="Миссии по бездорожью");
  points+=count(t=>t.category==="RC-миссии");
  points+=["gta3-paramedic-35","gta3-paramedic-70","gta3-paramedic-level12"].filter(done).length;
- points+=count(t=>t.scoreType==="firefighter")/3;
+ const firefighterTasks=game.tasks.filter(t=>t.scoreType==="firefighter");
+ if(firefighterTasks.length===3&&firefighterTasks.every(t=>t.done))points+=1;
  points+=count(t=>t.scoreType==="vigilante");
  if(done("gta3-side-1"))points+=1;
  if(done("gta3-import-emergency"))points+=7;
