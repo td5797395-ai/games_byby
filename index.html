@@ -50,6 +50,46 @@ header{display:flex;align-items:center;justify-content:space-between;margin-bott
 .menu-footer{display:flex;justify-content:space-between;gap:14px;background:#263f51b8;padding:12px 18px;margin:0;color:#d0dce3;font-size:9px;letter-spacing:.13em;text-transform:uppercase}
 body.in-game{background:#142d3d}body.in-game .wrap{max-width:none;padding:0}body.in-game> .wrap>header{display:none}body.in-game .game-view{margin:0;min-height:100vh}body.in-game .game-menu-inner{min-height:100vh;padding:28px clamp(20px,5vw,72px) 24px}
 @media(max-width:700px){.game-view{min-height:100vh;background-position:62% center}.game-view:before{background:linear-gradient(90deg,#142d3df7 0%,#183346e8 58%,#1b3a4b99 100%),linear-gradient(0deg,#07172377,transparent 60%)}.game-menu-body{grid-template-columns:1fr;gap:20px;padding-top:26px;align-items:start}.menu-nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}.menu-nav button{font-size:15px;padding:10px 8px}.menu-content-head{align-items:flex-start;padding:14px}.menu-task{padding:12px 8px}.menu-task span{font-size:12px}.game-menu-inner{padding:18px 14px 24px!important}.game-menu-top{align-items:flex-start}.menu-sidebar{margin:0}.menu-kicker{margin-bottom:9px}}
+
+/* Individual visual identities for Vice City and San Andreas */
+.game-view.theme-vice{background-color:#39b8c8;background-image:url("https://www.psyware.net/content/images/grand-theft-auto-vice-city-the-definitive-edition-20211114190001.jpg%3Alarge");background-size:auto 100%;background-position:left center;background-repeat:no-repeat;color:#fff}
+.game-view.theme-vice:before{background:linear-gradient(90deg,#1a9eaf00 0%,#1a9eaf00 34%,#102d45bb 55%,#10243cf2 100%),linear-gradient(0deg,#0d1e35aa,transparent 55%)}
+.theme-vice .game-menu-body{grid-template-columns:minmax(150px,.45fr) minmax(0,1fr);justify-content:end;gap:14px;max-width:920px;margin-left:auto}
+.theme-vice .menu-kicker{color:#ffb6df}
+.theme-vice .menu-content{background:#113d55df;border:1px solid #74e6ed88;box-shadow:0 0 28px #ff5bb744,0 14px 38px #001a2d88}
+.theme-vice .menu-content-head{background:#0b3049ed;border-bottom:1px solid #ff79c455}
+.theme-vice .menu-content h2{color:#fff;text-shadow:2px 2px 0 #e84c9b}
+.theme-vice .menu-meter{background:#164d62}.theme-vice .menu-meter span{background:#ff62b4}
+.theme-vice .menu-nav button{font-family:Impact,"Arial Narrow",sans-serif;color:#f7fbff;text-shadow:1px 2px 3px #15304a}
+.theme-vice .menu-nav button.selected{background:#ff69b4;color:#14283d;box-shadow:0 0 18px #ff69b488;text-shadow:none}
+.theme-vice .menu-nav button.selected:after{background:#14283d}
+.theme-vice .menu-task{background:#13516a99;border-bottom:1px solid #a3edf033}.theme-vice .menu-task:nth-child(even){background:#0b314caa}.theme-vice .menu-task:hover{background:#ff69b4;color:#17283b}
+.theme-vice .menu-task input{background:#123a53;border-color:#9ee8ed}.theme-vice .menu-task input:checked{background:#ff69b4;border-color:#ff69b4}
+.theme-vice .menu-task input:checked:after{color:#132b42}.theme-vice .menu-add input{background:#092c45;border-color:#5dc9d8}.theme-vice .menu-add button{background:#ff69b4;color:#17283b}
+.theme-vice .menu-footer{background:#0b3049e8}.theme-vice .menu-back{background:#0b3049dd;border-color:#ff81c788}.theme-vice .menu-back:hover{background:#ff69b4;color:#13283d}
+.game-view.theme-sa{background-color:#9aaa78;background-image:url("https://www.psyware.net/content/images/grand-theft-auto-san-andreas-the-definitive-edition-20211124081452.jpg%3Alarge");background-size:auto 100%;background-position:left center;background-repeat:no-repeat;color:#fff}
+.game-view.theme-sa:before{background:linear-gradient(90deg,#263b2a00 0%,#263b2a00 34%,#172a22c9 55%,#111c18f5 100%),linear-gradient(0deg,#0b1712aa,transparent 55%)}
+.theme-sa .game-menu-body{grid-template-columns:minmax(150px,.45fr) minmax(0,1fr);justify-content:end;gap:14px;max-width:920px;margin-left:auto}
+.theme-sa .menu-kicker{color:#c9d7a4}
+.theme-sa .menu-content{background:#354b39e8;border:1px solid #b4c58a77;box-shadow:0 14px 38px #08130f99}
+.theme-sa .menu-content-head{background:#24372bed;border-bottom:1px solid #b7c88c55}
+.theme-sa .menu-content h2{font-family:Georgia,serif;font-weight:900;letter-spacing:.04em;color:#f3f0d8;text-shadow:2px 2px 0 #17251b}
+.theme-sa .menu-meter{background:#26392c}.theme-sa .menu-meter span{background:#a6c66c}
+.theme-sa .menu-nav button{font-family:Georgia,serif;color:#f1f0dc;text-shadow:1px 2px 3px #101a13}
+.theme-sa .menu-nav button.selected{background:#a6c66c;color:#18241b;box-shadow:0 0 14px #a6c66c55;text-shadow:none}
+.theme-sa .menu-nav button.selected:after{background:#18241b}
+.theme-sa .menu-task{background:#405b45bb;border-bottom:1px solid #d1dcb322}.theme-sa .menu-task:nth-child(even){background:#263d30c9}.theme-sa .menu-task:hover{background:#a6c66c;color:#18241b}
+.theme-sa .menu-task input{background:#263d30;border-color:#c4d49c}.theme-sa .menu-task input:checked{background:#a6c66c;border-color:#a6c66c}
+.theme-sa .menu-task input:checked:after{color:#18241b}.theme-sa .menu-add input{background:#1c3026;border-color:#879e69}.theme-sa .menu-add button{background:#a6c66c;color:#18241b}
+.theme-sa .menu-footer{background:#24372bed}.theme-sa .menu-back{background:#24372bd9;border-color:#b7c88c77}.theme-sa .menu-back:hover{background:#a6c66c;color:#18241b}
+.theme-vice .game-menu-top>div:first-child,.theme-sa .game-menu-top>div:first-child{display:none}
+@media(max-width:700px){
+ .game-view.theme-vice,.game-view.theme-sa{background-size:auto 54%;background-position:left top}
+ .game-view.theme-vice:before,.game-view.theme-sa:before{background:linear-gradient(180deg,#10243c22 0%,#10243c55 28%,#10243cf7 53%,#10243cfb 100%)}
+ .theme-vice .game-menu-body,.theme-sa .game-menu-body{grid-template-columns:1fr;max-width:none;margin:0;gap:14px;padding-top:35vh}
+ .theme-vice .menu-sidebar,.theme-sa .menu-sidebar{display:block}
+ .theme-vice .menu-nav,.theme-sa .menu-nav{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 </style>
 </head>
 <body><div class="wrap">
@@ -65,13 +105,13 @@ body.in-game{background:#142d3d}body.in-game .wrap{max-width:none;padding:0}body
 <section class="panel"><div class="toolbar"><h3>Чек-лист прохождения</h3><span class="tag" id="taskCount">3 пункта</span></div><div class="task-list" id="tasks"></div>
 <div class="add-row"><input id="newTask" placeholder="Добавить своё задание…" maxlength="100"><button class="btn" id="addBtn">+ Добавить</button></div>
 <p class="note">Список GTA III пока содержит только подтверждённые тобой отметки. Полный перечень требований для 100% добавим после проверки по надёжному руководству.</p></section>
-</main></div><section id="gameView" class="game-view hidden" aria-label="GTA III checklist menu"><div class="cityline"></div><div class="game-menu-inner">
-<div class="game-menu-top"><div><img class="game-wordmark-img" src="https://upload.wikimedia.org/wikipedia/commons/1/10/Grand_Theft_Auto_III_-_The_Definitive_Edition_logo.svg" alt="Grand Theft Auto III — The Definitive Edition"><div class="game-edition">Liberty City · The Definitive Edition</div></div><button class="menu-back" id="backToLibrary">← Библиотека</button></div>
+</main></div><section id="gameView" class="game-view hidden theme-gta3" aria-label="Game checklist menu"><div class="cityline"></div><div class="game-menu-inner">
+<div class="game-menu-top"><div id="gameLogoWrap"><img id="gameLogo" class="game-wordmark-img" src="https://upload.wikimedia.org/wikipedia/commons/1/10/Grand_Theft_Auto_III_-_The_Definitive_Edition_logo.svg" alt="Grand Theft Auto III — The Definitive Edition"><div class="game-edition" id="gameEdition">Liberty City · The Definitive Edition</div></div><button class="menu-back" id="backToLibrary">← Библиотека</button></div>
 <div class="game-menu-body"><aside class="menu-sidebar"><div class="menu-kicker">Меню прохождения</div><nav class="menu-nav" id="menuNav">
 <button class="selected" data-filter="all">Все задания</button><button data-filter="Сюжет">Сюжет</button><button data-filter="Доп. активность">Доп. активности</button><button data-filter="Коллекционные">Коллекционные</button><button data-filter="Своё">Мои задания</button></nav></aside>
 <div class="menu-content"><div class="menu-content-head"><div><h2 id="menuSectionTitle">Все задания</h2><p>Путь к 100% завершению</p></div><div class="menu-progress"><strong id="menuPercent">—</strong><span>Выполнено</span></div></div>
 <div class="menu-meter"><span id="menuBar"></span></div><div class="menu-task-list" id="menuTasks"></div><div class="menu-add"><input id="menuNewTask" maxlength="100" placeholder="Добавить личное задание"><button id="menuAddBtn">Добавить</button></div>
-<div class="menu-footer"><span>Liberty City · 2001</span><span id="menuTaskCount">0 заданий</span></div></div></div></div></section>
+<div class="menu-footer"><span id="menuLocation">Liberty City · 2001</span><span id="menuTaskCount">0 заданий</span></div></div></div></div></section>
 <div class="footer">ZETA TRACKER · EARLY BUILD 0.1 · Данные сохраняются в этом браузере</div></div>
 <script>
 const initial={
@@ -130,7 +170,7 @@ function render(){
   sub.append(done,platform);
   meta.append(name,sub);
   b.append(cover,meta);
-  b.onclick=()=>{active=key;if(key==="gta3"){currentView="game";currentFilter="all"}else{currentView="library"}render()};
+  b.onclick=()=>{active=key;currentView="game";currentFilter="all";render()};
   $("games").append(b);
  });
  $("gameTitle").textContent=game.title;
@@ -165,23 +205,34 @@ $("addBtn").onclick=addTask;$("newTask").addEventListener("keydown",e=>{if(e.key
 render();
 
 function renderGameMenu(){
- const game=state.gta3,total=game.tasks.length,done=game.tasks.filter(t=>t.done).length,pct=total?Math.round(done/total*100):0;
+ const game=state[active],total=game.tasks.length,done=game.tasks.filter(t=>t.done).length,pct=total?Math.round(done/total*100):0;
+ const config={
+  gta3:{logo:"https://upload.wikimedia.org/wikipedia/commons/1/10/Grand_Theft_Auto_III_-_The_Definitive_Edition_logo.svg",alt:"Grand Theft Auto III — The Definitive Edition",edition:"Liberty City · The Definitive Edition",place:"Liberty City · 2001"},
+  vice:{logo:"https://commons.wikimedia.org/wiki/Special:FilePath/Grand_Theft_Auto_Vice_City_-_The_Definitive_Edition_logo.svg",alt:"Grand Theft Auto: Vice City — The Definitive Edition",edition:"Vice City · The Definitive Edition",place:"Vice City · 1986"},
+  sa:{logo:"https://commons.wikimedia.org/wiki/Special:FilePath/Grand_Theft_Auto_San_Andreas_-_The_Definitive_Edition_logo.svg",alt:"Grand Theft Auto: San Andreas — The Definitive Edition",edition:"San Andreas · The Definitive Edition",place:"San Andreas · 1992"}
+ };
+ const cfg=config[active];
+ $("gameView").classList.remove("theme-gta3","theme-vice","theme-sa");$("gameView").classList.add("theme-"+active);
+ $("gameView").setAttribute("aria-label",game.title+" checklist menu");
+ $("gameLogo").src=cfg.logo;$("gameLogo").alt=cfg.alt;$("gameEdition").textContent=cfg.edition;
+ $("gameLogoWrap").style.display=active==="gta3"?"block":"none";
+ $("menuLocation").textContent=cfg.place;
  $("menuPercent").textContent=done+" / "+total;$("menuBar").style.width=pct+"%";$("menuTaskCount").textContent=total+" заданий · "+game.platform;
  const titles={all:"Все задания","Сюжет":"Сюжет","Доп. активность":"Дополнительные активности","Коллекционные":"Коллекционные предметы","Своё":"Мои задания"};
  $("menuSectionTitle").textContent=titles[currentFilter]||"Все задания";
  $("menuNav").querySelectorAll("button").forEach(b=>b.classList.toggle("selected",b.dataset.filter===currentFilter));
  const list=$("menuTasks");list.innerHTML="";
- const filtered=game.tasks.filter(t=>currentFilter==="all"||(currentFilter==="Коллекционные"?t.category.includes("Коллекционные"):t.category===currentFilter));
- if(!filtered.length){const empty=document.createElement("div");empty.className="menu-empty";empty.textContent=currentFilter==="all"?"Здесь появятся задания проверенного чек-листа GTA III. Пока в списке только уже отмеченные тобой пункты.":"В этом разделе задания появятся после добавления полного проверенного чек-листа.";list.append(empty)}
+ const filtered=game.tasks.filter(t=>currentFilter==="all"||(currentFilter==="Коллекционные"?(t.category||"").includes("Коллекционные"):t.category===currentFilter));
+ if(!filtered.length){const empty=document.createElement("div");empty.className="menu-empty";empty.textContent=currentFilter==="all"?"Здесь появятся задания проверенного чек-листа "+game.short+". Пока можешь добавлять свои пункты ниже.":"В этом разделе задания появятся после добавления полного проверенного чек-листа.";list.append(empty)}
  filtered.forEach(task=>{const row=document.createElement("label");row.className="menu-task"+(task.done?" done":"");const cb=document.createElement("input");cb.type="checkbox";cb.checked=task.done;cb.onchange=()=>{task.done=cb.checked;save();render()};const name=document.createElement("span");name.textContent=task.name;const cat=document.createElement("small");cat.textContent=task.category||"Своё";row.append(cb,name,cat);list.append(row)});
 }
 function showLibrary(){currentView="library";render()}
 $("backToLibrary").onclick=showLibrary;
 $("menuNav").addEventListener("click",e=>{const b=e.target.closest("button[data-filter]");if(!b)return;currentFilter=b.dataset.filter;renderGameMenu()});
-function addMenuTask(){const input=$("menuNewTask"),name=input.value.trim();if(!name)return;state.gta3.tasks.push({id:"custom-"+Date.now(),name,category:"Своё",done:false});input.value="";save();render()}
+function addMenuTask(){const input=$("menuNewTask"),name=input.value.trim();if(!name)return;state[active].tasks.push({id:"custom-"+Date.now(),name,category:"Своё",done:false});input.value="";save();render()}
 $("menuAddBtn").onclick=addMenuTask;$("menuNewTask").addEventListener("keydown",e=>{if(e.key==="Enter")addMenuTask()});
 const baseRender=render;
-render=function(){baseRender();const inGame=currentView==="game"&&active==="gta3";document.querySelector(".hero").classList.toggle("hidden",inGame);document.querySelector(".layout").classList.toggle("hidden",inGame);$("gameView").classList.toggle("hidden",!inGame);document.body.classList.toggle("in-game",inGame);if(inGame)renderGameMenu()};
+render=function(){baseRender();const inGame=currentView==="game";document.querySelector(".hero").classList.toggle("hidden",inGame);document.querySelector(".layout").classList.toggle("hidden",inGame);$("gameView").classList.toggle("hidden",!inGame);document.body.classList.toggle("in-game",inGame);if(inGame)renderGameMenu()};
 
 render();
 </script></body></html>
