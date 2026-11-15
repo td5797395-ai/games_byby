@@ -423,6 +423,7 @@ function ensureRatchetChecklists(){
   }else{
    [["Starship Phoenix","Завершить все пять Qwark Vid-Comics"],["Starship Phoenix","Собрать все 100 Qwark Tokens в каждом из пяти Vid-Comics"],["Starship Phoenix","Получить все бонусные предметы и завершить все VR-тренировки"],["Annihilation Nation · Q9","Завершить все испытания арены"],["Все планеты","Завершить все миссии Galactic Rangers"],["Все планеты","Увеличить здоровье до максимума — 200"],["Все планеты","Купить всё оружие и улучшить его до Omega Level"]].forEach(([p,n],i)=>add(make(key+"-extra-"+i,n,"Арсенал",p)));
   }
+  old.forEach((t,id)=>{if((t.category==="Своё"||String(id).startsWith("custom-"))&&!tasks.some(x=>x.id===id))tasks.push(t)});
   g.tasks=tasks;
  });
  save();
