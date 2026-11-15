@@ -310,6 +310,111 @@ function ensureGta3Checklist(){
 }
 ensureGta3Checklist();
 
+const ratchetCatalog={
+ ratchet1:{
+  places:[
+   ["Veldin","🪐"],["Novalis","🌊"],["Kerwan","🏙️"],["Aridia","🏜️"],["Eudora","🌲"],["Nebula G34","☄️"],["Rilgar","🏁"],["Umbris","🏰"],["Batalia","⚔️"],["Gaspar","🌋"],["Orxon","☣️"],["Pokitaru","🏝️"],["Hoven","❄️"],["Oltanis Orbit","🛰️"],["Oltanis","🌆"],["Quartu","🏭"],["Kalebo III","🏎️"],["Veldin Orbit · Drek's Fleet","🚀"]
+  ],
+  bolts:{"Novalis":3,"Kerwan":3,"Aridia":4,"Eudora":1,"Nebula G34":2,"Rilgar":2,"Umbris":2,"Batalia":2,"Gaspar":2,"Orxon":2,"Pokitaru":1,"Hoven":2,"Oltanis Orbit":1,"Oltanis":4,"Quartu":2,"Kalebo III":2,"Veldin Orbit · Drek's Fleet":2,"Veldin":3},
+  skills:[
+   ["Novalis","Take Aim — уничтожить истребитель или бомбардировщик"],
+   ["Kerwan","Strike a Pose — встать между ног статуи робошопа"],["Kerwan","Blimpy — сбить дирижабль"],["Kerwan","Qwarktastic — уничтожить статую Кварка"],
+   ["Aridia","Swing It! — выполнить шесть раскачиваний подряд без касания земли"],["Aridia","Transported — уничтожить три летающих транспорта"],
+   ["Nebula G34","Girl Trouble — победить Королеву пришельцев только гаечным ключом"],
+   ["Eudora","Any Ten — взорвать десять транспортных средств"],
+   ["Rilgar","Tricky — выполнить Twisty McMarx в гонке на ховерборде"],["Rilgar","Cluck, Cluck — превратить танк в курицу"],["Rilgar","Speedy — пройти гонку быстрее 1:35"],
+   ["Batalia","Jumper — пройти рельсовый участок без потери здоровья"],["Batalia","Accuracy Counts — уничтожить малого истребителя из турели"],["Batalia","Eat Lead — уничтожить все танки с помощью Sand Mouse"],
+   ["Gaspar","Destroyed — уничтожить все корабли Blarg"],["Gaspar","Gunner — сбить пять кораблей из турели"],
+   ["Orxon","Sniper — попасть в Screamer через снайперское отверстие"],["Orxon","Hey, Over Here! — заманить врага в силовое поле"],
+   ["Pokitaru","Alien Invasion — сбить три летающие тарелки Blarg ракетами Visibomb"],["Pokitaru","Buried Treasure — уничтожить все ящики под водой"],
+   ["Hoven","Pest Control — уничтожить всех Anklebiters в лесной зоне"],["Hoven","Whirlybirds — уничтожить пять вертолётов не из турели"],
+   ["Oltanis Orbit","Sitting Ducks — уничтожить все грузовые корабли на базе"],
+   ["Oltanis","Shattered Glass — разбить все уличные фонари"],["Oltanis","Blast 'Em! — уничтожить три корабля Blarg"],
+   ["Kalebo III","Heavy Traffic — пройти рельсы, не задев препятствия"],["Kalebo III","Magician — набрать 4500 очков в гонке на ховерборде"],
+   ["Veldin Orbit · Drek's Fleet","Sneaky — уничтожить всех врагов в секции с Hologuise"],["Veldin Orbit · Drek's Fleet","Careful Cruise — пройти водный участок без потери здоровья"],
+   ["Veldin","Going Commando — уничтожить десять элитных солдат только гаечным ключом"]
+  ]
+ },
+ ratchet2:{
+  places:[["Oozla","🌿"],["Maktar Nebula","🎰"],["Endako","🏙️"],["Barlow","🏍️"],["Feltzin System","🌌"],["Notak","🌊"],["Siberius","❄️"],["Tabora","🏜️"],["Dobbo","🤖"],["Hrugis Cloud","☁️"],["Joba","🏟️"],["Todano","🚀"],["Boldan","⚡"],["Aranos","🛰️"],["Gorn","🌠"],["Snivelak","🌃"],["Smolg","🏭"],["Damosel","🏦"],["Grelbin","🧊"],["Yeedil","☣️"]],
+  bolts:{"Oozla":2,"Maktar Nebula":2,"Endako":2,"Barlow":2,"Feltzin System":1,"Notak":3,"Siberius":2,"Tabora":3,"Dobbo":2,"Hrugis Cloud":1,"Joba":2,"Todano":3,"Boldan":3,"Aranos":1,"Gorn":1,"Snivelak":1,"Smolg":2,"Damosel":2,"Grelbin":3,"Yeedil":2},
+  skills:[
+   ["Oozla","Prehistoric Rampage — сбить четырёх птеродактилей"],["Oozla","Smash and Grab — разбить все разрушаемые объекты в магазине Megacorp"],
+   ["Maktar Nebula","Vandalize — разбить все разрушаемые объекты на курорте"],["Maktar Nebula","Wrench Ninja: Blade to Blade — победить Chainblade только ключом"],["Maktar Nebula","2B Hit or Not 2B Hit — победить B2 Brawler без урона"],["Maktar Nebula","Clank Needs a New Pair of Shoes — выиграть 300 болтов в игровых автоматах"],
+   ["Endako","Destroy All Breakables — разбить все объекты в Circular City"],["Endako","Operate Heavy Machinery — уничтожить десять роботов краном"],
+   ["Barlow","Speed Demon — пройти гонку на ховербайке за 2:10 или быстрее"],
+   ["Notak","Planet Buster — уничтожить большую летающую модель планеты"],
+   ["Siberius","You Can Break a Snow Dan — уничтожить снеговика"],
+   ["Tabora","Heal Your Chi — собрать все 100 кристаллов в пустыне"],
+   ["Dobbo","Old Skool — победить всех врагов оружием из первой части"],["Dobbo","Dukes Up — победить меха только рукопашными атаками"],["Dobbo","Robo Rampage — разрушить все здания Lunar City в форме Giant Clank"],
+   ["Joba","That's Impossible! — пройти Impossible Challenge"],["Joba","How Fast Was That? — пройти гонку за 2:27 или быстрее"],["Joba","Wrench Ninja II: Massacre — победить всех врагов только ключом и не погибнуть"],["Joba","Bye Bye Birdies — уничтожить 12 птиц"],
+   ["Todano","Nothing to See Here — уничтожить все четыре ракеты Megacorp во время экскурсии"],["Todano","You're My Hero — спасти всех десять туристов"],["Todano","Try to Sleep — превратить 16 белок в овец"],
+   ["Boldan","No Shocking Developments — пройти рельсы без получения урона"],
+   ["Snivelak","Moving Violation — уничтожить 14 кораблей"],
+   ["Damosel","Safety Deposit — защитить четырёх гражданских в банке"],["Damosel","Midtown Insanity — пройти рельсы без получения урона"],
+   ["Grelbin","Be a Moon Child — собрать все 101 лунный камень"],
+   ["General","Nano to the Max — улучшить здоровье до максимума"],["General","Weapon Envy — получить и полностью улучшить всё оружие"],["General","Nice Ride — купить все улучшения корабля Star Explorer"]
+  ]
+ },
+ ratchet3:{
+  places:[["Florana","🌿"],["Starship Phoenix","🚀"],["Marcadia","🏛️"],["Annihilation Nation · Q9","🏟️"],["Aquatos","🌊"],["Tyhrranosis","🦖"],["Daxx","🧪"],["Obani Gemini","🌌"],["Obani Pollux","🌌"],["Holostar Studios","🎬"],["Zeldrin Starport","☄️"],["Metropolis · Kerwan","🏙️"],["Crash Site · Zeldrin","💥"],["Aridia","🏜️"],["Thran Asteroid Belt","🪐"],["Koros","🤖"],["Mylon","🏭"]],
+  bolts:{"Florana":2,"Starship Phoenix":7,"Marcadia":3,"Annihilation Nation · Q9":2,"Aquatos":5,"Tyhrranosis":2,"Daxx":2,"Obani Gemini":1,"Obani Pollux":1,"Holostar Studios":3,"Zeldrin Starport":2,"Metropolis · Kerwan":3,"Crash Site · Zeldrin":1,"Aridia":2,"Thran Asteroid Belt":1,"Koros":2,"Mylon":1},
+  skills:[
+   ["Florana","Stay Squeaky Clean — пройти Path of Death без урона"],
+   ["Starship Phoenix","Strive for Arcade Perfection — получить 100% во всех пяти Qwark Vid-Comics"],["Starship Phoenix","Beat Helga's Best Time — пройти Gadget Training быстрее 50 секунд"],["Starship Phoenix","Turn Up the Heat — купить броню Infernox"],["Starship Phoenix","Monkeying Around — ударить обезьянку Кварка ключом"],
+   ["Marcadia","Reflect on How to Score — уничтожить 25 врагов с помощью Refractor"],
+   ["Annihilation Nation · Q9","Bash the Bug — победить Scorpio гаечным ключом"],["Annihilation Nation · Q9","Be an Eight Time Champ — пройти все восемь испытаний"],["Annihilation Nation · Q9","Flee Flawlessly — пройти испытание без получения урона"],["Annihilation Nation · Q9","Lights, Camera, Action — уничтожить пять камер в испытании"],
+   ["Aquatos","Search for Sunken Treasure — уничтожить все 40 ящиков под водой"],["Aquatos","Hit the Motherload — собрать все 101 Sewer Crystal"],
+   ["Tyhrranosis","Be a Sharpshooter — уничтожить десять Tyhrranoids из Flux Rifle"],
+   ["Daxx","Bugs to Birds — превратить 15 Blood Flies в птиц с Quack-o-Ray"],
+   ["Obani Gemini","Get to the Belt — прыгнуть с самого высокого здания в пояс астероидов"],
+   ["Holostar Studios","Feeling Lucky? — выиграть джекпот в игровом автомате ударом ключа"],
+   ["Rilgar","Bash the Party — уничтожить 20 Tyhrranoids только гаечным ключом"],
+   ["Crash Site · Zeldrin","Suck It Up — уничтожить 40 врагов из Suck Cannon"],["Crash Site · Zeldrin","Aim High — уничтожить десять Skreeducks"],
+   ["Metropolis · Kerwan","2002 Was a Good Year in the City — сбить дирижабль в Metropolis"],
+   ["Aridia","Go for Hang Time — продержаться в воздухе на Turbo-Slider две секунды"],["Aridia","Zap Back at Ya — уничтожить десять врагов с помощью Refractor"],
+   ["Thran Asteroid Belt","Break the Dan — уничтожить снеговика"],
+   ["Koros","You Break It, You Win It — уничтожить все разрушаемые объекты на базе роботов"],
+   ["Mylon","Spread Your Germs — заразить 30 врагов с помощью Infector"],
+   ["Qwark Vid-Comics","Set a New Record for Qwark — пройти комикс 1 быстрее 2:40"],["Qwark Vid-Comics","Set a New Record for Qwark — пройти комикс 2 быстрее 2:10"],["Qwark Vid-Comics","Set a New Record for Qwark — пройти комикс 3 быстрее 1:50"],["Qwark Vid-Comics","Set a New Record for Qwark — пройти комикс 4 быстрее 4:45"],["Qwark Vid-Comics","Set a New Record for Qwark — пройти комикс 5 быстрее 2:00"]
+  ]
+ }
+};
+function ensureRatchetChecklists(){
+ const make=(id,name,category,planet,extra={})=>({id,name,category,planet,done:false,...extra});
+ const story={
+ ratchet1:["Veldin","Novalis","Kerwan","Aridia","Eudora","Nebula G34","Rilgar","Umbris","Batalia","Gaspar","Orxon","Pokitaru","Hoven","Oltanis Orbit","Oltanis","Quartu","Kalebo III","Veldin Orbit · Drek's Fleet","Veldin"],
+ ratchet2:ratchetCatalog.ratchet2.places.map(p=>p[0]),
+ ratchet3:ratchetCatalog.ratchet3.places.map(p=>p[0])
+ };
+ const skillMap={
+ ratchet1:ratchetCatalog.ratchet1.skills,
+ ratchet2:ratchetCatalog.ratchet2.skills,
+ ratchet3:ratchetCatalog.ratchet3.skills
+ };
+ Object.keys(ratchetCatalog).forEach(key=>{
+  const g=state[key];if(!g)return;
+  const old=new Map(g.tasks.map(t=>[t.id,t]));
+  const tasks=[];
+  const add=t=>{const prev=old.get(t.id);tasks.push(prev?{...t,done:!!prev.done}:t)};
+  story[key].forEach((planet,i)=>add(make(key+"-story-"+(i+1),"Сюжет: завершить основной этап и все обязательные цели на "+planet,"Сюжет",planet,{order:i})));
+  ratchetCatalog[key].places.forEach(([planet])=>{
+   const amount=ratchetCatalog[key].bolts[planet];
+   if(amount)add(make(key+"-bolt-"+planet.toLowerCase().replace(/[^a-z0-9]+/g,"-"),"Собрать все "+amount+" "+(key==="ratchet1"?"золотых болта":key==="ratchet2"?"платиновых болта":"титановых болта")+" на локации · "+planet,"Коллекционные",planet,{collectible:"bolt"}));
+  });
+  skillMap[key].forEach(([planet,name],i)=>add(make(key+"-skill-"+(i+1),"Skill Point: "+name,"Skill Points",planet,{collectible:"skill"})));
+  if(key==="ratchet1"){
+   [["Veldin","Победить председателя Дрека и завершить финальную битву"],["Gemlik Base","Открыть комнату золотого оружия"],["Gemlik Base","Приобрести пять доступных золотых видов оружия в первом прохождении"],["Challenge Mode","Открыть режим Challenge Mode"],["Challenge Mode","Приобрести все десять золотых видов оружия"],["Rilgar","Приобрести R.Y.N.O."],["Все планеты","Получить все доступные гаджеты и улучшения снаряжения"],["Все планеты","Довести запас нанотехнологий до максимума"]].forEach(([p,n],i)=>add(make(key+"-extra-"+i,n,"Арсенал",p)));
+  }else if(key==="ratchet2"){
+   [["Tabora","Собрать все 100 пустынных кристаллов"],["Grelbin","Собрать все 101 лунный камень"],["Joba","Пройти все испытания Megacorp Games, включая Impossible Challenge"],["Все планеты","Получить R.Y.N.O. II"],["Все планеты","Получить Zodiac"],["Все планеты","Получить Carbonox Armor"],["Все планеты","Полностью улучшить Star Explorer: оружие, щиты и детали"],["Все планеты","Получить всё оружие и улучшить каждое до максимального уровня"],["Boldan","Открыть доступ в Insomniac Museum"]].forEach(([p,n],i)=>add(make(key+"-extra-"+i,n,"Арсенал",p)));
+  }else{
+   [["Starship Phoenix","Завершить все пять Qwark Vid-Comics"],["Starship Phoenix","Собрать все 100 Qwark Tokens в каждом из пяти Vid-Comics"],["Starship Phoenix","Получить все бонусные предметы и завершить все VR-тренировки"],["Annihilation Nation · Q9","Завершить все испытания арены"],["Все планеты","Завершить все миссии Galactic Rangers"],["Все планеты","Увеличить здоровье до максимума — 200"],["Все планеты","Купить всё оружие и улучшить его до Omega Level"]].forEach(([p,n],i)=>add(make(key+"-extra-"+i,n,"Арсенал",p)));
+  }
+  g.tasks=tasks;
+ });
+ save();
+}
+ensureRatchetChecklists();
 
 let active="gta3";
 let currentView="library";
