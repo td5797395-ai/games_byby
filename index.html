@@ -172,6 +172,144 @@ body.in-game{background:#142d3d}body.in-game .wrap{max-width:none;padding:0}body
 .game-view.theme-ratchet1 .planet-section-header{background:linear-gradient(100deg,#1b4773,#102b4a);border-color:#9ccfff77}.game-view.theme-ratchet1 .planet-section-icon{background:radial-gradient(circle,#3d9ce977,#122d50)}
 .game-view.theme-ratchet2 .planet-section-header{background:linear-gradient(100deg,#0c5369,#092d43);border-color:#83eff177}.game-view.theme-ratchet2 .planet-section-icon{background:radial-gradient(circle,#43d6df77,#0b3449)}
 .game-view.theme-ratchet3 .planet-section-header{background:linear-gradient(100deg,#6b291b,#36140f);border-color:#ffc18b77}.game-view.theme-ratchet3 .planet-section-icon{background:radial-gradient(circle,#ff8c4e77,#39140e)}
+
+/* ZETA mobile refinement */
+@media(max-width:700px){
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  body{font-size:14px;overflow-x:hidden}
+  .wrap{width:100%;padding:14px 12px calc(28px + env(safe-area-inset-bottom))}
+  header{margin-bottom:20px;gap:10px}
+  .brand{font-size:17px;gap:9px;letter-spacing:.14em}
+  .logo{width:32px;height:32px;border-radius:10px;font-size:15px}
+  .status{font-size:10px;padding:5px 8px;white-space:nowrap}
+  .hero{margin-bottom:18px}
+  .hero h1{font-size:clamp(25px,7vw,34px);margin:6px 0 7px}
+  .hero p{font-size:13px;line-height:1.45}
+  .section-title{font-size:11px;margin-bottom:10px}
+  .game-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .game{padding:7px;border-radius:13px;gap:8px}
+  .game:hover{transform:none}
+  .cover{height:auto;aspect-ratio:4/5;max-height:205px;border-radius:9px}
+  .cover img{object-fit:contain}
+  .game-meta{padding:0 2px 3px}
+  .game-name{font-size:12px;line-height:1.2;min-height:29px}
+  .game-sub{font-size:9px;flex-wrap:wrap;line-height:1.25}
+  .game-card-progress{gap:6px;margin-top:7px}
+  .game-card-progress b{font-size:9px}
+  .game-head{gap:9px}
+  .game-head h2{font-size:21px}
+  .game-head p{font-size:12px}
+  .platform{min-width:0;gap:4px}
+  .platform label{font-size:10px}
+  .platform select{padding:10px 11px;font-size:14px}
+  .stats{gap:8px}
+  .stat{padding:10px;border-radius:11px}
+  .stat small{font-size:9px;letter-spacing:.08em}
+  .stat strong{font-size:21px}
+  .panel{padding:13px;border-radius:14px}
+  .toolbar{align-items:flex-start;flex-wrap:wrap}
+  .toolbar h3{font-size:14px}
+  .btn{padding:9px 11px;min-height:38px}
+  .task{padding:10px;gap:9px}
+  .task input{width:20px;height:20px}
+  .add-row{gap:7px}
+  .add-row input{font-size:14px;min-height:42px}
+  .footer{margin-top:18px}
+
+  body.in-game .wrap{padding:0}
+  body.in-game .game-view{min-height:100svh;min-height:100vh}
+  body.in-game .game-menu-inner{min-height:100svh;min-height:100vh;padding:12px 10px calc(18px + env(safe-area-inset-bottom))!important}
+  .game-view{background-position:58% center}
+  .game-menu-top{align-items:center;gap:10px}
+  .game-wordmark-img,.theme-ratchet1 .game-wordmark-img{width:clamp(105px,31vw,145px);max-height:82px}
+  .game-edition{font-size:8px;margin-top:5px;letter-spacing:.09em}
+  .game-wordmark:after{font-size:7px;margin-top:5px;padding:3px 5px}
+  .menu-back{padding:9px 10px;font-size:9px;min-height:36px;white-space:nowrap}
+  .game-menu-body,.theme-vice .game-menu-body,.theme-sa .game-menu-body{display:flex;flex-direction:column;gap:10px;padding:12px 0 10px;max-width:none;margin:0;width:100%}
+  .menu-sidebar{position:static;width:100%;margin:0}
+  .menu-kicker{font-size:9px;margin:0 0 6px 3px;letter-spacing:.13em}
+  .menu-nav,.theme-vice .menu-nav,.theme-sa .menu-nav{
+    display:flex;flex-wrap:nowrap;gap:6px;width:100%;overflow-x:auto;overflow-y:hidden;
+    padding:2px 1px 7px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;scrollbar-color:#a9bfd0aa #10283a66
+  }
+  .menu-nav button,.theme-vice .menu-nav button,.theme-sa .menu-nav button{
+    flex:0 0 auto;width:auto;min-width:104px;min-height:37px;padding:8px 11px;
+    font-size:12px;white-space:nowrap;scroll-snap-align:start;border-radius:4px
+  }
+  .menu-nav button.selected:after{right:5px;width:5px;height:5px}
+  .planet-nav-label{flex:0 0 auto;align-self:center;padding:0 5px;font-size:8px;white-space:nowrap}
+  .planet-nav-button{min-width:110px!important;justify-content:flex-start}
+  .menu-content{width:100%;max-width:none;max-height:none;overflow:visible;border-radius:8px}
+  .menu-content-head{padding:11px 12px 10px;gap:8px;align-items:center}
+  .menu-content h2{font-size:clamp(19px,5.5vw,25px);line-height:1.05}
+  .menu-content-head p{font-size:8px;margin-top:5px;letter-spacing:.08em}
+  .menu-progress strong{font-size:21px}
+  .menu-progress span{font-size:8px}
+  .menu-meter{height:3px}
+  .overall-game-progress{padding:9px 11px;gap:6px 9px}
+  .overall-game-progress label{font-size:8px;letter-spacing:.1em}
+  .overall-game-progress output{font-size:17px}
+  .overall-progress-track{height:5px}
+  .overall-game-progress small{font-size:8px;line-height:1.3}
+  .gta3-character-strip{min-height:58px;padding:7px 9px;gap:6px}
+  .gta3-character-strip .character-card{flex-basis:94px;min-height:44px;padding:4px 6px;gap:6px;font-size:8px}
+  .gta3-character-strip img,.gta3-character-strip .character-avatar-fallback{width:31px;height:39px}
+  .gta3-character-strip .character-card span:last-child{max-width:48px}
+  .planet-mini-image{width:38px!important;height:38px!important}
+  .game-hud-icons{gap:5px;padding:6px 8px}
+  .hud-icon{padding:4px 6px;gap:4px}
+  .hud-icon b{font-size:14px}
+  .hud-icon span{font-size:7px}
+  .menu-warnings{margin:7px 8px 3px;padding:9px 10px;font-size:10px}
+  .menu-warnings strong{font-size:9px}
+  .menu-warnings li{margin:2px 0}
+  .menu-task-list{padding:5px 7px 4px}
+  .menu-task{gap:9px;padding:10px 8px;min-height:48px}
+  .menu-task input{width:20px;height:20px}
+  .menu-task input:checked:after{font-size:14px;left:3px;top:-1px}
+  .menu-task span{font-size:12px;line-height:1.3}
+  .menu-task small{font-size:8px;letter-spacing:.06em}
+  .menu-task .task-type-icon{right:8px;width:25px;height:25px;font-size:15px}
+  .menu-task .package-icon{right:8px}
+  .menu-task .island-chip{margin-right:28px;font-size:7px;padding:3px 4px}
+  .mission-giver-badge{width:43px}
+  .menu-task .mission-portrait,.mission-avatar-fallback{width:38px;height:38px}
+  .mission-giver-name{max-width:43px;font-size:7px}
+  .mission-info{gap:2px}
+  .mission-info small{font-size:8px}
+  .story-giver-group{margin:8px 5px 5px;gap:9px;padding:7px 8px}
+  .story-giver-art,.story-giver-fallback{width:62px;height:62px}
+  .story-giver-title{font-size:12px}
+  .story-giver-kicker,.story-giver-count{font-size:7px}
+  .planet-section-header{margin:9px 4px 4px;padding:7px 9px;gap:9px}
+  .planet-section-icon{width:35px;height:35px}
+  .planet-section-copy strong{font-size:12px}
+  .planet-section-copy small{font-size:8px}
+  .menu-add{margin:7px 8px 10px;gap:6px}
+  .menu-add input{min-height:40px;padding:9px;font-size:12px}
+  .menu-add button{padding:0 10px;font-size:9px;min-height:40px}
+  .menu-footer{padding:9px 10px;gap:8px;font-size:7px;letter-spacing:.08em;flex-wrap:wrap}
+}
+@media(max-width:380px){
+  .wrap{padding-left:9px;padding-right:9px}
+  .game-list{gap:7px}
+  .game{padding:6px}
+  .cover{max-height:180px}
+  .game-name{font-size:11px}
+  .game-sub{font-size:8px}
+  .game-menu-inner{padding-left:8px!important;padding-right:8px!important}
+  .menu-content-head{padding:9px}
+  .menu-content h2{font-size:18px}
+  .menu-progress strong{font-size:19px}
+  .menu-task{gap:7px;padding:9px 6px}
+  .menu-task span{font-size:11px}
+}
+@media(hover:none){
+  .game:hover,.menu-nav button:hover,.menu-task:hover{transform:none}
+  button,.menu-task{ -webkit-tap-highlight-color:transparent }
+}
+
 </style>
 </head>
 <body><div class="wrap">
