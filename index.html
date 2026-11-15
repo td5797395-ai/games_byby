@@ -45,7 +45,7 @@ header{display:flex;align-items:center;justify-content:space-between;margin-bott
 .menu-task input{appearance:none;width:17px;height:17px;border:1px solid #d2e0e8;background:#213c4d;flex:none;position:relative}
 .menu-task input:checked{background:#ffb51b;border-color:#ffb51b}.menu-task input:checked:after{content:"✓";position:absolute;color:#17212b;font-size:13px;font-weight:900;left:2px;top:-2px}
 .menu-task span{font-family:Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:.01em;flex:1;color:#f4f7f9}.menu-task small{color:#d1dfe7;font-size:9px;letter-spacing:.1em;text-transform:uppercase}.menu-task.done span{color:#b8c8d1;text-decoration:line-through}
-.menu-empty{padding:24px 14px;color:#e1e9ee;border:1px solid #d1e0e733;background:#263f5166;font-size:12px;letter-spacing:.04em}
+.menu-warnings{margin:10px 12px 4px;padding:12px 14px;background:#4b2c1dcc;border:1px solid #ffb34d88;color:#fff0d4;font-size:11px;line-height:1.45}.menu-warnings strong{display:block;color:#ffc46b;letter-spacing:.09em;font-size:10px;margin-bottom:6px}.menu-warnings ul{margin:0;padding-left:17px}.menu-warnings li{margin:3px 0}.menu-empty{padding:24px 14px;color:#e1e9ee;border:1px solid #d1e0e733;background:#263f5166;font-size:12px;letter-spacing:.04em}
 .menu-add{display:flex;gap:8px;margin:8px 12px 14px}.menu-add input{min-width:0;flex:1;background:#20394bbf;border:1px solid #b6cbd366;color:#fff;padding:11px 13px;outline:none}.menu-add input::placeholder{color:#c0d0d9}.menu-add input:focus{border-color:#ffb51b}.menu-add button{background:#ffb51b;color:#111;border:0;padding:0 17px;font-weight:900;text-transform:uppercase;font-size:10px;letter-spacing:.1em}
 .menu-footer{display:flex;justify-content:space-between;gap:14px;background:#263f51b8;padding:12px 18px;margin:0;color:#d0dce3;font-size:9px;letter-spacing:.13em;text-transform:uppercase}
 body.in-game{background:#142d3d}body.in-game .wrap{max-width:none;padding:0}body.in-game> .wrap>header{display:none}body.in-game .game-view{margin:0;min-height:100vh}body.in-game .game-menu-inner{min-height:100vh;padding:28px clamp(20px,5vw,72px) 24px}
@@ -100,17 +100,17 @@ body.in-game{background:#142d3d}body.in-game .wrap{max-width:none;padding:0}body
 <main class="main">
 <section class="panel">
 <div class="game-head"><div><div class="eyebrow">Текущая игра</div><h2 id="gameTitle">Grand Theft Auto III</h2><p id="gameDesc">100% completion checklist</p></div><div class="platform"><label for="platform">Платформа</label><select id="platform"><option>PS4</option><option>PS5</option><option>PC</option><option>Xbox</option><option>Nintendo Switch</option><option>Другое</option><option>Не выбрана</option></select></div></div>
-<div class="stats"><div class="stat"><small>Выполнено заданий</small><strong id="count">3 / 3</strong></div><div class="stat"><small>Общий прогресс</small><strong id="percent">100%</strong></div></div><div class="progress"><span id="bar"></span></div>
+<div class="stats"><div class="stat"><small>Выполнено заданий</small><strong id="count">3 / 3</strong></div><div class="stat"><small>Прогресс по списку</small><strong id="percent">—</strong></div></div><div class="progress"><span id="bar"></span></div>
 </section>
 <section class="panel"><div class="toolbar"><h3>Чек-лист прохождения</h3><span class="tag" id="taskCount">3 пункта</span></div><div class="task-list" id="tasks"></div>
 <div class="add-row"><input id="newTask" placeholder="Добавить своё задание…" maxlength="100"><button class="btn" id="addBtn">+ Добавить</button></div>
-<p class="note">Список GTA III пока содержит только подтверждённые тобой отметки. Полный перечень требований для 100% добавим после проверки по надёжному руководству.</p></section>
+<p class="note">Процент показывает выполнение пунктов, внесённых в текущий список. Для GTA III часть сюжетной линии пока объединена в один пункт; после сверки полного перечня миссий детализация будет дополнена.</p></section>
 </main></div><section id="gameView" class="game-view hidden theme-gta3" aria-label="Game checklist menu"><div class="cityline"></div><div class="game-menu-inner">
 <div class="game-menu-top"><div id="gameLogoWrap"><img id="gameLogo" class="game-wordmark-img" src="https://upload.wikimedia.org/wikipedia/commons/1/10/Grand_Theft_Auto_III_-_The_Definitive_Edition_logo.svg" alt="Grand Theft Auto III — The Definitive Edition"><div class="game-edition" id="gameEdition">Liberty City · The Definitive Edition</div></div><button class="menu-back" id="backToLibrary">← Библиотека</button></div>
 <div class="game-menu-body"><aside class="menu-sidebar"><div class="menu-kicker">Меню прохождения</div><nav class="menu-nav" id="menuNav">
-<button class="selected" data-filter="all">Все задания</button><button data-filter="Сюжет">Сюжет</button><button data-filter="Доп. активность">Доп. активности</button><button data-filter="Коллекционные">Коллекционные</button><button data-filter="Своё">Мои задания</button></nav></aside>
+<button class="selected" data-filter="all">Все задания</button><button data-filter="Сюжет">Сюжет</button><button data-filter="Телефонные миссии">Телефонные</button><button data-filter="Побочные">Побочные</button><button data-filter="Миссии-профессии">Профессии</button><button data-filter="Импорт/Экспорт">Импорт/Экспорт</button><button data-filter="Коллекционные">Коллекционные</button><button data-filter="Своё">Мои задания</button></nav></aside>
 <div class="menu-content"><div class="menu-content-head"><div><h2 id="menuSectionTitle">Все задания</h2><p>Путь к 100% завершению</p></div><div class="menu-progress"><strong id="menuPercent">—</strong><span>Выполнено</span></div></div>
-<div class="menu-meter"><span id="menuBar"></span></div><div class="menu-task-list" id="menuTasks"></div><div class="menu-add"><input id="menuNewTask" maxlength="100" placeholder="Добавить личное задание"><button id="menuAddBtn">Добавить</button></div>
+<div class="menu-meter"><span id="menuBar"></span></div><div class="menu-warnings hidden" id="gta3Warnings"><strong>ВАЖНО: НЕПРОПУСКАЕМЫЕ УСЛОВИЯ GTA III</strong><ul><li>До «Last Requests» завершить все задания Луиджи Готерелли и Джоуи Леоне.</li><li>До «Waka-Gashira Wipeout!» завершить все задания Кэндзи Касена.</li><li>«Two-Faced Tanner» Асуки пройти до «Grand Theft Aero» Дональда.</li><li>Медика лучше пройти в самом начале, пока банды Портленда не враждебны.</li><li>Портлендские части пожарного и полицейского также желательно выполнить заранее.</li><li>Телефонные миссии Эль-Бурро лучше пройти до обострения отношений с Триадами.</li></ul></div><div class="menu-task-list" id="menuTasks"></div><div class="menu-add"><input id="menuNewTask" maxlength="100" placeholder="Добавить личное задание"><button id="menuAddBtn">Добавить</button></div>
 <div class="menu-footer"><span id="menuLocation">Liberty City · 2001</span><span id="menuTaskCount">0 заданий</span></div></div></div></div></section>
 <div class="footer">ZETA TRACKER · EARLY BUILD 0.1 · Данные сохраняются в этом браузере</div></div>
 <script>
@@ -118,7 +118,46 @@ const initial={
  gta3:{title:"Grand Theft Auto III",short:"GTA III",platform:"PS4",tasks:[
  {id:"gta3-story-1",name:"Give Me Liberty",category:"Сюжет",done:true},
  {id:"gta3-story-2",name:"Don't Spank Ma Bitch Up",category:"Сюжет",done:true},
- {id:"gta3-side-1",name:"Taxi Driver — перевезти 100 пассажиров",category:"Доп. активность",done:true}
+ {id:"gta3-side-1",name:"Taxi Driver — перевезти 100 пассажиров",category:"Миссии-профессии",done:true},
+ {id:"gta3-story-all",name:"Пройти все сюжетные миссии — от «Give Me Liberty» до «The Exchange»",category:"Сюжет",done:false},
+ {id:"gta3-marty-1",name:"The Crook",category:"Телефонные миссии",done:false},
+ {id:"gta3-marty-2",name:"The Thieves",category:"Телефонные миссии",done:false},
+ {id:"gta3-marty-3",name:"The Wife",category:"Телефонные миссии",done:false},
+ {id:"gta3-marty-4",name:"Her Lover",category:"Телефонные миссии",done:false},
+ {id:"gta3-burro-1",name:"Turismo",category:"Телефонные миссии",done:false},
+ {id:"gta3-burro-2",name:"I Scream, You Scream",category:"Телефонные миссии",done:false},
+ {id:"gta3-burro-3",name:"Trial By Fire",category:"Телефонные миссии",done:false},
+ {id:"gta3-burro-4",name:"Big'n'Veiny",category:"Телефонные миссии",done:false},
+ {id:"gta3-courtney-1",name:"Bling-bling Scramble",category:"Телефонные миссии",done:false},
+ {id:"gta3-courtney-2",name:"Uzi Rider",category:"Телефонные миссии",done:false},
+ {id:"gta3-courtney-3",name:"Gangcar Round-up",category:"Телефонные миссии",done:false},
+ {id:"gta3-courtney-4",name:"Kingdom Come",category:"Телефонные миссии",done:false},
+ {id:"gta3-dice-1",name:"Uzi Money",category:"Телефонные миссии",done:false},
+ {id:"gta3-dice-2",name:"Toyminator",category:"Телефонные миссии",done:false},
+ {id:"gta3-dice-3",name:"Rigged to Blow",category:"Телефонные миссии",done:false},
+ {id:"gta3-dice-4",name:"Bullion Run",category:"Телефонные миссии",done:false},
+ {id:"gta3-dice-5",name:"Rumble",category:"Телефонные миссии",done:false},
+ {id:"gta3-offroad-1",name:"Patriot Playground",category:"Миссии по бездорожью",done:false},
+ {id:"gta3-offroad-2",name:"Multistorey Mayhem",category:"Миссии по бездорожью",done:false},
+ {id:"gta3-offroad-3",name:"A Ride in the Park",category:"Миссии по бездорожью",done:false},
+ {id:"gta3-offroad-4",name:"Gripped!",category:"Миссии по бездорожью",done:false},
+ {id:"gta3-rc-1",name:"Diablo Destruction",category:"RC-миссии",done:false},
+ {id:"gta3-rc-2",name:"Mafia Massacre",category:"RC-миссии",done:false},
+ {id:"gta3-rc-3",name:"Casino Calamity",category:"RC-миссии",done:false},
+ {id:"gta3-rc-4",name:"Rumpo Rampage",category:"RC-миссии",done:false},
+ {id:"gta3-paramedic",name:"Медик — пройти 12 уровней и спасти 78 пациентов",category:"Миссии-профессии",done:false},
+ {id:"gta3-fire-portland",name:"Пожарный — потушить 20 пожаров в Портленде",category:"Миссии-профессии",done:false},
+ {id:"gta3-fire-staunton",name:"Пожарный — потушить 20 пожаров на Стонтон-Айленде",category:"Миссии-профессии",done:false},
+ {id:"gta3-fire-shoreside",name:"Пожарный — потушить 20 пожаров в Шорсайд-Вейл",category:"Миссии-профессии",done:false},
+ {id:"gta3-vigilante-portland",name:"Полицейский — устранить 20 преступников в Портленде",category:"Миссии-профессии",done:false},
+ {id:"gta3-vigilante-staunton",name:"Полицейский — устранить 20 преступников на Стонтон-Айленде",category:"Миссии-профессии",done:false},
+ {id:"gta3-vigilante-shoreside",name:"Полицейский — устранить 20 преступников в Шорсайд-Вейл",category:"Миссии-профессии",done:false},
+ {id:"gta3-import-emergency",name:"Импорт/Экспорт — собрать все автомобили экстренных служб (кран в порту)",category:"Импорт/Экспорт",done:false},
+ {id:"gta3-import-industrial",name:"Импорт/Экспорт — заполнить список промышленных автомобилей (гараж в Портленде)",category:"Импорт/Экспорт",done:false},
+ {id:"gta3-import-country",name:"Импорт/Экспорт — заполнить список загородных автомобилей (гараж в Шорсайд-Вейл)",category:"Импорт/Экспорт",done:false},
+ {id:"gta3-hidden",name:"Собрать 100 скрытых пакетов",category:"Коллекционные",done:false},
+ {id:"gta3-rampages",name:"Завершить 20 буйств",category:"Коллекционные",done:false},
+ {id:"gta3-jumps",name:"Выполнить 20 уникальных прыжков",category:"Коллекционные",done:false}
  ]},
  vice:{title:"Grand Theft Auto: Vice City",short:"VICE CITY",platform:"Не выбрана",tasks:[]},
  sa:{title:"Grand Theft Auto: San Andreas",short:"SAN ANDREAS",platform:"Не выбрана",tasks:[]}
@@ -178,7 +217,7 @@ function render(){
  $("platform").value=game.platform;
  $("count").textContent=game.tasks.filter(t=>t.done).length+" / "+game.tasks.length;
  const pct=game.tasks.length?Math.round(game.tasks.filter(t=>t.done).length/game.tasks.length*100):0;
- $("percent").textContent=pct+"%";
+ $("percent").textContent=game.tasks.length?pct+"%":"—";
  $("bar").style.width=pct+"%";
  $("taskCount").textContent=game.tasks.length+" пунктов";
  $("tasks").innerHTML="";
@@ -218,11 +257,12 @@ function renderGameMenu(){
  $("gameLogoWrap").style.display=active==="gta3"?"block":"none";
  $("menuLocation").textContent=cfg.place;
  $("menuPercent").textContent=done+" / "+total;$("menuBar").style.width=pct+"%";$("menuTaskCount").textContent=total+" заданий · "+game.platform;
- const titles={all:"Все задания","Сюжет":"Сюжет","Доп. активность":"Дополнительные активности","Коллекционные":"Коллекционные предметы","Своё":"Мои задания"};
+ const titles={all:"Все задания","Сюжет":"Сюжетные миссии","Телефонные миссии":"Телефонные миссии","Побочные":"Побочные миссии","Миссии-профессии":"Миссии-профессии","Импорт/Экспорт":"Импорт / Экспорт","Коллекционные":"Коллекционные предметы","Своё":"Мои задания"};
  $("menuSectionTitle").textContent=titles[currentFilter]||"Все задания";
  $("menuNav").querySelectorAll("button").forEach(b=>b.classList.toggle("selected",b.dataset.filter===currentFilter));
  const list=$("menuTasks");list.innerHTML="";
- const filtered=game.tasks.filter(t=>currentFilter==="all"||(currentFilter==="Коллекционные"?(t.category||"").includes("Коллекционные"):t.category===currentFilter));
+ const filtered=game.tasks.filter(t=>currentFilter==="all"||(currentFilter==="Побочные"?["Миссии по бездорожью","RC-миссии"].includes(t.category):t.category===currentFilter));
+ $("gta3Warnings").classList.toggle("hidden",active!=="gta3");
  if(!filtered.length){const empty=document.createElement("div");empty.className="menu-empty";empty.textContent=currentFilter==="all"?"Здесь появятся задания проверенного чек-листа "+game.short+". Пока можешь добавлять свои пункты ниже.":"В этом разделе задания появятся после добавления полного проверенного чек-листа.";list.append(empty)}
  filtered.forEach(task=>{const row=document.createElement("label");row.className="menu-task"+(task.done?" done":"");const cb=document.createElement("input");cb.type="checkbox";cb.checked=task.done;cb.onchange=()=>{task.done=cb.checked;save();render()};const name=document.createElement("span");name.textContent=task.name;const cat=document.createElement("small");cat.textContent=task.category||"Своё";row.append(cb,name,cat);list.append(row)});
 }
