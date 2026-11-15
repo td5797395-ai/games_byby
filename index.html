@@ -109,7 +109,7 @@ body.in-game{background:#142d3d}body.in-game .wrap{max-width:none;padding:0}body
 </section>
 <section class="panel"><div class="toolbar"><h3>Чек-лист прохождения</h3><span class="tag" id="taskCount">3 пункта</span></div><div class="task-list" id="tasks"></div>
 <div class="add-row"><input id="newTask" placeholder="Добавить своё задание…" maxlength="100"><button class="btn" id="addBtn">+ Добавить</button></div>
-<p class="note">Процент показывает выполнение пунктов, внесённых в текущий список. Для GTA III часть сюжетной линии пока объединена в один пункт; после сверки полного перечня миссий детализация будет дополнена.</p></section>
+<p class="note">Прогресс считается по пунктам, которые влияют на 100% прохождение. Вступительные миссии Give Me Liberty и Luigi's Girls тоже отмечаются, но не добавляют процент.</p></section>
 </main></div><section id="gameView" class="game-view hidden theme-gta3" aria-label="Game checklist menu"><div class="cityline"></div><div class="game-menu-inner">
 <div class="game-menu-top"><div id="gameLogoWrap"><img id="gameLogo" class="game-wordmark-img" src="https://upload.wikimedia.org/wikipedia/commons/1/10/Grand_Theft_Auto_III_-_The_Definitive_Edition_logo.svg" alt="Grand Theft Auto III — The Definitive Edition"><div class="game-edition" id="gameEdition">Liberty City · The Definitive Edition</div></div><button class="menu-back" id="backToLibrary">← Библиотека</button></div>
 <div class="game-menu-body"><aside class="menu-sidebar"><div class="menu-kicker">Меню прохождения</div><nav class="menu-nav" id="menuNav">
@@ -191,13 +191,14 @@ function gta3Task(id,name,category,island,extra={}){return {id,name,category,isl
 function ensureGta3Checklist(){
  const g=state.gta3;if(!g)return;
  g.tasks=g.tasks.filter(t=>!["gta3-story-all","gta3-hidden","gta3-rampages","gta3-jumps"].includes(t.id));
+ const legacyStoryTwo=g.tasks.find(t=>t.id==="gta3-story-2"&&t.name==="Don't Spank Ma Bitch Up");if(legacyStoryTwo)legacyStoryTwo.id="gta3-story-3";
  const byId=new Map(g.tasks.map(t=>[t.id,t]));
  const add=t=>{if(!byId.has(t.id)){g.tasks.push(t);byId.set(t.id,t)}};
  gta3Story.forEach(([name,giver],i)=>{
   const n=i+1,island=n<=22?"Portland":n<=49?"Staunton Island":"Shoreside Vale";
   const id="gta3-story-"+n;
-  const old=byId.get(id);if(old){old.category="Сюжет";old.island=island;old.giver=giver;old.portrait=gta3Portraits[giver];}
-  else add(gta3Task(id,name,"Сюжет",island,{giver,portrait:gta3Portraits[giver],storyNumber:n,missable:[3,4,5,6,7,8,9,10,11,12,27,28,29,30,31,32].includes(n)}));
+  const old=byId.get(id);if(old){old.name=name;old.category="Сюжет";old.island=island;old.giver=giver;old.portrait=gta3Portraits[giver];old.storyNumber=n;old.countsFor100=n>2;old.missable=[3,4,5,6,7,8,9,10,11,12,27,28,29,30,31,32].includes(n);}
+  else add(gta3Task(id,name,"Сюжет",island,{giver,portrait:gta3Portraits[giver],storyNumber:n,countsFor100:n>2,missable:[3,4,5,6,7,8,9,10,11,12,27,28,29,30,31,32].includes(n)}));
  });
  const islandFor={
  "gta3-marty-1":"Portland","gta3-marty-2":"Portland","gta3-marty-3":"Portland","gta3-marty-4":"Portland",
@@ -280,7 +281,7 @@ function render(){
  $("gameDesc").textContent=game.tasks.length?"Твой прогресс прохождения":"Список заданий пока не добавлен";
  $("platform").value=game.platform;
  $("count").textContent=game.tasks.filter(t=>t.done).length+" / "+game.tasks.length;
- const pct=game.tasks.length?Math.round(game.tasks.filter(t=>t.done).length/game.tasks.length*100):0;
+ const eligible=game.tasks.filter(t=>t.countsFor100!==false);const pct=eligible.length?Math.round(eligible.filter(t=>t.done).length/eligible.length*100):0;
  $("percent").textContent=game.tasks.length?pct+"%":"—";
  $("bar").style.width=pct+"%";
  $("taskCount").textContent=game.tasks.length+" пунктов";
@@ -308,7 +309,7 @@ $("addBtn").onclick=addTask;$("newTask").addEventListener("keydown",e=>{if(e.key
 render();
 
 function renderGameMenu(){
- const game=state[active],total=game.tasks.length,done=game.tasks.filter(t=>t.done).length,pct=total?Math.round(done/total*100):0;
+ const game=state[active],total=game.tasks.length,done=game.tasks.filter(t=>t.done).length,eligible=game.tasks.filter(t=>t.countsFor100!==false),eligibleDone=eligible.filter(t=>t.done).length,pct=eligible.length?Math.round(eligibleDone/eligible.length*100):0;
  const config={
   gta3:{logo:"https://upload.wikimedia.org/wikipedia/commons/1/10/Grand_Theft_Auto_III_-_The_Definitive_Edition_logo.svg",alt:"Grand Theft Auto III — The Definitive Edition",edition:"Liberty City · The Definitive Edition",place:"Liberty City · 2001"},
   vice:{logo:"https://commons.wikimedia.org/wiki/Special:FilePath/Grand_Theft_Auto_Vice_City_-_The_Definitive_Edition_logo.svg",alt:"Grand Theft Auto: Vice City — The Definitive Edition",edition:"Vice City · The Definitive Edition",place:"Vice City · 1986"},
@@ -320,7 +321,7 @@ function renderGameMenu(){
  $("gameLogo").src=cfg.logo;$("gameLogo").alt=cfg.alt;$("gameEdition").textContent=cfg.edition;
  $("gameLogoWrap").style.display=active==="gta3"?"block":"none";
  $("menuLocation").textContent=cfg.place;
- $("menuPercent").textContent=done+" / "+total;$("menuBar").style.width=pct+"%";$("menuTaskCount").textContent=total+" заданий · "+game.platform;
+ $("menuPercent").textContent=eligibleDone+" / "+eligible.length;$("menuBar").style.width=pct+"%";$("menuTaskCount").textContent=total+" заданий · "+game.platform;
  const titles={all:"Все задания","Сюжет":"Сюжетные миссии","Телефонные миссии":"Телефонные миссии","Побочные":"Побочные миссии","Миссии-профессии":"Миссии-профессии","Импорт/Экспорт":"Импорт / Экспорт","Коллекционные":"Коллекционные предметы","Своё":"Мои задания","island:Portland":"Портленд · Portland","island:Staunton Island":"Стонтон-Айленд · Staunton","island:Shoreside Vale":"Шорсайд-Вейл · Shoreside"};
  $("menuSectionTitle").textContent=titles[currentFilter]||"Все задания";
  $("menuNav").querySelectorAll("button").forEach(b=>b.classList.toggle("selected",b.dataset.filter===currentFilter));
@@ -333,7 +334,7 @@ function renderGameMenu(){
  if(task.collectible==="package"){const ico=document.createElement("span");ico.className="package-icon";ico.setAttribute("aria-label","Светящийся скрытый пакет");row.append(ico)}
  else if(task.collectible){const ico=document.createElement("span");ico.className="collectible-icon";ico.textContent=task.collectible==="rampage"?"☠":"✦";row.append(ico)}
  const info=document.createElement("div");info.className="mission-info";const name=document.createElement("span");name.textContent=task.name;info.append(name);
- if(task.giver){const giver=document.createElement("small");giver.textContent="Задание от: "+task.giver;info.append(giver)}
+ if(task.giver){const giver=document.createElement("small");giver.textContent="Задание от: "+task.giver;info.append(giver)}if(task.missable){const warning=document.createElement("small");warning.textContent="⚠ ПРОПУСКАЕМОЕ ЗАДАНИЕ";warning.style.color="#ffd08a";info.append(warning)}
  row.append(info);const island=document.createElement("small");island.className="island-chip";island.textContent=task.island||"Liberty City";row.append(island);list.append(row)});
 }
 function showLibrary(){currentView="library";render()}
