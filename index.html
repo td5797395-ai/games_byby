@@ -20,6 +20,7 @@ header{display:flex;align-items:center;justify-content:space-between;margin-bott
 .hidden{display:none!important}.game-view{position:relative;min-height:calc(100vh - 150px);margin-top:4px;overflow:hidden;border:1px solid #343a43;background:#0b1018;color:#f1f3f5;box-shadow:0 22px 70px #0009}
 .game-view:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#080d14f5 0%,#0b111bdc 43%,#1017229c 100%),radial-gradient(ellipse at 78% 18%,#53677a55,transparent 42%),linear-gradient(180deg,#263747 0%,#111b27 54%,#080d14 100%);pointer-events:none}
 .cityline{position:absolute;inset:auto 0 0;height:38%;opacity:.23;pointer-events:none;background:linear-gradient(180deg,transparent,#05080d 82%),repeating-linear-gradient(90deg,transparent 0 4.5%,#718092 4.6% 4.8%,transparent 4.9% 8%);clip-path:polygon(0 40%,5% 40%,5% 18%,11% 18%,11% 52%,16% 52%,16% 5%,22% 5%,22% 34%,28% 34%,28% 22%,34% 22%,34% 60%,40% 60%,40% 12%,47% 12%,47% 42%,54% 42%,54% 0,61% 0,61% 48%,68% 48%,68% 20%,74% 20%,74% 58%,81% 58%,81% 10%,88% 10%,88% 39%,94% 39%,94% 25%,100% 25%,100% 100%,0 100%)}
+@keyframes menuEnter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}.game-view:not(.hidden) .game-menu-inner{animation:menuEnter .5s ease-out both}
 .game-menu-inner{position:relative;z-index:1;padding:26px clamp(18px,4vw,54px) 38px;min-height:calc(100vh - 150px);display:flex;flex-direction:column}.game-menu-top{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid #aab7c533;padding-bottom:16px}
 .game-wordmark{font-size:clamp(19px,3vw,29px);font-weight:950;letter-spacing:.13em;text-transform:uppercase;text-shadow:0 2px 12px #0009}.game-edition{font-size:10px;letter-spacing:.2em;color:#aebdca;margin-top:2px}
 .menu-back{background:transparent;border:1px solid #aab7c566;color:#e9edf1;padding:9px 14px;text-transform:uppercase;letter-spacing:.12em;font-size:10px}.menu-back:hover{background:#ffffff18}
@@ -167,4 +168,5 @@ function addMenuTask(){const input=$("menuNewTask"),name=input.value.trim();if(!
 $("menuAddBtn").onclick=addMenuTask;$("menuNewTask").addEventListener("keydown",e=>{if(e.key==="Enter")addMenuTask()});
 const baseRender=render;
 render=function(){baseRender();const inGame=currentView==="game"&&active==="gta3";document.querySelector(".hero").classList.toggle("hidden",inGame);document.querySelector(".layout").classList.toggle("hidden",inGame);$("gameView").classList.toggle("hidden",!inGame);if(inGame)renderGameMenu()};
-\n</script></body></html>
+\nrender();
+</script></body></html>
