@@ -370,7 +370,7 @@ const ratchetCatalog={
   ]
  },
  ratchet3:{
-  places:[["Veldin","🪐"],["Florana","🌿"],["Starship Phoenix","🚀"],["Marcadia","🏛️"],["Annihilation Nation · Q9","🏟️"],["Aquatos","🌊"],["Tyhrranosis","🦖"],["Daxx","🧪"],["Obani Gemini","🌌"],["Obani Pollux","🌌"],["Holostar Studios","🎬"],["Zeldrin Starport","☄️"],["Metropolis · Kerwan","🏙️"],["Crash Site · Zeldrin","💥"],["Aridia","🏜️"],["Thran Asteroid Belt","🪐"],["Koros","🤖"],["Mylon","🏭"]],
+  places:[["Veldin","🪐"],["Florana","🌿"],["Starship Phoenix","🚀"],["Marcadia","🏛️"],["Annihilation Nation · Q9","🏟️"],["Aquatos","🌊"],["Tyhrranosis","🦖"],["Daxx","🧪"],["Obani Gemini","🌌"],["Obani Pollux","🌌"],["Holostar Studios","🎬"],["Rilgar","🏁"],["Zeldrin Starport","☄️"],["Metropolis · Kerwan","🏙️"],["Crash Site · Zeldrin","💥"],["Aridia","🏜️"],["Thran Asteroid Belt","🪐"],["Koros","🤖"],["Mylon","🏭"]],
   bolts:{"Florana":2,"Starship Phoenix":7,"Marcadia":3,"Annihilation Nation · Q9":2,"Aquatos":5,"Tyhrranosis":2,"Daxx":2,"Obani Gemini":1,"Obani Pollux":1,"Holostar Studios":3,"Zeldrin Starport":2,"Metropolis · Kerwan":3,"Crash Site · Zeldrin":1,"Aridia":2,"Thran Asteroid Belt":1,"Koros":2,"Mylon":1},
   skills:[
    ["Florana","Stay Squeaky Clean — пройти Path of Death без урона"],
@@ -571,7 +571,7 @@ function renderGameMenu(){
   cast.forEach(([key,label])=>{const src=gta3Portraits[key];if(!src)return;const card=document.createElement("div");card.className="character-card";const img=document.createElement("img");img.src=src;img.alt=label;img.loading="eager";img.referrerPolicy="no-referrer";img.onerror=()=>{img.remove();const fallback=document.createElement("span");fallback.className="character-avatar-fallback";fallback.textContent=label.split(/\s+/).map(x=>x[0]).join("").slice(0,2).toUpperCase();card.prepend(fallback)};const name=document.createElement("span");name.textContent=label;card.append(img,name);gallery.append(card)});
   gallery.classList.remove("hidden");gallery.style.display="flex";
  }else if(active.startsWith("ratchet")){
-  ratchetCatalog[active].places.forEach(([planet])=>{const card=document.createElement("div");card.className="character-card planet-mini-card";const img=document.createElement("img");img.className="planet-mini-image";img.src=ratchetPlanetImages[active][planet]||"";img.alt="Планета "+planet;img.loading="lazy";img.onerror=()=>{img.classList.add("image-missing")};const name=document.createElement("span");name.textContent=planet;card.append(img,name);gallery.append(card)});
+  ratchetCatalog[active].places.forEach(([planet])=>{const card=document.createElement("div");card.className="character-card planet-mini-card";const img=document.createElement("img");img.className="planet-mini-image";img.src=ratchetPlanetImages[active][planet]||Object.values(ratchetPlanetImages[active])[0];img.alt="Планета "+planet;img.loading="lazy";img.onerror=()=>{img.classList.add("image-missing")};const name=document.createElement("span");name.textContent=planet;card.append(img,name);gallery.append(card)});
   gallery.classList.remove("hidden");gallery.style.display="flex";
  }else gallery.classList.add("hidden");
  $("gameView").classList.remove("theme-gta3","theme-vice","theme-sa","theme-ratchet1","theme-ratchet2","theme-ratchet3","island-portland","island-staunton","island-shoreside");$("gameView").classList.add("theme-"+active);if(currentFilter.startsWith("island:"))$("gameView").classList.add(currentFilter==="island:Portland"?"island-portland":currentFilter==="island:Staunton Island"?"island-staunton":"island-shoreside");
@@ -610,7 +610,7 @@ function renderGameMenu(){
   const order=[...planetOrder.filter(p=>grouped.has(p)),...Array.from(grouped.keys()).filter(p=>!planetOrder.includes(p))];
   order.forEach(planet=>{const items=grouped.get(planet)||[];if(!items.length)return;
    const head=document.createElement("div");head.className="planet-section-header";
-   const icon=document.createElement("img");icon.className="planet-section-icon planet-section-image";icon.src=ratchetPlanetImages[active][planet]||"";icon.alt="Планета "+planet;icon.loading="lazy";icon.onerror=()=>{icon.classList.add("image-missing")};
+   const icon=document.createElement("img");icon.className="planet-section-icon planet-section-image";icon.src=ratchetPlanetImages[active][planet]||Object.values(ratchetPlanetImages[active])[0];icon.alt="Планета "+planet;icon.loading="lazy";icon.onerror=()=>{icon.classList.add("image-missing")};
    const copy=document.createElement("div");copy.className="planet-section-copy";
    const title=document.createElement("strong");title.textContent=planet;
    const sub=document.createElement("small");sub.textContent=items.filter(t=>t.done).length+" / "+items.length+" выполнено";
