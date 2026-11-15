@@ -17,28 +17,39 @@ header{display:flex;align-items:center;justify-content:space-between;margin-bott
 .add-row{display:flex;gap:8px;margin-top:12px}.add-row input{flex:1;min-width:0;background:#0d0c14;border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--text);outline:none}.note{color:var(--muted);font-size:11px;margin:12px 2px 0}.footer{color:#666477;text-align:center;font-size:11px;margin-top:25px}
 @media(max-width:760px){.wrap{padding:20px 14px 40px}.game-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.game{padding:8px}.cover{height:clamp(225px,58vw,275px);padding:0}.game-name{font-size:12px;min-height:30px}.game-sub{font-size:10px}.game-head{flex-direction:column}.platform{width:100%}.platform select{width:100%}}@media(max-width:390px){.game-list{grid-template-columns:1fr}.cover{height:270px}}
 
-.hidden{display:none!important}.game-view{position:relative;min-height:calc(100vh - 150px);margin-top:4px;overflow:hidden;border:1px solid #343a43;background:#0b1018;color:#f1f3f5;box-shadow:0 22px 70px #0009}
-.game-view:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#080d14f5 0%,#0b111bdc 43%,#1017229c 100%),radial-gradient(ellipse at 78% 18%,#53677a55,transparent 42%),linear-gradient(180deg,#263747 0%,#111b27 54%,#080d14 100%);pointer-events:none}
-.cityline{position:absolute;inset:auto 0 0;height:38%;opacity:.23;pointer-events:none;background:linear-gradient(180deg,transparent,#05080d 82%),repeating-linear-gradient(90deg,transparent 0 4.5%,#718092 4.6% 4.8%,transparent 4.9% 8%);clip-path:polygon(0 40%,5% 40%,5% 18%,11% 18%,11% 52%,16% 52%,16% 5%,22% 5%,22% 34%,28% 34%,28% 22%,34% 22%,34% 60%,40% 60%,40% 12%,47% 12%,47% 42%,54% 42%,54% 0,61% 0,61% 48%,68% 48%,68% 20%,74% 20%,74% 58%,81% 58%,81% 10%,88% 10%,88% 39%,94% 39%,94% 25%,100% 25%,100% 100%,0 100%)}
-@keyframes menuEnter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}.game-view:not(.hidden) .game-menu-inner{animation:menuEnter .5s ease-out both}
-.game-menu-inner{position:relative;z-index:1;padding:26px clamp(18px,4vw,54px) 38px;min-height:calc(100vh - 150px);display:flex;flex-direction:column}.game-menu-top{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid #aab7c533;padding-bottom:16px}
-.game-wordmark{font-size:clamp(19px,3vw,29px);font-weight:950;letter-spacing:.13em;text-transform:uppercase;text-shadow:0 2px 12px #0009}.game-edition{font-size:10px;letter-spacing:.2em;color:#aebdca;margin-top:2px}
-.menu-back{background:transparent;border:1px solid #aab7c566;color:#e9edf1;padding:9px 14px;text-transform:uppercase;letter-spacing:.12em;font-size:10px}.menu-back:hover{background:#ffffff18}
-.game-menu-body{display:grid;grid-template-columns:minmax(210px,.72fr) minmax(0,1.5fr);gap:clamp(24px,5vw,70px);padding:clamp(34px,7vh,72px) 0 24px;flex:1}.menu-sidebar{align-self:start}
-.menu-kicker{font-size:10px;letter-spacing:.25em;color:#a9b7c5;text-transform:uppercase;margin-bottom:16px}.menu-nav{display:grid;gap:4px}
-.menu-nav button{position:relative;text-align:left;border:0;border-left:3px solid transparent;background:transparent;color:#aeb8c4;padding:12px 15px;font-size:clamp(13px,1.5vw,16px);font-weight:750;letter-spacing:.09em;text-transform:uppercase;transition:.18s}
-.menu-nav button:hover{color:white;background:#ffffff0c}.menu-nav button.selected{border-left-color:#e3e8ec;color:#fff;background:linear-gradient(90deg,#a9b8c52a,transparent);text-shadow:0 0 18px #fff5}.menu-nav button.selected:after{content:"";position:absolute;right:12px;top:50%;width:6px;height:6px;background:#e5ebf0;transform:translateY(-50%) rotate(45deg)}
-.menu-content{max-width:790px}.menu-content-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;border-bottom:1px solid #aab7c533;padding-bottom:17px;margin-bottom:18px}
-.menu-content h2{font-size:clamp(23px,3vw,36px);line-height:1.05;margin:0;text-transform:uppercase;letter-spacing:.035em}.menu-content-head p{margin:7px 0 0;color:#aeb9c4;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
-.menu-progress{text-align:right;white-space:nowrap}.menu-progress strong{display:block;font-size:28px;line-height:1;font-weight:800}.menu-progress span{font-size:9px;color:#9eabb8;letter-spacing:.17em;text-transform:uppercase}
-.menu-meter{height:3px;background:#53606c;margin:17px 0 24px}.menu-meter span{display:block;height:100%;background:#e0e6eb;width:0;transition:width .25s}
-.menu-task-list{display:grid;gap:3px}.menu-task{display:flex;align-items:center;gap:13px;padding:13px 12px;border-bottom:1px solid #aab7c522;background:#ffffff05;cursor:pointer;transition:background .16s}.menu-task:hover{background:#ffffff12}
-.menu-task input{appearance:none;width:17px;height:17px;border:1px solid #9ba9b7;background:#111a24;flex:none;position:relative}.menu-task input:checked{background:#dbe3e9;border-color:#dbe3e9}.menu-task input:checked:after{content:"✓";position:absolute;color:#17212b;font-size:13px;font-weight:900;left:2px;top:-2px}
-.menu-task span{font-size:13px;font-weight:650;letter-spacing:.025em;flex:1}.menu-task small{color:#a8b4c0;font-size:9px;letter-spacing:.12em;text-transform:uppercase}.menu-task.done span{color:#83909c;text-decoration:line-through}
-.menu-empty{padding:24px 14px;color:#aab6c1;border:1px solid #aab7c533;background:#ffffff06;font-size:12px;letter-spacing:.04em}
-.menu-add{display:flex;gap:8px;margin-top:18px}.menu-add input{min-width:0;flex:1;background:#070c13;border:1px solid #657383;color:#f1f3f5;padding:11px 13px;outline:none}.menu-add input:focus{border-color:#d4dce3}.menu-add button{background:#dce3e9;color:#17212b;border:0;padding:0 17px;font-weight:850;text-transform:uppercase;font-size:10px;letter-spacing:.1em}
-.menu-footer{display:flex;justify-content:space-between;gap:14px;border-top:1px solid #aab7c533;padding-top:14px;margin-top:25px;color:#8795a3;font-size:9px;letter-spacing:.16em;text-transform:uppercase}
-@media(max-width:700px){.game-menu-body{grid-template-columns:1fr;gap:26px;padding-top:28px}.menu-nav{grid-template-columns:repeat(2,minmax(0,1fr))}.menu-nav button{font-size:10px;padding:11px 10px}.menu-content-head{align-items:flex-start}.menu-task{padding:12px 8px}.menu-task span{font-size:12px}.game-menu-inner{padding:18px 14px 24px}.game-menu-top{align-items:flex-start}}
+.hidden{display:none!important}.game-view{position:relative;min-height:calc(100vh - 120px);margin-top:4px;overflow:hidden;border:0;background:#172e3d url("https://cdn.mobygames.com/screenshots/1703116-grand-theft-auto-the-trilogy-the-definitive-edition-windows-gta-.png") center/cover no-repeat;color:#fff;box-shadow:0 22px 70px #0009}
+.game-view:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#142d3dfc 0%,#183346f2 32%,#1b3a4bcc 49%,#203d4b55 76%,#10233155 100%),linear-gradient(0deg,#07172366,transparent 60%);pointer-events:none}
+@keyframes menuEnter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.game-view:not(.hidden) .game-menu-inner{animation:menuEnter .38s ease-out both}
+.game-menu-inner{position:relative;z-index:1;padding:25px clamp(18px,4vw,58px) 24px;min-height:calc(100vh - 120px);display:flex;flex-direction:column}
+.game-menu-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding-bottom:0;border:0}
+.game-wordmark{font-family:Impact,"Arial Narrow",system-ui,sans-serif;font-size:clamp(25px,3.3vw,43px);font-weight:1000;line-height:.78;letter-spacing:-.045em;text-transform:lowercase;text-shadow:3px 3px 0 #111, -2px -2px 0 #111,2px -2px 0 #111,-2px 2px 0 #111,0 5px 12px #000b;max-width:220px}
+.game-wordmark:after{content:"THE DEFINITIVE EDITION";display:block;margin-top:9px;padding:4px 7px;width:max-content;background:#c9a65a;color:#18232a;font:900 9px/1 system-ui,sans-serif;letter-spacing:.08em;text-shadow:none}
+.game-edition{display:none}
+.menu-back{background:#263f50aa;border:1px solid #a9c0ce55;color:#fff;padding:9px 14px;text-transform:uppercase;letter-spacing:.1em;font-size:10px;font-weight:800}.menu-back:hover{background:#ffb51b;color:#111;border-color:#ffb51b}
+.game-menu-body{display:grid;grid-template-columns:minmax(190px,.72fr) minmax(0,1.55fr);gap:clamp(22px,4vw,64px);padding:clamp(30px,6vh,62px) 0 10px;flex:1;align-items:center}
+.menu-sidebar{align-self:center;margin-top:-12px}.menu-kicker{font-family:Impact,"Arial Narrow",sans-serif;font-size:12px;letter-spacing:.16em;color:#b9cbd5;text-transform:uppercase;margin:0 0 16px 12px}
+.menu-nav{display:grid;gap:3px}
+.menu-nav button{position:relative;text-align:center;border:0;background:transparent;color:#f5f6f7;padding:11px 12px;font-family:Impact,"Arial Narrow",system-ui,sans-serif;font-size:clamp(16px,1.7vw,21px);font-weight:900;letter-spacing:.01em;text-transform:uppercase;text-shadow:1px 2px 3px #000b;transition:background .14s,color .14s;min-height:39px}
+.menu-nav button:hover{background:#ffffff20;color:#fff}
+.menu-nav button.selected{border:0;color:#111;background:#ffb51b;text-shadow:none;box-shadow:0 2px 8px #0005}
+.menu-nav button.selected:after{content:"";position:absolute;right:10px;top:50%;width:6px;height:6px;background:#172d3a;transform:translateY(-50%) rotate(45deg)}
+.menu-content{max-width:900px;width:100%;align-self:center;background:#47677bbf;backdrop-filter:blur(3px);box-shadow:0 10px 34px #07152166;border:1px solid #b6cbd333}
+.menu-content-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;background:#263f51d9;padding:18px 20px 15px;border-bottom:1px solid #a9c0ce55;margin:0}
+.menu-content h2{font-family:Impact,"Arial Narrow",system-ui,sans-serif;font-size:clamp(23px,3vw,34px);line-height:1;margin:0;text-transform:uppercase;letter-spacing:.025em;text-shadow:1px 2px 3px #0006}
+.menu-content-head p{margin:7px 0 0;color:#d0dce3;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.menu-progress{text-align:right;white-space:nowrap}.menu-progress strong{display:block;font-family:Impact,"Arial Narrow",sans-serif;font-size:29px;line-height:1;font-weight:800}.menu-progress span{font-size:9px;color:#d1dce3;letter-spacing:.13em;text-transform:uppercase}
+.menu-meter{height:4px;background:#233b4c;margin:0}.menu-meter span{display:block;height:100%;background:#ffb51b;width:0;transition:width .25s}
+.menu-task-list{display:grid;gap:0;padding:9px 12px 6px}
+.menu-task{display:flex;align-items:center;gap:13px;padding:13px 13px;border:0;border-bottom:1px solid #d1e0e722;background:#dce8ef12;cursor:pointer;transition:background .14s;min-height:46px}
+.menu-task:nth-child(even){background:#263f5138}.menu-task:hover{background:#ffb51b;color:#14212a}
+.menu-task input{appearance:none;width:17px;height:17px;border:1px solid #d2e0e8;background:#213c4d;flex:none;position:relative}
+.menu-task input:checked{background:#ffb51b;border-color:#ffb51b}.menu-task input:checked:after{content:"✓";position:absolute;color:#17212b;font-size:13px;font-weight:900;left:2px;top:-2px}
+.menu-task span{font-family:Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:.01em;flex:1;color:#f4f7f9}.menu-task small{color:#d1dfe7;font-size:9px;letter-spacing:.1em;text-transform:uppercase}.menu-task.done span{color:#b8c8d1;text-decoration:line-through}
+.menu-empty{padding:24px 14px;color:#e1e9ee;border:1px solid #d1e0e733;background:#263f5166;font-size:12px;letter-spacing:.04em}
+.menu-add{display:flex;gap:8px;margin:8px 12px 14px}.menu-add input{min-width:0;flex:1;background:#20394bbf;border:1px solid #b6cbd366;color:#fff;padding:11px 13px;outline:none}.menu-add input::placeholder{color:#c0d0d9}.menu-add input:focus{border-color:#ffb51b}.menu-add button{background:#ffb51b;color:#111;border:0;padding:0 17px;font-weight:900;text-transform:uppercase;font-size:10px;letter-spacing:.1em}
+.menu-footer{display:flex;justify-content:space-between;gap:14px;background:#263f51b8;padding:12px 18px;margin:0;color:#d0dce3;font-size:9px;letter-spacing:.13em;text-transform:uppercase}
+body.in-game{background:#142d3d}body.in-game .wrap{max-width:none;padding:0}body.in-game> .wrap>header{display:none}body.in-game .game-view{margin:0;min-height:100vh}body.in-game .game-menu-inner{min-height:100vh;padding:28px clamp(20px,5vw,72px) 24px}
+@media(max-width:700px){.game-view{min-height:100vh;background-position:62% center}.game-view:before{background:linear-gradient(90deg,#142d3df7 0%,#183346e8 58%,#1b3a4b99 100%),linear-gradient(0deg,#07172377,transparent 60%)}.game-menu-body{grid-template-columns:1fr;gap:20px;padding-top:26px;align-items:start}.menu-nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}.menu-nav button{font-size:15px;padding:10px 8px}.menu-content-head{align-items:flex-start;padding:14px}.menu-task{padding:12px 8px}.menu-task span{font-size:12px}.game-menu-inner{padding:18px 14px 24px!important}.game-menu-top{align-items:flex-start}.menu-sidebar{margin:0}.menu-kicker{margin-bottom:9px}}
 </style>
 </head>
 <body><div class="wrap">
@@ -55,7 +66,7 @@ header{display:flex;align-items:center;justify-content:space-between;margin-bott
 <div class="add-row"><input id="newTask" placeholder="Добавить своё задание…" maxlength="100"><button class="btn" id="addBtn">+ Добавить</button></div>
 <p class="note">Список GTA III пока содержит только подтверждённые тобой отметки. Полный перечень требований для 100% добавим после проверки по надёжному руководству.</p></section>
 </main></div><section id="gameView" class="game-view hidden" aria-label="GTA III checklist menu"><div class="cityline"></div><div class="game-menu-inner">
-<div class="game-menu-top"><div><div class="game-wordmark">Grand Theft Auto III</div><div class="game-edition">The Definitive Edition · Liberty City</div></div><button class="menu-back" id="backToLibrary">← Библиотека</button></div>
+<div class="game-menu-top"><div><div class="game-wordmark">grand<br>theft<br>auto <span style="color:#d71920">III</span></div><div class="game-edition">The Definitive Edition · Liberty City</div></div><button class="menu-back" id="backToLibrary">← Библиотека</button></div>
 <div class="game-menu-body"><aside class="menu-sidebar"><div class="menu-kicker">Меню прохождения</div><nav class="menu-nav" id="menuNav">
 <button class="selected" data-filter="all">Все задания</button><button data-filter="Сюжет">Сюжет</button><button data-filter="Доп. активность">Доп. активности</button><button data-filter="Коллекционные">Коллекционные</button><button data-filter="Своё">Мои задания</button></nav></aside>
 <div class="menu-content"><div class="menu-content-head"><div><h2 id="menuSectionTitle">Все задания</h2><p>Путь к 100% завершению</p></div><div class="menu-progress"><strong id="menuPercent">—</strong><span>Выполнено</span></div></div>
@@ -170,7 +181,7 @@ $("menuNav").addEventListener("click",e=>{const b=e.target.closest("button[data-
 function addMenuTask(){const input=$("menuNewTask"),name=input.value.trim();if(!name)return;state.gta3.tasks.push({id:"custom-"+Date.now(),name,category:"Своё",done:false});input.value="";save();render()}
 $("menuAddBtn").onclick=addMenuTask;$("menuNewTask").addEventListener("keydown",e=>{if(e.key==="Enter")addMenuTask()});
 const baseRender=render;
-render=function(){baseRender();const inGame=currentView==="game"&&active==="gta3";document.querySelector(".hero").classList.toggle("hidden",inGame);document.querySelector(".layout").classList.toggle("hidden",inGame);$("gameView").classList.toggle("hidden",!inGame);if(inGame)renderGameMenu()};
+render=function(){baseRender();const inGame=currentView==="game"&&active==="gta3";document.querySelector(".hero").classList.toggle("hidden",inGame);document.querySelector(".layout").classList.toggle("hidden",inGame);$("gameView").classList.toggle("hidden",!inGame);document.body.classList.toggle("in-game",inGame);if(inGame)renderGameMenu()};
 
 render();
 </script></body></html>
