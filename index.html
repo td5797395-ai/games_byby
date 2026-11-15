@@ -60,7 +60,8 @@ header{display:flex;align-items:center;justify-content:space-between;margin-bott
 <button class="selected" data-filter="all">Все задания</button><button data-filter="Сюжет">Сюжет</button><button data-filter="Доп. активность">Доп. активности</button><button data-filter="Коллекционные">Коллекционные</button><button data-filter="Своё">Мои задания</button></nav></aside>
 <div class="menu-content"><div class="menu-content-head"><div><h2 id="menuSectionTitle">Все задания</h2><p>Путь к 100% завершению</p></div><div class="menu-progress"><strong id="menuPercent">—</strong><span>Выполнено</span></div></div>
 <div class="menu-meter"><span id="menuBar"></span></div><div class="menu-task-list" id="menuTasks"></div><div class="menu-add"><input id="menuNewTask" maxlength="100" placeholder="Добавить личное задание"><button id="menuAddBtn">Добавить</button></div>
-<div class="menu-footer"><span>Liberty City · 2001</span><span id="menuTaskCount">0 заданий</span></div></div></div></div></section>\n<div class="footer">ZETA TRACKER · EARLY BUILD 0.1 · Данные сохраняются в этом браузере</div></div>
+<div class="menu-footer"><span>Liberty City · 2001</span><span id="menuTaskCount">0 заданий</span></div></div></div></div></section>
+<div class="footer">ZETA TRACKER · EARLY BUILD 0.1 · Данные сохраняются в этом браузере</div></div>
 <script>
 const initial={
  gta3:{title:"Grand Theft Auto III",short:"GTA III",platform:"PS4",tasks:[
@@ -72,7 +73,9 @@ const initial={
  sa:{title:"Grand Theft Auto: San Andreas",short:"SAN ANDREAS",platform:"Не выбрана",tasks:[]}
 };
 let state;try{state=JSON.parse(localStorage.getItem("zeta-tracker-v1"))||structuredClone(initial)}catch{state=structuredClone(initial)}
-let active="gta3";\nlet currentView="library";\nlet currentFilter="all";
+let active="gta3";
+let currentView="library";
+let currentFilter="all";
 const $=id=>document.getElementById(id);
 function save(){localStorage.setItem("zeta-tracker-v1",JSON.stringify(state))}
 function render(){
@@ -168,5 +171,6 @@ function addMenuTask(){const input=$("menuNewTask"),name=input.value.trim();if(!
 $("menuAddBtn").onclick=addMenuTask;$("menuNewTask").addEventListener("keydown",e=>{if(e.key==="Enter")addMenuTask()});
 const baseRender=render;
 render=function(){baseRender();const inGame=currentView==="game"&&active==="gta3";document.querySelector(".hero").classList.toggle("hidden",inGame);document.querySelector(".layout").classList.toggle("hidden",inGame);$("gameView").classList.toggle("hidden",!inGame);if(inGame)renderGameMenu()};
-\nrender();
+
+render();
 </script></body></html>
