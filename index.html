@@ -290,7 +290,7 @@ function getProgressStats(key,game){
  return {points,total:154,pct,label:points.toFixed(2)+" / 154 зачётных пунктов"};
 }
 function renderProgress(key,game){
- const stats=getProgressStats(key,game),value=stats.pct.toFixed(1)+"%";
+ const stats=getProgressStats(key,game),value=(key==="gta3"?Math.ceil(stats.pct):stats.pct.toFixed(1))+"%";
  $("gameProgressValue").textContent=value;
  $("gameProgressBar").style.width=stats.pct+"%";
  $("gameProgressNote").textContent=key==="gta3"?stats.label+" · 1 пункт ≈ 0,65%":"Процент по выполненным заданиям";
@@ -336,7 +336,7 @@ function render(){
   platform.textContent=g.platform==="Не выбрана"?"ПЛАТФОРМА —":g.platform;
   sub.append(done,platform);
   meta.append(name,sub);
-  const cardProgress=document.createElement("div");cardProgress.className="game-card-progress";const track=document.createElement("div");track.className="track";const fill=document.createElement("span");fill.style.width=getProgressStats(key,g).pct+"%";track.append(fill);const progressLabel=document.createElement("b");progressLabel.textContent=getProgressStats(key,g).pct.toFixed(1)+"%";cardProgress.append(track,progressLabel);meta.append(cardProgress);
+  const cardProgress=document.createElement("div");cardProgress.className="game-card-progress";const track=document.createElement("div");track.className="track";const fill=document.createElement("span");fill.style.width=getProgressStats(key,g).pct+"%";track.append(fill);const progressLabel=document.createElement("b");const cardStats=getProgressStats(key,g);progressLabel.textContent=(key==="gta3"?Math.ceil(cardStats.pct):cardStats.pct.toFixed(1))+"%";cardProgress.append(track,progressLabel);meta.append(cardProgress);
   b.append(cover,meta);
   b.onclick=()=>{active=key;currentView="game";currentFilter="all";render()};
   $("games").append(b);
@@ -347,7 +347,7 @@ function render(){
  renderProgress(active,game);
  $("count").textContent=game.tasks.filter(t=>t.done).length+" / "+game.tasks.length;
  const stats=renderProgress(active,game);const pct=stats.pct;
- $("percent").textContent=game.tasks.length?pct.toFixed(1)+"%":"—";
+ $("percent").textContent=game.tasks.length?(active==="gta3"?Math.ceil(pct):pct.toFixed(1))+"%":"—";
  $("bar").style.width=pct+"%";
  $("taskCount").textContent=game.tasks.length+" пунктов";
  $("tasks").innerHTML="";
