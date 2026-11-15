@@ -40,11 +40,16 @@ header{display:flex;align-items:center;justify-content:space-between;margin-bott
 .menu-progress{text-align:right;white-space:nowrap}.menu-progress strong{display:block;font-family:Impact,"Arial Narrow",sans-serif;font-size:29px;line-height:1;font-weight:800}.menu-progress span{font-size:9px;color:#d1dce3;letter-spacing:.13em;text-transform:uppercase}
 .menu-meter{height:4px;background:#233b4c;margin:0}.menu-meter span{display:block;height:100%;background:#ffb51b;width:0;transition:width .25s}
 .menu-task-list{display:grid;gap:0;padding:9px 12px 6px}
+.menu-task{position:relative}.menu-task .mission-portrait{width:52px;height:52px;flex:none;object-fit:cover;object-position:center 24%;border:1px solid #d5e1e855;box-shadow:0 2px 8px #0007}.mission-info{display:flex;flex-direction:column;gap:3px;min-width:0}.mission-info small{font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:#d3e0e8}.package-icon{width:25px;height:25px;flex:none;display:grid;place-items:center;color:#f7ffff;font-size:20px;line-height:1;text-shadow:0 0 5px #fff,0 0 12px #8dfaff,0 0 20px #4adfff;filter:drop-shadow(0 0 5px #8dfaff);animation:packagePulse 1.8s ease-in-out infinite}.package-icon:before{content:"▣"}.collectible-icon{width:24px;height:24px;flex:none;display:grid;place-items:center;color:#ffe6a1;font-size:18px;text-shadow:0 0 9px #ffca5c}.island-chip{font-size:8px;color:#f3e8d3;background:#0004;border:1px solid #fff3;padding:3px 6px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+@keyframes packagePulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.14);opacity:1;filter:drop-shadow(0 0 9px #bdfaff)}}
 .menu-task{display:flex;align-items:center;gap:13px;padding:13px 13px;border:0;border-bottom:1px solid #d1e0e722;background:#dce8ef12;cursor:pointer;transition:background .14s;min-height:46px}
 .menu-task:nth-child(even){background:#263f5138}.menu-task:hover{background:#ffb51b;color:#14212a}
 .menu-task input{appearance:none;width:17px;height:17px;border:1px solid #d2e0e8;background:#213c4d;flex:none;position:relative}
 .menu-task input:checked{background:#ffb51b;border-color:#ffb51b}.menu-task input:checked:after{content:"✓";position:absolute;color:#17212b;font-size:13px;font-weight:900;left:2px;top:-2px}
 .menu-task span{font-family:Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:.01em;flex:1;color:#f4f7f9}.menu-task small{color:#d1dfe7;font-size:9px;letter-spacing:.1em;text-transform:uppercase}.menu-task.done span{color:#b8c8d1;text-decoration:line-through}
+.game-view.island-portland .menu-content{border-color:#d17c4b88}.game-view.island-portland .menu-content-head{background:#4b2b20e8}.game-view.island-portland .menu-meter span{background:#d77b42}.game-view.island-portland .menu-nav button.selected{background:#c66d3c;color:#20130e}.game-view.island-portland .menu-task{background:#633d2b99}.game-view.island-portland .menu-task:nth-child(even){background:#3f2b22c9}.game-view.island-portland .menu-task input:checked{background:#d77b42;border-color:#d77b42}.game-view.island-portland .menu-back:hover{background:#d77b42}
+.game-view.island-staunton .menu-content{border-color:#6bb8d688}.game-view.island-staunton .menu-content-head{background:#183b59e8}.game-view.island-staunton .menu-meter span{background:#62c4df}.game-view.island-staunton .menu-nav button.selected{background:#69c8df;color:#102b3a}.game-view.island-staunton .menu-task{background:#1d526c99}.game-view.island-staunton .menu-task:nth-child(even){background:#18364dc9}.game-view.island-staunton .menu-task input:checked{background:#69c8df;border-color:#69c8df}.game-view.island-staunton .menu-back:hover{background:#69c8df;color:#102b3a}
+.game-view.island-shoreside .menu-content{border-color:#a9c77c88}.game-view.island-shoreside .menu-content-head{background:#283d28ed}.game-view.island-shoreside .menu-meter span{background:#a6c66c}.game-view.island-shoreside .menu-nav button.selected{background:#a6c66c;color:#18241b}.game-view.island-shoreside .menu-task{background:#3c573b99}.game-view.island-shoreside .menu-task:nth-child(even){background:#263d30c9}.game-view.island-shoreside .menu-task input:checked{background:#a6c66c;border-color:#a6c66c}.game-view.island-shoreside .menu-back:hover{background:#a6c66c;color:#18241b}
 .menu-warnings{margin:10px 12px 4px;padding:12px 14px;background:#4b2c1dcc;border:1px solid #ffb34d88;color:#fff0d4;font-size:11px;line-height:1.45}.menu-warnings strong{display:block;color:#ffc46b;letter-spacing:.09em;font-size:10px;margin-bottom:6px}.menu-warnings ul{margin:0;padding-left:17px}.menu-warnings li{margin:3px 0}.menu-empty{padding:24px 14px;color:#e1e9ee;border:1px solid #d1e0e733;background:#263f5166;font-size:12px;letter-spacing:.04em}
 .menu-add{display:flex;gap:8px;margin:8px 12px 14px}.menu-add input{min-width:0;flex:1;background:#20394bbf;border:1px solid #b6cbd366;color:#fff;padding:11px 13px;outline:none}.menu-add input::placeholder{color:#c0d0d9}.menu-add input:focus{border-color:#ffb51b}.menu-add button{background:#ffb51b;color:#111;border:0;padding:0 17px;font-weight:900;text-transform:uppercase;font-size:10px;letter-spacing:.1em}
 .menu-footer{display:flex;justify-content:space-between;gap:14px;background:#263f51b8;padding:12px 18px;margin:0;color:#d0dce3;font-size:9px;letter-spacing:.13em;text-transform:uppercase}
@@ -108,7 +113,7 @@ body.in-game{background:#142d3d}body.in-game .wrap{max-width:none;padding:0}body
 </main></div><section id="gameView" class="game-view hidden theme-gta3" aria-label="Game checklist menu"><div class="cityline"></div><div class="game-menu-inner">
 <div class="game-menu-top"><div id="gameLogoWrap"><img id="gameLogo" class="game-wordmark-img" src="https://upload.wikimedia.org/wikipedia/commons/1/10/Grand_Theft_Auto_III_-_The_Definitive_Edition_logo.svg" alt="Grand Theft Auto III — The Definitive Edition"><div class="game-edition" id="gameEdition">Liberty City · The Definitive Edition</div></div><button class="menu-back" id="backToLibrary">← Библиотека</button></div>
 <div class="game-menu-body"><aside class="menu-sidebar"><div class="menu-kicker">Меню прохождения</div><nav class="menu-nav" id="menuNav">
-<button class="selected" data-filter="all">Все задания</button><button data-filter="Сюжет">Сюжет</button><button data-filter="Телефонные миссии">Телефонные</button><button data-filter="Побочные">Побочные</button><button data-filter="Миссии-профессии">Профессии</button><button data-filter="Импорт/Экспорт">Импорт/Экспорт</button><button data-filter="Коллекционные">Коллекционные</button><button data-filter="Своё">Мои задания</button></nav></aside>
+<button class="selected" data-filter="all">Все задания</button><button data-filter="island:Portland">Портленд</button><button data-filter="island:Staunton Island">Стонтон</button><button data-filter="island:Shoreside Vale">Шорсайд</button><button data-filter="Сюжет">Сюжет</button><button data-filter="Телефонные миссии">Телефонные</button><button data-filter="Побочные">Побочные</button><button data-filter="Миссии-профессии">Профессии</button><button data-filter="Импорт/Экспорт">Импорт/Экспорт</button><button data-filter="Коллекционные">Коллекционные</button><button data-filter="Своё">Мои задания</button></nav></aside>
 <div class="menu-content"><div class="menu-content-head"><div><h2 id="menuSectionTitle">Все задания</h2><p>Путь к 100% завершению</p></div><div class="menu-progress"><strong id="menuPercent">—</strong><span>Выполнено</span></div></div>
 <div class="menu-meter"><span id="menuBar"></span></div><div class="menu-warnings hidden" id="gta3Warnings"><strong>ВАЖНО: НЕПРОПУСКАЕМЫЕ УСЛОВИЯ GTA III</strong><ul><li>До «Last Requests» завершить все задания Луиджи Готерелли и Джоуи Леоне.</li><li>До «Waka-Gashira Wipeout!» завершить все задания Кэндзи Касена.</li><li>«Two-Faced Tanner» Асуки пройти до «Grand Theft Aero» Дональда.</li><li>Медика лучше пройти в самом начале, пока банды Портленда не враждебны.</li><li>Портлендские части пожарного и полицейского также желательно выполнить заранее.</li><li>Телефонные миссии Эль-Бурро лучше пройти до обострения отношений с Триадами.</li></ul></div><div class="menu-task-list" id="menuTasks"></div><div class="menu-add"><input id="menuNewTask" maxlength="100" placeholder="Добавить личное задание"><button id="menuAddBtn">Добавить</button></div>
 <div class="menu-footer"><span id="menuLocation">Liberty City · 2001</span><span id="menuTaskCount">0 заданий</span></div></div></div></div></section>
@@ -163,6 +168,65 @@ const initial={
  sa:{title:"Grand Theft Auto: San Andreas",short:"SAN ANDREAS",platform:"Не выбрана",tasks:[]}
 };
 let state;try{state=JSON.parse(localStorage.getItem("zeta-tracker-v1"))||structuredClone(initial)}catch{state=structuredClone(initial)}
+
+const gta3Story=[
+["Give Me Liberty","8-Ball"],["Luigi's Girls","Luigi Goterelli"],["Don't Spank Ma Bitch Up","Luigi Goterelli"],["Drive Misty For Me","Luigi Goterelli"],["Pump-Action Pimp","Luigi Goterelli"],["The Fuzz Ball","Luigi Goterelli"],
+["Mike Lips Last Lunch","Joey Leone"],["Farewell 'Chunky' Lee Chong","Joey Leone"],["Van Heist","Joey Leone"],["Cipriani's Chauffeur","Joey Leone"],["Dead Skunk in the Trunk","Joey Leone"],["The Getaway","Joey Leone"],
+["Taking Out the Laundry","Toni Cipriani"],["The Pick-Up","Toni Cipriani"],["Salvatore's Called a Meeting","Toni Cipriani"],["Chaperone","Salvatore Leone"],["Triads and Tribulations","Toni Cipriani"],["Blow Fish","Toni Cipriani"],["Cutting the Grass","Salvatore Leone"],["Bomb Da Base: Act I","Salvatore Leone"],["Bomb Da Base: Act II","8-Ball"],["Last Requests","Salvatore Leone"],
+["Sayonara Salvatore","Asuka Kasen"],["Under Surveillance","Asuka Kasen"],["Paparazzi Purge","Asuka Kasen"],["Payday For Ray","Asuka Kasen"],["Two-Faced Tanner","Asuka Kasen"],["Kanbu Bust-out","Kenji Kasen"],["Grand Theft Auto","Kenji Kasen"],["Deal Steal","Kenji Kasen"],["Shima","Kenji Kasen"],["Smack Down","Kenji Kasen"],["Silence the Sneak","Ray Machowski"],["Arms Shortage","Ray Machowski"],["Evidence Dash","Ray Machowski"],["Gone Fishing","Ray Machowski"],["Plaster Blaster","Ray Machowski"],["Liberator","Donald Love"],["Waka-Gashira Wipeout!","Donald Love"],["A Drop in the Ocean","Donald Love"],["Grand Theft Aero","Donald Love"],["Escort Service","Donald Love"],["Decoy","Donald Love"],["Love's Disappearance","Donald Love"],["Marked Man","Ray Machowski"],["Bait","Asuka Kasen"],["Espresso-2-Go!","Asuka Kasen"],["S.A.M.","Asuka Kasen"],["Ransom","Catalina"],["The Exchange","Catalina"]
+];
+const gta3Portraits={
+"8-Ball":"https://www.gtabase.com/igallery/8301-8400/GTA3_Artwork_8Ball-8353-144.jpg",
+"Luigi Goterelli":"https://www.gtabase.com/igallery/8301-8400/GTA3_Artwork_Luigi-8347-144.jpg",
+"Joey Leone":"https://www.gtabase.com/igallery/8301-8400/GTA3_Artwork_Joey-8349-144.jpg",
+"Toni Cipriani":"https://www.gtabase.com/igallery/8301-8400/GTA3_Artwork_Toni-8341-144.jpg",
+"Salvatore Leone":"https://www.gtabase.com/igallery/8301-8400/GTA3_Artwork_Salvatore-8342-144.jpg",
+"Asuka Kasen":"https://www.gtabase.com/igallery/8301-8400/GTA3_Artwork_Asuka-8352-144.jpg",
+"Kenji Kasen":"https://www.gtabase.com/igallery/8301-8400/GTA3_Artwork_Kenji-8348-144.jpg",
+"Ray Machowski":"https://www.gtabase.com/igallery/8301-8400/GTA3_Artwork_Machowski-8346-144.jpg",
+"Donald Love":"https://www.gtabase.com/igallery/8301-8400/GTA3_Artwork_DonaldLove-8351-144.jpg",
+"Catalina":"https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1ac24c3b-64ec-4d25-b418-46ab7ebd6d8c/dfismwg-8f65d781-1878-42f1-a8df-65b75bcbfbf7.png/v1/fill/w_1280%2Ch_800%2Cq_80%2Cstrp/gta_3_catalina_artwork_style_by_marmakar_dfismwg-fullview.jpg"
+};
+function gta3Task(id,name,category,island,extra={}){return {id,name,category,island,...extra,done:false}}
+function ensureGta3Checklist(){
+ const g=state.gta3;if(!g)return;
+ g.tasks=g.tasks.filter(t=>!["gta3-story-all","gta3-hidden","gta3-rampages","gta3-jumps"].includes(t.id));
+ const byId=new Map(g.tasks.map(t=>[t.id,t]));
+ const add=t=>{if(!byId.has(t.id)){g.tasks.push(t);byId.set(t.id,t)}};
+ gta3Story.forEach(([name,giver],i)=>{
+  const n=i+1,island=n<=22?"Portland":n<=49?"Staunton Island":"Shoreside Vale";
+  const id="gta3-story-"+n;
+  const old=byId.get(id);if(old){old.category="Сюжет";old.island=island;old.giver=giver;old.portrait=gta3Portraits[giver];}
+  else add(gta3Task(id,name,"Сюжет",island,{giver,portrait:gta3Portraits[giver],storyNumber:n,missable:[3,4,5,6,7,8,9,10,11,12,27,28,29,30,31,32].includes(n)}));
+ });
+ const islandFor={
+ "gta3-marty-1":"Portland","gta3-marty-2":"Portland","gta3-marty-3":"Portland","gta3-marty-4":"Portland",
+ "gta3-burro-1":"Portland","gta3-burro-2":"Portland","gta3-burro-3":"Portland","gta3-burro-4":"Portland",
+ "gta3-courtney-1":"Staunton Island","gta3-courtney-2":"Staunton Island","gta3-courtney-3":"Staunton Island","gta3-courtney-4":"Staunton Island",
+ "gta3-dice-1":"Shoreside Vale","gta3-dice-2":"Shoreside Vale","gta3-dice-3":"Shoreside Vale","gta3-dice-4":"Shoreside Vale","gta3-dice-5":"Shoreside Vale",
+ "gta3-offroad-1":"Portland","gta3-offroad-2":"Staunton Island","gta3-offroad-3":"Staunton Island","gta3-offroad-4":"Shoreside Vale",
+ "gta3-rc-1":"Portland","gta3-rc-2":"Portland","gta3-rc-3":"Staunton Island","gta3-rc-4":"Shoreside Vale",
+ "gta3-paramedic":"Portland","gta3-fire-portland":"Portland","gta3-fire-staunton":"Staunton Island","gta3-fire-shoreside":"Shoreside Vale",
+ "gta3-vigilante-portland":"Portland","gta3-vigilante-staunton":"Staunton Island","gta3-vigilante-shoreside":"Shoreside Vale",
+ "gta3-import-emergency":"Portland","gta3-import-industrial":"Portland","gta3-import-country":"Shoreside Vale","gta3-side-1":"Все острова"
+ };
+ g.tasks.forEach(t=>{if(islandFor[t.id])t.island=islandFor[t.id];});
+ const phoneGivers={"gta3-marty-1":"Marty Chonks","gta3-marty-2":"Marty Chonks","gta3-marty-3":"Marty Chonks","gta3-marty-4":"Marty Chonks","gta3-burro-1":"El Burro","gta3-burro-2":"El Burro","gta3-burro-3":"El Burro","gta3-burro-4":"El Burro","gta3-courtney-1":"King Courtney","gta3-courtney-2":"King Courtney","gta3-courtney-3":"King Courtney","gta3-courtney-4":"King Courtney","gta3-dice-1":"D-Ice","gta3-dice-2":"D-Ice","gta3-dice-3":"D-Ice","gta3-dice-4":"D-Ice","gta3-dice-5":"D-Ice"};
+ g.tasks.forEach(t=>{if(phoneGivers[t.id])t.giver=phoneGivers[t.id];});
+ for(let i=1;i<=100;i++){
+  const island=(i<=32||i===52)?"Portland":(i<=69?"Staunton Island":"Shoreside Vale");
+  add(gta3Task("gta3-package-"+i,"Скрытый пакет №"+String(i).padStart(3,"0"),"Коллекционные",island,{collectible:"package",packageNumber:i}));
+ }
+ const groups=[
+  ["rampage","Буйство","Portland",6],["rampage","Буйство","Staunton Island",7],["rampage","Буйство","Shoreside Vale",7],
+  ["jump","Уникальный прыжок","Portland",8],["jump","Уникальный прыжок","Staunton Island",4],["jump","Уникальный прыжок","Shoreside Vale",8]
+ ];
+ groups.forEach(([kind,label,island,count])=>{for(let i=1;i<=count;i++)add(gta3Task("gta3-"+kind+"-"+island.toLowerCase().replaceAll(" ","-")+"-"+i,label+" "+i+" / "+count,"Коллекционные",island,{collectible:kind}))});
+ g.tasks.forEach(t=>{if(!t.island)t.island="Все острова";});
+ save();
+}
+ensureGta3Checklist();
+
 let active="gta3";
 let currentView="library";
 let currentFilter="all";
@@ -251,20 +315,26 @@ function renderGameMenu(){
   sa:{logo:"https://commons.wikimedia.org/wiki/Special:FilePath/Grand_Theft_Auto_San_Andreas_-_The_Definitive_Edition_logo.svg",alt:"Grand Theft Auto: San Andreas — The Definitive Edition",edition:"San Andreas · The Definitive Edition",place:"San Andreas · 1992"}
  };
  const cfg=config[active];
- $("gameView").classList.remove("theme-gta3","theme-vice","theme-sa");$("gameView").classList.add("theme-"+active);
+ $("gameView").classList.remove("theme-gta3","theme-vice","theme-sa","island-portland","island-staunton","island-shoreside");$("gameView").classList.add("theme-"+active);if(currentFilter.startsWith("island:"))$("gameView").classList.add(currentFilter==="island:Portland"?"island-portland":currentFilter==="island:Staunton Island"?"island-staunton":"island-shoreside");
  $("gameView").setAttribute("aria-label",game.title+" checklist menu");
  $("gameLogo").src=cfg.logo;$("gameLogo").alt=cfg.alt;$("gameEdition").textContent=cfg.edition;
  $("gameLogoWrap").style.display=active==="gta3"?"block":"none";
  $("menuLocation").textContent=cfg.place;
  $("menuPercent").textContent=done+" / "+total;$("menuBar").style.width=pct+"%";$("menuTaskCount").textContent=total+" заданий · "+game.platform;
- const titles={all:"Все задания","Сюжет":"Сюжетные миссии","Телефонные миссии":"Телефонные миссии","Побочные":"Побочные миссии","Миссии-профессии":"Миссии-профессии","Импорт/Экспорт":"Импорт / Экспорт","Коллекционные":"Коллекционные предметы","Своё":"Мои задания"};
+ const titles={all:"Все задания","Сюжет":"Сюжетные миссии","Телефонные миссии":"Телефонные миссии","Побочные":"Побочные миссии","Миссии-профессии":"Миссии-профессии","Импорт/Экспорт":"Импорт / Экспорт","Коллекционные":"Коллекционные предметы","Своё":"Мои задания","island:Portland":"Портленд · Portland","island:Staunton Island":"Стонтон-Айленд · Staunton","island:Shoreside Vale":"Шорсайд-Вейл · Shoreside"};
  $("menuSectionTitle").textContent=titles[currentFilter]||"Все задания";
  $("menuNav").querySelectorAll("button").forEach(b=>b.classList.toggle("selected",b.dataset.filter===currentFilter));
  const list=$("menuTasks");list.innerHTML="";
- const filtered=game.tasks.filter(t=>currentFilter==="all"||(currentFilter==="Побочные"?["Миссии по бездорожью","RC-миссии"].includes(t.category):t.category===currentFilter));
+ const filtered=game.tasks.filter(t=>currentFilter==="all"||(currentFilter.startsWith("island:")?t.island===currentFilter.slice(7):(currentFilter==="Побочные"?["Миссии по бездорожью","RC-миссии"].includes(t.category):t.category===currentFilter)));
  $("gta3Warnings").classList.toggle("hidden",active!=="gta3");
  if(!filtered.length){const empty=document.createElement("div");empty.className="menu-empty";empty.textContent=currentFilter==="all"?"Здесь появятся задания проверенного чек-листа "+game.short+". Пока можешь добавлять свои пункты ниже.":"В этом разделе задания появятся после добавления полного проверенного чек-листа.";list.append(empty)}
- filtered.forEach(task=>{const row=document.createElement("label");row.className="menu-task"+(task.done?" done":"");const cb=document.createElement("input");cb.type="checkbox";cb.checked=task.done;cb.onchange=()=>{task.done=cb.checked;save();render()};const name=document.createElement("span");name.textContent=task.name;const cat=document.createElement("small");cat.textContent=task.category||"Своё";row.append(cb,name,cat);list.append(row)});
+ filtered.forEach(task=>{const row=document.createElement("label");row.className="menu-task"+(task.done?" done":"");const cb=document.createElement("input");cb.type="checkbox";cb.checked=task.done;cb.onchange=()=>{task.done=cb.checked;save();render()};row.append(cb);
+ if(task.portrait){const img=document.createElement("img");img.className="mission-portrait";img.src=task.portrait;img.alt=task.giver||"Персонаж";img.loading="lazy";img.onerror=()=>img.remove();row.append(img)}
+ if(task.collectible==="package"){const ico=document.createElement("span");ico.className="package-icon";ico.setAttribute("aria-label","Светящийся скрытый пакет");row.append(ico)}
+ else if(task.collectible){const ico=document.createElement("span");ico.className="collectible-icon";ico.textContent=task.collectible==="rampage"?"☠":"✦";row.append(ico)}
+ const info=document.createElement("div");info.className="mission-info";const name=document.createElement("span");name.textContent=task.name;info.append(name);
+ if(task.giver){const giver=document.createElement("small");giver.textContent="Задание от: "+task.giver;info.append(giver)}
+ row.append(info);const island=document.createElement("small");island.className="island-chip";island.textContent=task.island||"Liberty City";row.append(island);list.append(row)});
 }
 function showLibrary(){currentView="library";render()}
 $("backToLibrary").onclick=showLibrary;
