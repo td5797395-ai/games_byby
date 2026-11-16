@@ -786,8 +786,7 @@ function getProgressStats(key,game){
  const rampages=game.tasks.filter(t=>t.collectible==="rampage");
  const jumps=count(t=>t.collectible==="jump");
  let points=0;
- points+=count(t=>t.category==="Сюжет"&&t.storyNumber>=3);
- if(done("gta3-story-1")&&done("gta3-story-2"))points+=1;
+ points+=count(t=>t.category==="Сюжет"&&t.storyNumber>=1);
  points+=count(t=>t.category==="Телефонные миссии");
  points+=count(t=>t.category==="Миссии по бездорожью");
  points+=count(t=>t.category==="RC-миссии");
