@@ -871,11 +871,11 @@ function initGta3Map(){
  const node=$("gta3LeafletMap");if(!node)return;
  if(!window.L){node.innerHTML='<div style="padding:22px;color:#102536">Не удалось загрузить движок карты. Проверь подключение к интернету и обнови страницу.</div>';return}
  if(!gta3MapReady){
-  gta3Leaflet=L.map(node,{crs:L.CRS.Simple,minZoom:3,maxZoom:7,zoomControl:true,attributionControl:true,preferCanvas:true});
+  gta3Leaflet=L.map(node,{crs:L.CRS.Simple,minZoom:3,maxZoom:7,zoomControl:true,attributionControl:false,preferCanvas:true});
   const bounds=L.latLngBounds(L.latLng(-48,0),L.latLng(0,48));
   const base="https://jeanropke.b-cdn.net/assets/maps/gta3/base/";
   const layers={
-   colorful:L.tileLayer(base+"colorful/{z}/{x}_{y}.png",{noWrap:true,bounds,maxNativeZoom:7,attribution:'Map data: <a href="https://github.com/jeanropke/GTA3Map" target="_blank" rel="noopener">GTA3Map contributors</a>'}),
+   colorful:L.tileLayer(base+"colorful/{z}/{x}_{y}.png",{noWrap:true,bounds,maxNativeZoom:7}),
    game:L.tileLayer(base+"game/{z}/{x}_{y}.jpg",{noWrap:true,bounds,maxNativeZoom:7})
   };
   layers.colorful.addTo(gta3Leaflet);
