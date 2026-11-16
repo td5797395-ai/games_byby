@@ -531,6 +531,49 @@ function ensureGta3Checklist(){
 }
 ensureGta3Checklist();
 
+const viceStory=[
+["In the Beginning... / An Old Friend","Вступление"],
+["The Party","Ken Rosenberg"],["Back Alley Brawl","Ken Rosenberg"],["Jury Fury","Ken Rosenberg"],["Riot","Ken Rosenberg"],
+["Four Iron","Avery Carrington"],["Demolition Man","Avery Carrington"],["Treacherous Swine","Colonel Cortez"],["Mall Shootout","Colonel Cortez"],["Guardian Angels","Colonel Cortez"],
+["The Chase","Ricardo Diaz"],["Phnom Penh '86","Ricardo Diaz"],["Two Bit Hit","Avery Carrington"],["Sir, Yes Sir!","Colonel Cortez"],["The Fastest Boat","Ricardo Diaz"],["Supply & Demand","Ricardo Diaz"],["Death Row","Kent Paul"],["All Hands on Deck!","Colonel Cortez"],["Rub Out","Ricardo Diaz"],
+["Stunt Boat Challenge","Umberto Robina"],["Cannon Fodder","Umberto Robina"],["Juju Scramble","Auntie Poulet"],["Bombs Away!","Auntie Poulet"],["Dirty Lickin's","Auntie Poulet"],["Naval Engagement","Umberto Robina"],["Trojan Voodoo","Umberto Robina"],["Love Juice","Love Fist"],["Alloy Wheels of Steel","Mitch Baker"],["Messing with the Man","Mitch Baker"],["Hog Tied","Mitch Baker"],["Psycho Killer","Love Fist"],["Publicity Tour","Love Fist"],["Cap the Collector","Print Works"],["Keep Your Friends Close...","Vercetti Estate"]
+];
+const viceAssets=[
+["Vercetti Estate","Shakedown"],["Vercetti Estate","Bar Brawl"],["Vercetti Estate","Cop Land"],
+["Pole Position Club","Spend $300 on private dances"],["Boatyard","Checkpoint Charlie"],["Cherry Popper Ice Cream Factory","Distribution — 50 deals in one run"],
+["Sunshine Autos","Complete vehicle list 1"],["Sunshine Autos","Complete vehicle list 2"],["Sunshine Autos","Complete vehicle list 3"],["Sunshine Autos","Complete vehicle list 4"],
+["Kaufman Cabs","V.I.P."],["Kaufman Cabs","Friendly Rivalry"],["Kaufman Cabs","Cabmaggedon"],
+["InterGlobal Film Studios","Recruitment Drive"],["InterGlobal Film Studios","Dildo Dodo"],["InterGlobal Film Studios","Martha's Mug Shot"],["InterGlobal Film Studios","G-Spotlight"],
+["The Malibu Club","No Escape?"],["The Malibu Club","The Shootist"],["The Malibu Club","The Driver"],["The Malibu Club","The Job"],
+["Phil's Place","Gun Runner"],["Phil's Place","Boomshine Saigon"],
+["Print Works","Spilling the Beans"],["Print Works","Hit the Courier"]
+];
+function ensureViceCityChecklist(){
+ const g=state.vice;if(!g)return;
+ const old=new Map(g.tasks.map(t=>[t.id,t])),tasks=[];
+ const add=(id,name,category,extra={})=>{const prev=old.get(id);tasks.push({id,name,category,done:prev?!!prev.done:false,...extra})};
+ viceStory.forEach(([name,giver],i)=>add("vc-story-"+(i+1),name,"Сюжет",{giver}));
+ ["Viceport Boatyard","Cherry Popper Ice Cream Factory","The Pole Position Club","Kaufman Cabs","Sunshine Autos","InterGlobal Film Studios","Print Works","The Malibu Club"].forEach((name,i)=>add("vc-business-"+(i+1),"Купить предприятие — "+name,"Покупка предприятий"));
+ viceAssets.forEach(([giver,name],i)=>add("vc-asset-"+(i+1),name,"Миссии предприятий",{giver}));
+ ["Road Kill","Waste the Wife","Autocide","Check Out at the Check In","Loose Ends"].forEach((name,i)=>add("vc-phone-"+(i+1),name,"Телефонные миссии",{scoreWeight:i===2?2:1}));
+ for(let i=1;i<=35;i++)add("vc-rampage-"+i,"Буйство №"+String(i).padStart(2,"0"),"Буйства",{collectible:"rampage"});
+ for(let i=1;i<=100;i++)add("vc-package-"+i,"Скрытый пакет №"+String(i).padStart(3,"0"),"Скрытые пакеты",{collectible:"package"});
+ for(let i=1;i<=36;i++)add("vc-jump-"+i,"Уникальный прыжок №"+String(i).padStart(2,"0"),"Уникальные прыжки",{collectible:"jump"});
+ for(let i=1;i<=15;i++)add("vc-store-"+i,"Ограбить магазин №"+String(i).padStart(2,"0"),"Ограбления магазинов");
+ add("vc-rifle-range","Набрать не менее 45 очков в тире Ammu-Nation","Стрельбище");
+ ["Hotring — занять 1-е место","Bloodring — продержаться 60 секунд","Dirtring — собрать все контрольные точки"].forEach((name,i)=>add("vc-stadium-"+(i+1),name,"Стадион"));
+ ["Terminal Velocity","Ocean Drive","Border Run","Capital Cruise","Tour!","V.C. Endurance"].forEach((name,i)=>add("vc-race-"+(i+1),name,"Уличные гонки"));
+ ["RC Bandit Race","RC Baron Race","RC Raider Pickup"].forEach((name,i)=>add("vc-rc-"+(i+1),name,"RC-миссии"));
+ ["Пожарный — пройти 12 уровней за один заход","Медик — пройти 12 уровней за один заход","Полицейский / Vigilante — пройти 12 уровней за один заход","Pizza Boy — пройти 10 уровней за один заход","Такси — выполнить 100 поездок"].forEach((name,i)=>add("vc-vehicle-"+(i+1),name,"Миссии-профессии"));
+ ["Чекпоинты вертолётом — Ocean Beach","Чекпоинты вертолётом — Vice Point","Чекпоинты вертолётом — Downtown","Чекпоинты вертолётом — Little Haiti","PCJ Playground","Cone Crazy"].forEach((name,i)=>add("vc-checkpoint-"+(i+1),name,"Чекпоинты"));
+ ["Test Track","Trial by Dirt"].forEach((name,i)=>add("vc-dirt-"+(i+1),name,"Грунтовые испытания"));
+ ["3321 Vice Point","Links View Apartment","El Swanko Casa","1102 Washington Street","Ocean Heights Apartment","Skumole Shack","Hyman Condo"].forEach((name,i)=>add("vc-safehouse-"+(i+1),"Купить безопасный дом — "+name,"Безопасные дома"));
+ old.forEach((t,id)=>{if((t.category==="Своё"||String(id).startsWith("custom-"))&&!tasks.some(x=>x.id===id))tasks.push(t)});
+ g.tasks=tasks;g.platform="PS4";save();
+}
+ensureViceCityChecklist();
+
+
 const ratchetCatalog={
  ratchet1:{
   places:[
@@ -644,6 +687,26 @@ let currentFilter="all";
 const $=id=>document.getElementById(id);
 function save(){localStorage.setItem("zeta-tracker-v1",JSON.stringify(state))}
 function getProgressStats(key,game){
+ if(key==="vice"){
+  const done=t=>game.tasks.filter(t=>t.category===t&&t.done).length;
+  const count=category=>game.tasks.filter(t=>t.category===category&&t.done).length;
+  const completed=predicate=>game.tasks.filter(t=>predicate(t)&&t.done).length;
+  let points=0;
+  points+=count("Сюжет");
+  points+=count("Покупка предприятий");
+  points+=count("Миссии предприятий");
+  points+=game.tasks.filter(t=>t.category==="Телефонные миссии"&&t.done).reduce((s,t)=>s+(t.scoreWeight||1),0);
+  const rampages=game.tasks.filter(t=>t.collectible==="rampage");
+  if(rampages.length===35&&rampages.every(t=>t.done))points+=1;
+  points+=Math.floor(completed(t=>t.collectible==="package")/10);
+  points+=completed(t=>t.collectible==="jump");
+  const stores=game.tasks.filter(t=>t.category==="Ограбления магазинов");
+  if(stores.length===15&&stores.every(t=>t.done))points+=1;
+  points+=completed(t=>t.id==="vc-rifle-range");
+  points+=count("Стадион")+count("Уличные гонки")+count("RC-миссии")+count("Миссии-профессии")+count("Чекпоинты")+count("Грунтовые испытания")+count("Безопасные дома");
+  points=Math.min(154,points);
+  return {points,total:154,pct:points/154*100,label:points+" / 154 зачётных пунктов"};
+ }
  if(key!=="gta3"){
   const eligible=game.tasks.filter(t=>t.countsFor100!==false),done=eligible.filter(t=>t.done).length;
   return {points:done,total:eligible.length,pct:eligible.length?done/eligible.length*100:0,label:done+" / "+eligible.length+" пунктов"};
@@ -675,10 +738,10 @@ function getProgressStats(key,game){
  return {points,total:154,pct,label:points.toFixed(2)+" / 154 зачётных пунктов"};
 }
 function renderProgress(key,game){
- const stats=getProgressStats(key,game),value=(key==="gta3"?Math.ceil(stats.pct):stats.pct.toFixed(1))+"%";
+ const stats=getProgressStats(key,game),value=(key==="gta3"||key==="vice"?Math.ceil(stats.pct):stats.pct.toFixed(1))+"%";
  $("gameProgressValue").textContent=value;
  $("gameProgressBar").style.width=stats.pct+"%";
- $("gameProgressNote").textContent=key==="gta3"?stats.label+" · 1 пункт ≈ 0,65%":"Процент по выполненным заданиям";
+ $("gameProgressNote").textContent=key==="gta3"||key==="vice"?stats.label+" · 1 пункт ≈ 0,65%":"Процент по выполненным заданиям";
  return stats;
 }
 function render(){
@@ -724,7 +787,7 @@ function render(){
   platform.textContent=g.platform==="Не выбрана"?"ПЛАТФОРМА —":g.platform;
   sub.append(done,platform);
   meta.append(name,sub);
-  const cardProgress=document.createElement("div");cardProgress.className="game-card-progress";const track=document.createElement("div");track.className="track";const fill=document.createElement("span");fill.style.width=getProgressStats(key,g).pct+"%";track.append(fill);const progressLabel=document.createElement("b");const cardStats=getProgressStats(key,g);progressLabel.textContent=(key==="gta3"?Math.ceil(cardStats.pct):cardStats.pct.toFixed(1))+"%";cardProgress.append(track,progressLabel);meta.append(cardProgress);
+  const cardProgress=document.createElement("div");cardProgress.className="game-card-progress";const track=document.createElement("div");track.className="track";const fill=document.createElement("span");fill.style.width=getProgressStats(key,g).pct+"%";track.append(fill);const progressLabel=document.createElement("b");const cardStats=getProgressStats(key,g);progressLabel.textContent=(key==="gta3"||key==="vice"?Math.ceil(cardStats.pct):cardStats.pct.toFixed(1))+"%";cardProgress.append(track,progressLabel);meta.append(cardProgress);
   b.append(cover,meta);
   b.onclick=()=>{active=key;currentView="game";currentFilter="all";render()};
   $("games").append(b);
@@ -735,7 +798,7 @@ function render(){
  renderProgress(active,game);
  $("count").textContent=game.tasks.filter(t=>t.done).length+" / "+game.tasks.length;
  const stats=renderProgress(active,game);const pct=stats.pct;
- $("percent").textContent=game.tasks.length?(active==="gta3"?Math.ceil(pct):pct.toFixed(1))+"%":"—";
+ $("percent").textContent=game.tasks.length?(active==="gta3"||active==="vice"?Math.ceil(pct):pct.toFixed(1))+"%":"—";
  $("bar").style.width=pct+"%";
  $("taskCount").textContent=game.tasks.length+" пунктов";
  $("tasks").innerHTML="";
@@ -797,6 +860,11 @@ function renderGameMenu(){
   nav.innerHTML=categories.map(([v,l])=>'<button data-filter="'+v+'">'+l+'</button>').join("")+'<div class="planet-nav-label">ПЛАНЕТЫ И ЛОКАЦИИ</div>'+ratchetCatalog[active].places.map(([p])=>'<button class="planet-nav-button" data-filter="planet:'+p+'"><img src="'+(ratchetPlanetImages[active][p]||"")+'" alt="" loading="lazy">'+p+'</button>').join("");
  }else if(nav.dataset.ratchetBuilt==="1"){nav.innerHTML=nav.dataset.original;delete nav.dataset.ratchetBuilt}
  if(isRatchet)nav.dataset.ratchetBuilt="1";
+ if(active==="vice"){
+  const cats=[["all","Все задания"],["Сюжет","Сюжетные миссии"],["Покупка предприятий","Покупка предприятий"],["Миссии предприятий","Миссии предприятий"],["Телефонные миссии","Телефонные миссии"],["Миссии-профессии","Миссии-профессии"],["Стадион","Стадион"],["Уличные гонки","Уличные гонки"],["RC-миссии","RC-миссии"],["Чекпоинты","Чекпоинты"],["Грунтовые испытания","Грунтовые испытания"],["Коллекционные","Коллекционные предметы"],["Буйства","Буйства"],["Скрытые пакеты","Скрытые пакеты"],["Уникальные прыжки","Уникальные прыжки"],["Ограбления магазинов","Ограбления магазинов"],["Стрельбище","Стрельбище"],["Безопасные дома","Безопасные дома"],["Своё","Мои задания"]];
+  nav.innerHTML=cats.map(([v,l])=>'<button data-filter="'+v+'">'+l+'</button>').join("");
+ }else if(nav.dataset.viceBuilt==="1"){nav.innerHTML=nav.dataset.original;delete nav.dataset.viceBuilt}
+ if(active==="vice"){if(!nav.dataset.original)nav.dataset.original=nav.innerHTML;nav.dataset.viceBuilt="1"}
  const mapButton=nav.querySelector('button[data-filter="map"]');if(mapButton)mapButton.style.display=active==="gta3"?"":"none";
  $("menuSectionTitle").textContent=titles[currentFilter]||(currentFilter.startsWith("planet:")?currentFilter.slice(7):currentFilter==="map"?"Карта Liberty City":"Все задания");
  nav.querySelectorAll("button").forEach(b=>b.classList.toggle("selected",b.dataset.filter===currentFilter));
@@ -808,7 +876,7 @@ function renderGameMenu(){
   if(mapMode){$("menuTaskCount").textContent="Карта Liberty City";initGta3Map();return}
  }
  const list=$("menuTasks");list.innerHTML="";
- const filtered=game.tasks.filter(t=>currentFilter==="all"||(currentFilter.startsWith("planet:")?t.planet===currentFilter.slice(7):(currentFilter.startsWith("island:")?t.island===currentFilter.slice(7):(currentFilter==="Побочные"?["Миссии по бездорожью","RC-миссии"].includes(t.category):t.category===currentFilter))));
+ const filtered=game.tasks.filter(t=>currentFilter==="all"||(currentFilter.startsWith("planet:")?t.planet===currentFilter.slice(7):(currentFilter.startsWith("island:")?t.island===currentFilter.slice(7):(currentFilter==="Коллекционные"?(t.collectible==="package"||t.collectible==="rampage"||t.collectible==="jump"):currentFilter==="Побочные"?["Миссии по бездорожью","RC-миссии"].includes(t.category):t.category===currentFilter))));
  const sectionDone=filtered.filter(t=>t.done).length,sectionTotal=filtered.length,sectionPct=sectionTotal?Math.round(sectionDone/sectionTotal*100):0;
  $("menuPercent").textContent=sectionDone+" / "+sectionTotal;$("menuBar").style.width=sectionPct+"%";renderProgress(active,game);
  $("gta3Warnings").classList.toggle("hidden",active!=="gta3");
@@ -820,7 +888,7 @@ function renderGameMenu(){
  else if(taskIcon){const ico=document.createElement("span");ico.className="task-type-icon "+(task.collectible==="rampage"?"rampage":task.collectible==="jump"?"jump":task.category==="Телефонные миссии"?"phone":task.category==="Миссии-профессии"?"profession":task.category==="Импорт/Экспорт"?"vehicle":"");ico.textContent=taskIcon;row.append(ico)}
  const info=document.createElement("div");info.className="mission-info";const name=document.createElement("span");name.textContent=task.name;info.append(name);
  if(task.giver&&!(active==="gta3"&&task.category==="Сюжет")){const giver=document.createElement("small");giver.textContent="Задание от: "+task.giver;info.append(giver)}if(task.missable){const warning=document.createElement("small");warning.textContent="⚠ ПРОПУСКАЕМОЕ ЗАДАНИЕ";warning.style.color="#ffd08a";info.append(warning)}
- row.append(info);const island=document.createElement("small");island.className="island-chip";island.textContent=task.island==="Portland"?"ОСТРОВ · PORTLAND":task.island==="Staunton Island"?"ОСТРОВ · STAUNTON":task.island==="Shoreside Vale"?"ОСТРОВ · SHORESIDE":task.island==="Любой остров"?"ЛЮБОЙ ОСТРОВ":task.island||"LIBERTY CITY";row.append(island);list.append(row)};
+ row.append(info);const island=document.createElement("small");island.className="island-chip";island.textContent=task.island==="Portland"?"ОСТРОВ · PORTLAND":task.island==="Staunton Island"?"ОСТРОВ · STAUNTON":task.island==="Shoreside Vale"?"ОСТРОВ · SHORESIDE":task.island==="Любой остров"?"ЛЮБОЙ ОСТРОВ":task.island||(active==="vice"?"VICE CITY":"LIBERTY CITY");row.append(island);list.append(row)};
   if(active==="gta3"&&(currentFilter==="Сюжет"||currentFilter==="all"||currentFilter.startsWith("island:"))){const story=filtered.filter(t=>t.category==="Сюжет"&&t.giver);const other=filtered.filter(t=>!(t.category==="Сюжет"&&t.giver));const order=["8-Ball","Luigi Goterelli","Joey Leone","Toni Cipriani","Salvatore Leone","Asuka Kasen","Kenji Kasen","Ray Machowski","Donald Love","Catalina"];const short={"8-Ball":"8-Ball","Luigi Goterelli":"Luigi","Joey Leone":"Joey","Toni Cipriani":"Toni","Salvatore Leone":"Salvatore","Asuka Kasen":"Asuka","Kenji Kasen":"Kenji","Ray Machowski":"Ray","Donald Love":"Donald","Catalina":"Catalina"};const letter={"8-Ball":"8","Luigi Goterelli":"L","Joey Leone":"J","Toni Cipriani":"T","Salvatore Leone":"S","Asuka Kasen":"A","Kenji Kasen":"K","Ray Machowski":"R","Donald Love":"D","Catalina":"C"};order.forEach(giver=>{const group=story.filter(t=>t.giver===giver);if(!group.length)return;const head=document.createElement("div");head.className="story-giver-group";const src=gta3Portraits[giver];if(src){const img=document.createElement("img");img.className="story-giver-art";img.src=src;img.alt=giver;img.loading="lazy";img.style.objectPosition=({"8-Ball":"18% center","Asuka Kasen":"82% center","Donald Love":"82% center","Joey Leone":"82% center","Kenji Kasen":"18% center","Luigi Goterelli":"82% center","Ray Machowski":"82% center","Salvatore Leone":"18% center","Toni Cipriani":"82% center"})[giver]||"82% center";img.onerror=()=>{const fallback=document.createElement("div");fallback.className="story-giver-fallback";fallback.textContent=letter[giver];img.replaceWith(fallback)};head.append(img)}else{const fallback=document.createElement("div");fallback.className="story-giver-fallback";fallback.textContent=letter[giver];head.append(fallback)}const copy=document.createElement("div");copy.className="story-giver-copy";const kicker=document.createElement("span");kicker.className="story-giver-kicker";kicker.textContent="ПЕРСОНАЖ · "+letter[giver];const title=document.createElement("strong");title.className="story-giver-title";title.textContent=short[giver]+" ("+letter[giver]+")";const count=document.createElement("span");count.className="story-giver-count";count.textContent=group.length+" сюжетных заданий";copy.append(kicker,title,count);head.append(copy);list.append(head);group.forEach(renderTask)});other.forEach(renderTask)}else if(isRatchet){
   const catalog=ratchetCatalog[active],planetOrder=catalog.places.map(x=>x[0]),icons=Object.fromEntries(catalog.places),grouped=new Map();
   filtered.forEach(t=>{const p=t.planet||"Без планеты";if(!grouped.has(p))grouped.set(p,[]);grouped.get(p).push(t)});
