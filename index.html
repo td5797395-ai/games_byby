@@ -458,6 +458,26 @@ let state;try{state=JSON.parse(localStorage.getItem("zeta-tracker-v1"))||structu
 Object.entries(initial).forEach(([key,game])=>{if(!state[key])state[key]=structuredClone(game)});
 Object.values(state).forEach(game=>{if(!Array.isArray(game.tasks))game.tasks=[]});
 
+const gta3PhoneMissions=[
+ ["gta3-marty-1","The Crook","Marty Chonks","Portland"],
+ ["gta3-marty-2","The Thieves","Marty Chonks","Portland"],
+ ["gta3-marty-3","The Wife","Marty Chonks","Portland"],
+ ["gta3-marty-4","Her Lover","Marty Chonks","Portland"],
+ ["gta3-burro-1","Turismo","El Burro","Portland"],
+ ["gta3-burro-2","I Scream, You Scream","El Burro","Portland"],
+ ["gta3-burro-3","Trial By Fire","El Burro","Portland"],
+ ["gta3-burro-4","Big'n'Veiny","El Burro","Portland"],
+ ["gta3-courtney-1","Bling-bling Scramble","King Courtney","Staunton Island"],
+ ["gta3-courtney-2","Uzi Rider","King Courtney","Staunton Island"],
+ ["gta3-courtney-3","Gangcar Round-up","King Courtney","Staunton Island"],
+ ["gta3-courtney-4","Kingdom Come","King Courtney","Staunton Island"],
+ ["gta3-dice-1","Uzi Money","D-Ice","Shoreside Vale"],
+ ["gta3-dice-2","Toyminator","D-Ice","Shoreside Vale"],
+ ["gta3-dice-3","Rigged to Blow","D-Ice","Shoreside Vale"],
+ ["gta3-dice-4","Bullion Run","D-Ice","Shoreside Vale"],
+ ["gta3-dice-5","Rumble","D-Ice","Shoreside Vale"]
+];
+const gta3PhoneMissionIds=new Set(gta3PhoneMissions.map(([id])=>id));
 const gta3Story=[
 ["Give Me Liberty","8-Ball"],["Luigi's Girls","Luigi Goterelli"],["Don't Spank Ma Bitch Up","Luigi Goterelli"],["Drive Misty For Me","Luigi Goterelli"],["Pump-Action Pimp","Luigi Goterelli"],["The Fuzz Ball","Luigi Goterelli"],
 ["Mike Lips Last Lunch","Joey Leone"],["Farewell 'Chunky' Lee Chong","Joey Leone"],["Van Heist","Joey Leone"],["Cipriani's Chauffeur","Joey Leone"],["Dead Skunk in the Trunk","Joey Leone"],["The Getaway","Joey Leone"],
@@ -556,6 +576,11 @@ function ensureGta3Checklist(){
  const legacyStoryTwo=g.tasks.find(t=>t.id==="gta3-story-2"&&t.name==="Don't Spank Ma Bitch Up");if(legacyStoryTwo)legacyStoryTwo.id="gta3-story-3";
  const byId=new Map(g.tasks.map(t=>[t.id,t]));
  const add=t=>{if(!byId.has(t.id)){g.tasks.push(t);byId.set(t.id,t)}};
+ gta3PhoneMissions.forEach(([id,name,giver,island])=>{
+  const old=byId.get(id);
+  if(old){old.name=name;old.category="Телефонные миссии";old.giver=giver;old.island=island;}
+  else add(gta3Task(id,name,"Телефонные миссии",island,{giver}));
+ });
  add(gta3Task("gta3-paramedic","Медик — пройти все 12 уровней за один заход и спасти 78 пациентов","Миссии-профессии","Любой остров",{done:oldParamedicDone}));
  ["Portland","Staunton Island","Shoreside Vale"].forEach(island=>{
   const slug=island.toLowerCase().replaceAll(" ","-");
@@ -788,7 +813,7 @@ function getProgressStats(key,game){
  let points=0;
  points+=count(t=>t.category==="Сюжет"&&t.storyNumber>=3);
  if(done("gta3-story-1")&&done("gta3-story-2"))points+=1;
- points+=count(t=>t.category==="Телефонные миссии");
+ points+=count(t=>gta3PhoneMissionIds.has(t.id));
  points+=count(t=>t.category==="Миссии по бездорожью");
  points+=count(t=>t.category==="RC-миссии");
  if(done("gta3-paramedic"))points+=1;
