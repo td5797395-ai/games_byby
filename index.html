@@ -344,7 +344,7 @@ body.in-game{background:#142d3d}body.in-game .wrap{max-width:none;padding:0}body
 .leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#10283a;color:#f1e8d6}
 .leaflet-popup-content{font:12px/1.5 Arial,sans-serif}
 .gta3-point-popup strong{display:block;font-size:13px;margin-bottom:4px}
-.gta3-point-popup button{background:#a6d9e8;border:0;border-radius:4px;padding:7px 10px;margin-top:7px;color:#102536;font-weight:900;cursor:pointer}
+.gta3-point-popup .gta3-guide-link{display:inline-block;margin-top:8px;color:#b9e7f4;font-size:11px;text-decoration:underline}.gta3-point-popup .gta3-point-note{display:block;color:#c5d2d8;font-size:11px;margin-top:5px;line-height:1.4}.gta3-point-popup button{background:#a6d9e8;border:0;border-radius:4px;padding:7px 10px;margin-top:7px;color:#102536;font-weight:900;cursor:pointer}
 .gta3-map-marker{border:2px solid #fff;border-radius:50%;box-shadow:0 1px 6px #000b;width:13px;height:13px}
 .gta3-map-marker.package{background:#28c9f3}.gta3-map-marker.rampage{background:#bd7cff}.gta3-map-marker.jump{background:#ffb347}
 .gta3-map-marker.done{background:#5de09a;border-color:#e8fff2;opacity:.68}
@@ -842,6 +842,12 @@ function gta3MapTask(type,index){
  const n=index<12?Math.floor(index/2)+1:index<26?Math.floor((index-12)/2)+1:Math.floor((index-26)/2)+1;
  return g.tasks.find(t=>t.id==="gta3-rampage-"+island+"-"+n);
 }
+function gta3MapGuide(point){
+ const number=point.type==="package"?point.index+1:point.type==="jump"?point.index+1:Math.floor(point.index/2)+1;
+ const guides={package:"https://www.igrandtheftauto.com/gta3/guides/hidden-packages",jump:"https://www.igrandtheftauto.com/gta3/guides/unique-jumps",rampage:"https://www.igrandtheftauto.com/gta3/guides/rampages"};
+ const labels={package:"Скриншоты и описание пакета №"+number,jump:"Скриншоты и маршрут прыжка №"+number,rampage:"Скриншоты и описание буйства №"+number};
+ return {url:guides[point.type],label:labels[point.type],number};
+}
 function gta3MapBuildPoints(){
  const points=[];
  GTA3_MAP_DATA.packages.forEach((p,i)=>points.push({type:"package",index:i,lat:p[0],lng:p[1],name:"Скрытый пакет №"+String(i+1).padStart(3,"0")}));
@@ -886,7 +892,7 @@ function initGta3Map(){
    marker.bindPopup("");
    marker.on("click",()=>{
     const task=gta3MapTask(point.type,point.index);if(!task)return;
-    marker.setPopupContent('<div class="gta3-point-popup"><strong>'+point.name+'</strong><span>'+(task.done?"Уже выполнено":"Ещё не собрано")+'</span><br><button type="button">'+(task.done?"Снять отметку":"Отметить выполненным")+'</button></div>');
+    const guide=gta3MapGuide(point);marker.setPopupContent('<div class="gta3-point-popup"><strong>'+point.name+'</strong><span>'+(task.done?"Уже выполнено":"Ещё не собрано")+'</span><span class="gta3-point-note">Открой руководство, чтобы посмотреть скриншот места и способ выполнения.</span><a class="gta3-guide-link" href="'+guide.url+'" target="_blank" rel="noopener">'+guide.label+' ↗</a><br><button type="button">'+(task.done?"Снять отметку":"Отметить выполненным")+'</button></div>');
     marker.openPopup();
     marker.getPopup().getElement().querySelector("button").onclick=()=>{task.done=!task.done;save();gta3MapUpdate();renderProgress("gta3",state.gta3);marker.closePopup()};
    });
