@@ -454,7 +454,15 @@ const initial={
  ratchet2:{title:"Ratchet & Clank: Going Commando",short:"GOING COMMANDO",platform:"Не выбрана",tasks:[]},
  ratchet3:{title:"Ratchet & Clank: Up Your Arsenal",short:"UP YOUR ARSENAL",platform:"Не выбрана",tasks:[]}
 };
-let state;try{state=JSON.parse(localStorage.getItem("zeta-tracker-v1"))||structuredClone(initial)}catch{state=structuredClone(initial)}
+const ZETA_SAVE_KEY="zeta-tracker-v1";
+const ZETA_BACKUP_KEY="zeta-tracker-v1-backup";
+let state;
+try{
+ const primary=localStorage.getItem(ZETA_SAVE_KEY);
+ const backup=localStorage.getItem(ZETA_BACKUP_KEY);
+ state=JSON.parse(primary||backup||"null")||structuredClone(initial);
+ if(!primary&&backup)localStorage.setItem(ZETA_SAVE_KEY,backup);
+}catch{state=structuredClone(initial)}
 Object.entries(initial).forEach(([key,game])=>{if(!state[key])state[key]=structuredClone(game)});
 Object.values(state).forEach(game=>{if(!Array.isArray(game.tasks))game.tasks=[]});
 
@@ -780,7 +788,21 @@ let active="gta3";
 let currentView="library";
 let currentFilter="all";
 const $=id=>document.getElementById(id);
-function save(){localStorage.setItem("zeta-tracker-v1",JSON.stringify(state))}
+function save(){
+ const snapshot=JSON.stringify(state);
+ try{
+  // Write the backup first, so the last good progress survives an interrupted save.
+  localStorage.setItem(ZETA_BACKUP_KEY,snapshot);
+  localStorage.setItem(ZETA_SAVE_KEY,snapshot);
+  localStorage.setItem("zeta-tracker-v1-saved-at",String(Date.now()));
+  return true;
+ }catch(error){
+  console.error("ZETA: не удалось сохранить прогресс",error);
+  return false;
+ }
+}
+window.addEventListener("pagehide",()=>save());
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")save()});
 function getProgressStats(key,game){
  if(key==="vice"){
   const count=category=>game.tasks.filter(t=>t.category===category&&t.done).length;
