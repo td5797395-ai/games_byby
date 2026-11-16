@@ -726,7 +726,7 @@ function renderProgress(key,game){
  const stats=getProgressStats(key,game),value=(key==="gta3"?Math.ceil(stats.pct):stats.pct.toFixed(1))+"%";
  $("gameProgressValue").textContent=value;
  $("gameProgressBar").style.width=stats.pct+"%";
- $("gameProgressNote").textContent=key==="gta3"?stats.label+" · 1 пункт ≈ 0,65%":"Процент по выполненным заданиям";
+ $("gameProgressNote").textContent=key==="gta3"?stats.label+" · 1 пункт ≈ 0,65%":(key==="vice"||key==="sa"?stats.label+" · пункты чек-листа":"Процент по выполненным заданиям");
  return stats;
 }
 function render(){
