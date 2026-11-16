@@ -886,11 +886,9 @@ function initGta3Map(){
    marker.bindPopup("");
    marker.on("click",()=>{
     const task=gta3MapTask(point.type,point.index);if(!task)return;
-    const done=!task.done;task.done=done;save();renderProgress("gta3",state.gta3);
-    marker.setPopupContent('<div class="gta3-point-popup"><strong>'+point.name+'</strong><span>'+(done?"Выполнено":"Ещё не собрано")+'</span><br><button type="button">'+(done?"Снять отметку":"Отметить выполненным")+'</button></div>');
+    marker.setPopupContent('<div class="gta3-point-popup"><strong>'+point.name+'</strong><span>'+(task.done?"Уже выполнено":"Ещё не собрано")+'</span><br><button type="button">'+(task.done?"Снять отметку":"Отметить выполненным")+'</button></div>');
     marker.openPopup();
     marker.getPopup().getElement().querySelector("button").onclick=()=>{task.done=!task.done;save();gta3MapUpdate();renderProgress("gta3",state.gta3);marker.closePopup()};
-    gta3MapUpdate();
    });
    gta3MapMarkers.push({point,marker});
   });
