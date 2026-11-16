@@ -448,8 +448,8 @@ const initial={
  {id:"gta3-rampages",name:"Завершить 20 буйств",category:"Коллекционные",done:false},
  {id:"gta3-jumps",name:"Выполнить 20 уникальных прыжков",category:"Коллекционные",done:false}
  ]},
- vice:{title:"Grand Theft Auto: Vice City",short:"VICE CITY",platform:"Не выбрана",tasks:[]},
- sa:{title:"Grand Theft Auto: San Andreas",short:"SAN ANDREAS",platform:"Не выбрана",tasks:[]},
+ vice:{title:"Grand Theft Auto: Vice City",short:"VICE CITY",platform:"PS4",tasks:[]},
+ sa:{title:"Grand Theft Auto: San Andreas",short:"SAN ANDREAS",platform:"PS4",tasks:[]},
  ratchet1:{title:"Ratchet & Clank",short:"RATCHET & CLANK",platform:"Не выбрана",tasks:[]},
  ratchet2:{title:"Ratchet & Clank: Going Commando",short:"GOING COMMANDO",platform:"Не выбрана",tasks:[]},
  ratchet3:{title:"Ratchet & Clank: Up Your Arsenal",short:"UP YOUR ARSENAL",platform:"Не выбрана",tasks:[]}
@@ -616,15 +616,15 @@ function ensureViceSanAndreasChecklists(){
  const add=(id,name,category,extra={})=>{const prev=old.get(id);tasks.push({id,name,category,done:prev?!!prev.done:false,...extra})};
  const many=(prefix,names,category,extra={})=>names.forEach((name,i)=>add(prefix+"-"+(i+1),name,category,extra));
  if(key==="vice"){
-  many("vc-story",vcStory,"Сюжет");vcGang.forEach(([giver,names])=>many("vc-gang-"+giver.toLowerCase().replace(/[^a-z0-9]+/g,"-"),names,"Задания банд",{giver}));
+  many("vc-story",vcStory,"Сюжет");many("vc-intro",["In the Beginning...","An Old Friend"],"Вступление");vcGang.forEach(([giver,names])=>many("vc-gang-"+giver.toLowerCase().replace(/[^a-z0-9]+/g,"-"),names,"Задания банд",{giver}));
   many("vc-assassination",vcAssassinations,"Телефонные миссии");vcAssets.forEach(([asset,names])=>many("vc-asset-"+asset.toLowerCase().replace(/[^a-z0-9]+/g,"-"),names,"Миссии предприятий",{giver:asset}));
-  many("vc-vehicle",vcVehicle,"Миссии-профессии");many("vc-offroad",vcOffroad,"Внедорожные испытания");many("vc-rc",vcRC,"RC-миссии");many("vc-race",vcRaces,"Гонки");many("vc-stadium",vcStadium,"Стадион");many("vc-chopper",vcChoppers.map(x=>"Чекпоинты вертолётом — "+x),"Вертолётные испытания");
+  many("vc-vehicle",vcVehicle,"Миссии-профессии");vcOffroad.forEach((name,i)=>add("vc-offroad-"+(i+1),name,i<2?"Чекпоинты на улицах":"Грунтовые испытания"));many("vc-rc",vcRC,"RC-миссии");many("vc-race",vcRaces,"Гонки");many("vc-stadium",vcStadium,"Стадион");many("vc-chopper",vcChoppers.map(x=>"Чекпоинты вертолётом — "+x),"Вертолётные испытания");
   for(let i=1;i<=100;i++)add("vc-package-"+i,"Скрытый пакет №"+String(i).padStart(3,"0"),"Коллекционные",{collectible:"package"});
   for(let i=1;i<=35;i++)add("vc-rampage-"+i,"Буйство №"+String(i).padStart(2,"0"),"Коллекционные",{collectible:"rampage"});
   for(let i=1;i<=36;i++)add("vc-jump-"+i,"Уникальный прыжок №"+String(i).padStart(2,"0"),"Коллекционные",{collectible:"jump"});
   add("vc-rifle-range","Стрельбище Ammu-Nation — набрать не менее 45 очков","Испытания");
-  for(let i=1;i<=7;i++)add("vc-safehouse-"+i,"Купить безопасное убежище №"+i,"Недвижимость");
-  for(let i=1;i<=10;i++)add("vc-asset-buy-"+i,"Купить предприятие №"+i,"Недвижимость");
+  ["Ocean View Hotel","Links View Apartment","El Swanko Casa","1102 Washington Street","Skumole Shack","Hyman Condo","Ocean Heights Apartment"].forEach((name,i)=>add("vc-safehouse-"+(i+1),"Купить безопасное убежище — "+name,"Безопасные дома"));
+  ["Viceport Boatyard","Cherry Popper Ice Cream Factory","The Pole Position Club","Kaufman Cabs","Sunshine Autos","InterGlobal Studios","Print Works","Malibu Club"].forEach((name,i)=>add("vc-asset-buy-"+(i+1),"Купить предприятие — "+name,"Покупка предприятий"));
   for(let i=1;i<=15;i++)add("vc-store-"+i,"Ограбить магазин №"+i,"Ограбления");
  }else{
   many("sa-story",saStory,"Сюжет");saAssets.forEach(([group,names])=>many("sa-asset-"+group.toLowerCase().replace(/[^a-z0-9]+/g,"-"),names,"Миссии предприятий",{giver:group}));
@@ -644,7 +644,7 @@ function ensureViceSanAndreasChecklists(){
   for(let i=1;i<=3;i++)add("sa-asset-property-"+i,"Купить актив №"+i,"Недвижимость");
   many("sa-gym",["Изучить все приёмы в спортзале Los Santos","Изучить все приёмы в спортзале San Fierro","Изучить все приёмы в спортзале Las Venturas"],"Единоборства");
  }
- old.forEach((t,id)=>{if((t.category==="Своё"||String(id).startsWith("custom-"))&&!tasks.some(x=>x.id===id))tasks.push(t)});g.tasks=tasks;
+ old.forEach((t,id)=>{if((t.category==="Своё"||String(id).startsWith("custom-"))&&!tasks.some(x=>x.id===id))tasks.push(t)});g.tasks=tasks;if(g.platform==="Не выбрана"||!g.platform)g.platform="PS4";
  }save();
 }
 ensureViceSanAndreasChecklists();
@@ -692,6 +692,27 @@ let currentFilter="all";
 const $=id=>document.getElementById(id);
 function save(){localStorage.setItem("zeta-tracker-v1",JSON.stringify(state))}
 function getProgressStats(key,game){
+ if(key==="vice"){
+  const count=predicate=>game.tasks.filter(t=>predicate(t)&&t.done).length;
+  const done=id=>!!game.tasks.find(t=>t.id===id&&t.done);
+  let points=0;
+  points+=count(t=>t.category==="Сюжет"||t.category==="Задания банд");
+  if(done("vc-intro-1")&&done("vc-intro-2"))points+=1;
+  points+=count(t=>t.category==="Миссии предприятий");
+  points+=count(t=>t.category==="Покупка предприятий"||t.category==="Безопасные дома");
+  points+=count(t=>t.category==="Телефонные миссии");
+  if(done("vc-assassination-3"))points+=1;
+  const rampages=game.tasks.filter(t=>t.collectible==="rampage");
+  if(rampages.length===35&&rampages.every(t=>t.done))points+=1;
+  points+=Math.floor(count(t=>t.collectible==="package")/10);
+  points+=count(t=>t.collectible==="jump");
+  const stores=game.tasks.filter(t=>t.category==="Ограбления");
+  if(stores.length===15&&stores.every(t=>t.done))points+=1;
+  points+=count(t=>t.id==="vc-rifle-range"&&t.done);
+  points+=count(t=>["Стадион","Гонки","RC-миссии","Вертолётные испытания","Чекпоинты на улицах","Грунтовые испытания","Миссии-профессии"].includes(t.category));
+  points=Math.min(154,points);
+  return {points,total:154,pct:points/154*100,label:points.toFixed(2)+" / 154 зачётных пунктов"};
+ }
  if(key!=="gta3"){
   const eligible=game.tasks.filter(t=>t.countsFor100!==false),done=eligible.filter(t=>t.done).length;
   return {points:done,total:eligible.length,pct:eligible.length?done/eligible.length*100:0,label:done+" / "+eligible.length+" пунктов"};
@@ -723,10 +744,10 @@ function getProgressStats(key,game){
  return {points,total:154,pct,label:points.toFixed(2)+" / 154 зачётных пунктов"};
 }
 function renderProgress(key,game){
- const stats=getProgressStats(key,game),value=(key==="gta3"?Math.ceil(stats.pct):stats.pct.toFixed(1))+"%";
+ const stats=getProgressStats(key,game),value=(key==="gta3"||key==="vice"?Math.ceil(stats.pct):stats.pct.toFixed(1))+"%";
  $("gameProgressValue").textContent=value;
  $("gameProgressBar").style.width=stats.pct+"%";
- $("gameProgressNote").textContent=key==="gta3"?stats.label+" · 1 пункт ≈ 0,65%":(key==="vice"||key==="sa"?stats.label+" · пункты чек-листа":"Процент по выполненным заданиям");
+ $("gameProgressNote").textContent=key==="gta3"||key==="vice"?stats.label+" · 1 пункт ≈ 0,65%":(key==="sa"?stats.label+" · пункты чек-листа":"Процент по выполненным заданиям");
  return stats;
 }
 function render(){
@@ -772,7 +793,7 @@ function render(){
   platform.textContent=g.platform==="Не выбрана"?"ПЛАТФОРМА —":g.platform;
   sub.append(done,platform);
   meta.append(name,sub);
-  const cardProgress=document.createElement("div");cardProgress.className="game-card-progress";const track=document.createElement("div");track.className="track";const fill=document.createElement("span");fill.style.width=getProgressStats(key,g).pct+"%";track.append(fill);const progressLabel=document.createElement("b");const cardStats=getProgressStats(key,g);progressLabel.textContent=(key==="gta3"?Math.ceil(cardStats.pct):cardStats.pct.toFixed(1))+"%";cardProgress.append(track,progressLabel);meta.append(cardProgress);
+  const cardProgress=document.createElement("div");cardProgress.className="game-card-progress";const track=document.createElement("div");track.className="track";const fill=document.createElement("span");fill.style.width=getProgressStats(key,g).pct+"%";track.append(fill);const progressLabel=document.createElement("b");const cardStats=getProgressStats(key,g);progressLabel.textContent=(key==="gta3"||key==="vice"?Math.ceil(cardStats.pct):cardStats.pct.toFixed(1))+"%";cardProgress.append(track,progressLabel);meta.append(cardProgress);
   b.append(cover,meta);
   b.onclick=()=>{active=key;currentView="game";currentFilter="all";render()};
   $("games").append(b);
@@ -783,7 +804,7 @@ function render(){
  renderProgress(active,game);
  $("count").textContent=game.tasks.filter(t=>t.done).length+" / "+game.tasks.length;
  const stats=renderProgress(active,game);const pct=stats.pct;
- $("percent").textContent=game.tasks.length?(active==="gta3"?Math.ceil(pct):pct.toFixed(1))+"%":"—";
+ $("percent").textContent=game.tasks.length?(active==="gta3"||active==="vice"?Math.ceil(pct):pct.toFixed(1))+"%":"—";
  $("bar").style.width=pct+"%";
  $("taskCount").textContent=game.tasks.length+" пунктов";
  $("tasks").innerHTML="";
