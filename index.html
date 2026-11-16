@@ -310,10 +310,19 @@ body.in-game{background:#142d3d}body.in-game .wrap{max-width:none;padding:0}body
   button,.menu-task{ -webkit-tap-highlight-color:transparent }
 }
 
+
+/* ZETA menu audio */
+.audio-settings{display:flex;align-items:center;gap:9px;padding:7px 10px;border:1px solid #ffffff24;border-radius:10px;background:#101019cc;color:#e9e3f6;font-size:11px}
+.audio-settings button{border:1px solid #7860a8;background:#241a36;color:#f2eaff;border-radius:7px;padding:6px 9px;font-size:10px;font-weight:800}
+.audio-settings button[aria-pressed="false"]{opacity:.65}
+.audio-settings input{width:76px;accent-color:#a77bff}
+.audio-settings label{display:flex;align-items:center;gap:6px;color:#bdb5ce}
+@media(max-width:520px){header{gap:8px;flex-wrap:wrap;margin-bottom:22px}.audio-settings{order:3;width:100%;justify-content:space-between;padding:6px 8px}.audio-settings input{width:88px}}
+
 </style>
 </head>
 <body><div class="wrap">
-<header><div class="brand"><div class="logo">Z</div><span>ZETA</span></div><div class="status">● ЛИЧНЫЙ ТРЕКЕР</div></header>
+<header><div class="brand"><div class="logo">Z</div><span>ZETA</span></div><div class="status">● ЛИЧНЫЙ ТРЕКЕР</div><div class="audio-settings" id="audioSettings"><button type="button" id="audioToggle" aria-pressed="true">♫ ЗВУК ВКЛ</button><label for="audioVolume">ГРОМКОСТЬ <input id="audioVolume" type="range" min="0" max="100" value="35"></label></div></header>
 <section class="hero"><div class="eyebrow">Your completion archive</div><h1>Игры. Цели. <span style="color:#ae88ff">100%.</span></h1><p>Твоя библиотека прохождений — отмечай задания, следи за прогрессом и собирай полное завершение каждой игры.</p></section>
 <div class="layout">
 <section class="panel library-panel"><div class="section-title"><span>Твоя библиотека</span><span style="color:#a98aff">03 ИГРЫ</span></div><div class="game-list" id="games"></div></section>
@@ -764,6 +773,39 @@ function addMenuTask(){const input=$("menuNewTask"),name=input.value.trim();if(!
 $("menuAddBtn").onclick=addMenuTask;$("menuNewTask").addEventListener("keydown",e=>{if(e.key==="Enter")addMenuTask()});
 const baseRender=render;
 render=function(){baseRender();const inGame=currentView==="game";document.querySelector(".hero").classList.toggle("hidden",inGame);document.querySelector(".layout").classList.toggle("hidden",inGame);$("gameView").classList.toggle("hidden",!inGame);document.body.classList.toggle("in-game",inGame);if(inGame)renderGameMenu()};
+
+
+/* ZETA GTA-inspired interface sounds (Web Audio synthesis; no external audio files) */
+(()=>{
+ const box=document.getElementById("audioSettings"),toggle=document.getElementById("audioToggle"),volume=document.getElementById("audioVolume");
+ if(!box||!toggle||!volume)return;
+ let enabled=localStorage.getItem("zeta-menu-sound")!=="off";
+ let level=Math.max(0,Math.min(100,Number(localStorage.getItem("zeta-menu-volume")||35)))/100;
+ volume.value=String(Math.round(level*100));
+ let ctx=null,lastHover=0;
+ const paint=()=>{toggle.textContent=enabled?"♫ ЗВУК ВКЛ":"♫ ЗВУК ВЫКЛ";toggle.setAttribute("aria-pressed",String(enabled));volume.disabled=!enabled;};
+ const audio=()=>{const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;if(!ctx)ctx=new C();if(ctx.state==="suspended")ctx.resume();return ctx};
+ function tone(freq,start,duration,type="sine",gain=.045){const c=audio();if(!c||!enabled||level<=0)return;const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.setValueAtTime(freq,c.currentTime+start);g.gain.setValueAtTime(.0001,c.currentTime+start);g.gain.exponentialRampToValueAtTime(Math.max(.0002,gain*level),c.currentTime+start+.012);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+start+duration);o.connect(g);g.connect(c.destination);o.start(c.currentTime+start);o.stop(c.currentTime+start+duration+.025)}
+ function play(kind){if(!enabled)return;
+  if(kind==="hover"){tone(720,0,.055,"triangle",.018)}
+  else if(kind==="check"){tone(540,0,.075,"triangle",.035);tone(820,.065,.11,"triangle",.04)}
+  else if(kind==="open"){tone(440,0,.09,"sine",.035);tone(660,.075,.14,"triangle",.04)}
+  else if(kind==="back"){tone(620,0,.08,"triangle",.03);tone(390,.07,.12,"sine",.03)}
+  else if(kind==="tab"){tone(500,0,.06,"triangle",.028);tone(700,.045,.07,"triangle",.025)}
+ }
+ toggle.addEventListener("click",()=>{enabled=!enabled;localStorage.setItem("zeta-menu-sound",enabled?"on":"off");paint();if(enabled)play("open")});
+ volume.addEventListener("input",()=>{level=Number(volume.value)/100;localStorage.setItem("zeta-menu-volume",String(Math.round(level*100)));if(enabled)play("hover")});
+ document.addEventListener("pointerover",e=>{const t=e.target.closest(".menu-nav button,.menu-task,.game");if(!t)return;const now=Date.now();if(now-lastHover<90)return;lastHover=now;play("hover")},{passive:true});
+ document.addEventListener("click",e=>{
+  if(e.target.closest("#audioSettings"))return;
+  if(e.target.closest(".menu-task input[type=checkbox]")){play("check");return}
+  if(e.target.closest(".game")){play("open");return}
+  if(e.target.closest(".menu-nav button")){play("tab");return}
+  if(e.target.closest(".menu-back")){play("back");return}
+  if(e.target.closest("#menuAddBtn"))play("check");
+ },true);
+ paint();
+})();
 
 render();
 </script></body></html>
