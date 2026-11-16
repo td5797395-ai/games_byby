@@ -339,20 +339,19 @@ body.in-game{background:#142d3d}body.in-game .wrap{max-width:none;padding:0}body
 .gta3-map-legend i{width:10px;height:10px;border-radius:50%;display:inline-block;border:1px solid #fff8}
 .gta3-map-legend i.package{background:#28c9f3}.gta3-map-legend i.rampage{background:#bd7cff}.gta3-map-legend i.jump{background:#ffb347}
 .gta3-map-legend b{color:#8eb6c8}
-/* Depth-inspired map skin: keeps the map readable and fully interactive */
+/* Enhanced depth styling: keep the full Liberty City raster visible */
 #gta3LeafletMap.gta3-map-depth{background:linear-gradient(145deg,#172d3c,#091722);border:1px solid #7897a9;box-shadow:0 12px 26px #0009,inset 0 1px 0 #ffffff33}
-#gta3LeafletMap.gta3-map-depth .leaflet-tile-pane{filter:saturate(1.28) contrast(1.12) brightness(.88) drop-shadow(0 7px 4px #0009)}
+#gta3LeafletMap.gta3-map-depth .leaflet-tile-pane{filter:saturate(1.42) contrast(1.18) brightness(.82) drop-shadow(0 8px 5px #000b)}
 #gta3LeafletMap.gta3-map-depth .leaflet-overlay-pane{filter:drop-shadow(0 3px 3px #000b)}
 #gta3LeafletMap.gta3-map-depth .gta3-map-marker{display:block;border-radius:50% 50% 50% 3px;transform:rotate(-45deg);box-shadow:3px 4px 6px #000c,inset 0 1px 2px #fff9;border:2px solid #fff}
 #gta3LeafletMap.gta3-map-depth .gta3-map-marker:after{content:"";position:absolute;width:5px;height:5px;left:2px;top:2px;border-radius:50%;background:#ffffffcc}
-/* Experimental tilted 3D-style overview for the fictional Liberty City raster map */
-#gta3LeafletMap.gta3-map-3d{perspective:1100px;perspective-origin:50% 48%;background:linear-gradient(180deg,#172d3c,#07121c)}
-#gta3LeafletMap.gta3-map-3d .leaflet-map-pane{transform-origin:50% 50%;transform:rotateX(27deg) scale(1.12) translateY(-2%);transition:transform .35s ease;filter:drop-shadow(0 16px 12px #000b)}
-#gta3LeafletMap.gta3-map-3d .leaflet-tile-pane{filter:saturate(1.25) contrast(1.12) brightness(.9)}
+/* Stable 3D-style overview: depth and lighting without transforming Leaflet's map pane */
+#gta3LeafletMap.gta3-map-3d{background:linear-gradient(180deg,#172d3c,#07121c);border:1px solid #7897a9;box-shadow:0 14px 30px #000b,inset 0 1px 0 #ffffff33}
+#gta3LeafletMap.gta3-map-3d .leaflet-tile-pane{filter:saturate(1.3) contrast(1.16) brightness(.88) drop-shadow(0 10px 7px #000c)}
+#gta3LeafletMap.gta3-map-3d .leaflet-overlay-pane{filter:drop-shadow(0 3px 4px #000b)}
 #gta3LeafletMap.gta3-map-3d .leaflet-marker-pane{filter:drop-shadow(0 4px 3px #000b)}
 #gta3LeafletMap.gta3-map-3d .gta3-map-marker{border-radius:50% 50% 50% 3px;transform:rotate(-45deg);box-shadow:3px 4px 6px #000c,inset 0 1px 2px #fff9}
 #gta3LeafletMap.gta3-map-3d .gta3-map-marker:after{content:"";position:absolute;width:5px;height:5px;left:2px;top:2px;border-radius:50%;background:#ffffffcc}
-@media(max-width:760px){#gta3LeafletMap.gta3-map-3d .leaflet-map-pane{transform:rotateX(18deg) scale(1.08) translateY(-1%)}}
 #gta3LeafletMap{height:min(66vh,650px);min-height:330px;width:100%;background:#b9d0d5;border:1px solid #7897a9;border-radius:5px;overflow:hidden;z-index:1}
 .gta3-map-note{margin:9px 3px 2px;color:#c2d2dc;font-size:10px;line-height:1.5}
 .leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#10283a;color:#f1e8d6}
@@ -906,7 +905,15 @@ function initGta3Map(){
    depth:L.tileLayer(base+"colorful/{z}/{x}_{y}.png",{noWrap:true,bounds,maxNativeZoom:7})
   };
   layers.colorful.addTo(gta3Leaflet);
-  $("gta3MapLayer").addEventListener("change",e=>{Object.values(layers).forEach(l=>gta3Leaflet.removeLayer(l));layers[e.target.value].addTo(gta3Leaflet);node.classList.toggle("gta3-map-depth",e.target.value==="depth");node.classList.toggle("gta3-map-3d",e.target.value==="3d")});
+  $("gta3MapLayer").addEventListener("change",e=>{
+   const mode=e.target.value;
+   Object.values(layers).forEach(l=>{if(gta3Leaflet.hasLayer(l))gta3Leaflet.removeLayer(l)});
+   const activeLayer=mode==="game"?layers.game:layers.colorful;
+   activeLayer.addTo(gta3Leaflet);
+   node.classList.toggle("gta3-map-depth",mode==="depth");
+   node.classList.toggle("gta3-map-3d",mode==="3d");
+   requestAnimationFrame(()=>gta3Leaflet.invalidateSize());
+  });
   gta3Leaflet.fitBounds(bounds);
   gta3MapBuildPoints().forEach(point=>{
    const marker=L.marker([point.lat,point.lng],{icon:L.divIcon({className:"",html:'<span class="gta3-map-marker '+point.type+'"></span>',iconSize:[15,15],iconAnchor:[7,7]})});
