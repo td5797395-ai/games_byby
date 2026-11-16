@@ -625,20 +625,12 @@ function render(){
  const game=state[active];
  $("games").innerHTML="";
  const covers={
-  gta3:"https://www.powerupgaming.ca/cdn/shop/products/12649_front.jpg?v=1729454680",
-  vice:"https://retrogamefan.com/cdn/shop/files/PS2-Grand-Theft-Auto-ViceCity-GTA-Good-1-Case-Front_436x436.webp?v=1776207628",
-  sa:"https://images.tcdn.com.br/img/img_prod/684553/grand_theft_auto_san_andreas_gta_san_andreas_ps2_8727_1_c8bf44b370cfee984431bf6ca67a4d8f.jpg",
-  ratchet1:"https://cf.shopee.com.br/file/sg-11134201-22110-j1vqabjuhmjv0c",
-  ratchet2:"https://www.powerupgaming.ca/cdn/shop/products/52988_front.jpg?v=1733626858",
-  ratchet3:"https://i5.walmartimages.com/asr/9924272a-9a56-46c9-ae94-1a1725c1185f.78608fefe1db5c16a10d9a07ac58afc4.jpeg"
- };
- const coverBackups={
-  gta3:["https://cdn.mobygames.com/covers/4175686-grand-theft-auto-iii-windows-front-cover.jpg"],
-  vice:["https://media.gtaboom.com/variants/960/media/images/fe/34/GTAViceCityCover.jpg"],
-  sa:["https://cdn.staticneo.com/ca/grand_theft_auto_san_andreas_conceptart_5zWBk.jpg"],
-  ratchet1:["https://images.launchbox-app.com/85d0d853-1edf-4086-a5b5-281edcb3f9ac.jpg"],
-  ratchet2:["https://images.launchbox-app.com/bdf497c3-efab-4415-9872-b969714dc269.jpg"],
-  ratchet3:["https://images.launchbox-app.com/60cddfc3-1d2a-471c-809f-fcee29d370c0.jpg"]
+  gta3:"https://cdn.mobygames.com/covers/4175686-grand-theft-auto-iii-windows-front-cover.jpg",
+  vice:"https://media.gtaboom.com/variants/960/media/images/fe/34/GTAViceCityCover.jpg",
+  sa:"https://cdn.staticneo.com/ca/grand_theft_auto_san_andreas_conceptart_5zWBk.jpg",
+  ratchet1:"https://images.launchbox-app.com/85d0d853-1edf-4086-a5b5-281edcb3f9ac.jpg",
+  ratchet2:"https://images.launchbox-app.com/bdf497c3-efab-4415-9872-b969714dc269.jpg",
+  ratchet3:"https://images.launchbox-app.com/60cddfc3-1d2a-471c-809f-fcee29d370c0.jpg"
  };
  const logos={gta3:"GRAND THEFT AUTO III",vice:"GRAND THEFT AUTO VICE CITY",sa:"GRAND THEFT AUTO SAN ANDREAS",ratchet1:"RATCHET & CLANK",ratchet2:"GOING COMMANDO",ratchet3:"UP YOUR ARSENAL"};
  Object.entries(state).forEach(([key,g])=>{
@@ -648,22 +640,16 @@ function render(){
   const cover=document.createElement("div");
   cover.className="cover";
   const img=document.createElement("img");
+  img.src=covers[key];
   img.alt="Обложка "+g.title;
   img.loading="lazy";
-  img.decoding="async";
-  img.referrerPolicy="no-referrer";
-  const imageCandidates=[covers[key],...(coverBackups[key]||[])];
-  let imageAttempt=0;
   img.onerror=()=>{
-   imageAttempt++;
-   if(imageAttempt<imageCandidates.length){img.src=imageCandidates[imageAttempt];return;}
    img.remove();
    const fallback=document.createElement("span");
    fallback.className="cover-logo";
    fallback.textContent=logos[key];
    cover.append(fallback);
   };
-  img.src=imageCandidates[0];
   cover.append(img);
   const meta=document.createElement("div");
   meta.className="game-meta";
