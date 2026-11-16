@@ -328,7 +328,30 @@ body.in-game{background:#142d3d}body.in-game .wrap{max-width:none;padding:0}body
 .gta3-map-launch-icon{font-size:30px}.gta3-map-launch strong{display:block;font-size:13px;letter-spacing:.08em}.gta3-map-launch small{display:block;margin-top:6px;color:#c2d4df;font-size:10px}.gta3-map-launch-arrow{margin-left:auto;font-size:24px;color:#9de5f5}
 .gta3-map-note{margin:9px 3px 2px;color:#c2d2dc;font-size:10px;line-height:1.5}
 @media(max-width:760px){.gta3-map-panel{padding:8px}.gta3-map-toolbar{align-items:flex-start}.gta3-map-toolbar a{font-size:10px}.gta3-map-launch{gap:9px;padding:12px}.gta3-map-launch strong{font-size:11px}.gta3-map-launch small{font-size:9px}}
+
+.gta3-map-counts{font-size:11px;color:#b9d4e1;font-weight:800}
+.gta3-map-controls{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 9px}
+.gta3-map-controls select,.gta3-map-controls input{min-width:0;background:#091b29;color:#eaf5f8;border:1px solid #66869a;border-radius:5px;padding:9px 10px;font:700 11px Arial,sans-serif}
+.gta3-map-controls input{flex:1}
+.gta3-map-legend{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 10px;color:#dceaf0;font-size:11px}
+.gta3-map-legend label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.gta3-map-legend input{accent-color:#8bd8ee}
+.gta3-map-legend i{width:10px;height:10px;border-radius:50%;display:inline-block;border:1px solid #fff8}
+.gta3-map-legend i.package{background:#28c9f3}.gta3-map-legend i.rampage{background:#bd7cff}.gta3-map-legend i.jump{background:#ffb347}
+.gta3-map-legend b{color:#8eb6c8}
+#gta3LeafletMap{height:min(66vh,650px);min-height:330px;width:100%;background:#b9d0d5;border:1px solid #7897a9;border-radius:5px;overflow:hidden;z-index:1}
+.gta3-map-note{margin:9px 3px 2px;color:#c2d2dc;font-size:10px;line-height:1.5}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#10283a;color:#f1e8d6}
+.leaflet-popup-content{font:12px/1.5 Arial,sans-serif}
+.gta3-point-popup strong{display:block;font-size:13px;margin-bottom:4px}
+.gta3-point-popup button{background:#a6d9e8;border:0;border-radius:4px;padding:7px 10px;margin-top:7px;color:#102536;font-weight:900;cursor:pointer}
+.gta3-map-marker{border:2px solid #fff;border-radius:50%;box-shadow:0 1px 6px #000b;width:13px;height:13px}
+.gta3-map-marker.package{background:#28c9f3}.gta3-map-marker.rampage{background:#bd7cff}.gta3-map-marker.jump{background:#ffb347}
+.gta3-map-marker.done{background:#5de09a;border-color:#e8fff2;opacity:.68}
+@media(max-width:760px){.gta3-map-panel{padding:8px}.gta3-map-controls{gap:6px}.gta3-map-controls select{flex:1}.gta3-map-controls input{flex-basis:100%}#gta3LeafletMap{height:58vh;min-height:300px}.gta3-map-legend{gap:9px;font-size:10px}}
+
 </style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
 </head>
 <body><div class="wrap">
 <header><div class="brand"><div class="logo">Z</div><span>ZETA</span></div><div class="status">● ЛИЧНЫЙ ТРЕКЕР</div><div class="audio-settings" id="audioSettings"><button type="button" id="audioToggle" aria-pressed="true">♫ ЗВУК ВКЛ</button><label for="audioVolume">ГРОМКОСТЬ <input id="audioVolume" type="range" min="0" max="100" value="35"></label></div></header>
@@ -348,13 +371,24 @@ body.in-game{background:#142d3d}body.in-game .wrap{max-width:none;padding:0}body
 <div class="game-menu-body"><aside class="menu-sidebar"><div class="menu-kicker">Меню прохождения</div><nav class="menu-nav" id="menuNav">
 <button class="selected" data-filter="all">Все задания</button><button data-filter="map">🗺 Карта Liberty City</button><button data-filter="Сюжет">Сюжетные миссии</button><button data-filter="Телефонные миссии">Телефонные миссии</button><button data-filter="Побочные">Побочные задания</button><button data-filter="Миссии-профессии">Профессии</button><button data-filter="Импорт/Экспорт">Импорт / Экспорт</button><button data-filter="Коллекционные">Коллекционные</button><button data-filter="Своё">Мои задания</button></nav></aside>
 <div class="menu-content"><div class="gta3-map-panel hidden" id="gta3MapPanel">
- <div class="gta3-map-toolbar"><div><strong>LIBERTY CITY · INTERACTIVE MAP</strong><span>100 пакетов · 20 буйств · 20 уникальных прыжков</span></div><a href="https://bloxodes.com/maps/gta-iii" target="_blank" rel="noopener noreferrer">Открыть карту отдельно ↗</a></div>
- <a class="gta3-map-launch" href="https://bloxodes.com/maps/gta-iii" target="_blank" rel="noopener noreferrer"><span class="gta3-map-launch-icon">🗺</span><span><strong>ОТКРЫТЬ ИНТЕРАКТИВНУЮ КАРТУ GTA III</strong><small>Liberty City · 100 скрытых пакетов · 20 буйств · 20 уникальных прыжков</small></span><span class="gta3-map-launch-arrow">↗</span></a>
- <p class="gta3-map-note">Карта откроется отдельно, чтобы не возникал белый экран из-за ограничений встраивания стороннего сайта. На ней можно отмечать собранные предметы и скрывать завершённые точки. Отметки карты хранятся отдельно от чек-листа ZETA.</p>
- </div><div class="menu-content-head"><div><h2 id="menuSectionTitle">Все задания</h2><p>Путь к 100% завершению</p></div><div class="menu-progress"><strong id="menuPercent">—</strong><span>Выполнено</span></div></div>
+ <div class="gta3-map-toolbar"><div><strong>LIBERTY CITY · ZETA INTERACTIVE MAP</strong><span>Твоя карта GTA III · отметки сохраняются в трекере</span></div><div class="gta3-map-counts" id="gta3MapCounts"></div></div>
+ <div class="gta3-map-controls">
+  <select id="gta3MapIsland" aria-label="Остров"><option value="all">Все острова</option><option value="Portland">Portland</option><option value="Staunton Island">Staunton Island</option><option value="Shoreside Vale">Shoreside Vale</option></select>
+  <select id="gta3MapLayer" aria-label="Стиль карты"><option value="colorful">Цветная карта</option><option value="game">Карта из игры</option></select>
+  <input id="gta3MapSearch" type="search" placeholder="Найти точку…" aria-label="Поиск точки">
+ </div>
+ <div class="gta3-map-legend" id="gta3MapLegend">
+  <label><input type="checkbox" data-map-type="package" checked><i class="package"></i> Пакеты <b>100</b></label>
+  <label><input type="checkbox" data-map-type="rampage" checked><i class="rampage"></i> Буйства <b>20</b></label>
+  <label><input type="checkbox" data-map-type="jump" checked><i class="jump"></i> Прыжки <b>20</b></label>
+ </div>
+ <div id="gta3LeafletMap" aria-label="Интерактивная карта Liberty City"></div>
+ <p class="gta3-map-note">Нажми на маркер, чтобы отметить точку выполненной. Для буйств показаны оба возможных места начала задания — отметка у них общая. Прогресс синхронизирован с коллекционными заданиями GTA III.</p>
+</div><div class="menu-content-head"><div><h2 id="menuSectionTitle">Все задания</h2><p>Путь к 100% завершению</p></div><div class="menu-progress"><strong id="menuPercent">—</strong><span>Выполнено</span></div></div>
 <div class="menu-meter"><span id="menuBar"></span></div><div class="overall-game-progress"><label>Общее прохождение игры</label><output id="gameProgressValue">0.0%</output><div class="overall-progress-track"><span id="gameProgressBar"></span></div><small id="gameProgressNote">Начисляется автоматически за выполненные пункты чек-листа</small></div><div class="gta3-character-strip" id="gta3CharacterStrip" aria-label="Персонажи игры"></div><div class="game-hud-icons" aria-label="Игровые значки"><div class="hud-icon"><b>♥</b><span>ЗДОРОВЬЕ</span></div><div class="hud-icon"><b>⬟</b><span>БРОНЯ</span></div><div class="hud-icon"><b>✚</b><span>АПТЕЧКА</span></div><div class="hud-icon"><b>⚔</b><span>ОРУЖИЕ</span></div><div class="hud-icon"><b>★</b><span>РОЗЫСК</span></div></div><div class="menu-warnings hidden" id="gta3Warnings"><strong>ВАЖНО: НЕПРОПУСКАЕМЫЕ УСЛОВИЯ GTA III</strong><ul><li>До «Last Requests» завершить все задания Луиджи Готерелли и Джоуи Леоне.</li><li>До «Waka-Gashira Wipeout!» завершить все задания Кэндзи Касена.</li><li>«Two-Faced Tanner» Асуки пройти до «Grand Theft Aero» Дональда.</li><li>Медика лучше пройти в самом начале, пока банды Портленда не враждебны.</li><li>Портлендские части пожарного и полицейского также желательно выполнить заранее.</li><li>Телефонные миссии Эль-Бурро лучше пройти до обострения отношений с Триадами.</li></ul></div><div class="menu-task-list" id="menuTasks"></div><div class="menu-add"><input id="menuNewTask" maxlength="100" placeholder="Добавить личное задание"><button id="menuAddBtn">Добавить</button></div>
 <div class="menu-footer"><span id="menuLocation">Liberty City · 2001</span><span id="menuTaskCount">0 заданий</span></div></div></div></div></section>
 <div class="footer">ZETA TRACKER · EARLY BUILD 0.1 · Данные сохраняются в этом браузере</div></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
 const initial={
  gta3:{title:"Grand Theft Auto III",short:"GTA III",platform:"PS4",tasks:[
@@ -758,7 +792,7 @@ function renderGameMenu(){
   const mapMode=active==="gta3"&&currentFilter==="map";
   mapPanel.classList.toggle("hidden",!mapMode);
   [".menu-content-head",".menu-meter",".overall-game-progress",".gta3-character-strip",".game-hud-icons",".menu-warnings","#menuTasks",".menu-add"].forEach(sel=>{const el=document.querySelector("#gameView "+sel);if(el)el.style.display=mapMode?"none":""});
-  if(mapMode){$("menuTaskCount").textContent="Карта Liberty City";return}
+  if(mapMode){$("menuTaskCount").textContent="Карта Liberty City";initGta3Map();return}
  }
  const list=$("menuTasks");list.innerHTML="";
  const filtered=game.tasks.filter(t=>currentFilter==="all"||(currentFilter.startsWith("planet:")?t.planet===currentFilter.slice(7):(currentFilter.startsWith("island:")?t.island===currentFilter.slice(7):(currentFilter==="Побочные"?["Миссии по бездорожью","RC-миссии"].includes(t.category):t.category===currentFilter))));
@@ -788,6 +822,85 @@ function renderGameMenu(){
   });
  }else filtered.forEach(renderTask);
 }
+
+const GTA3_MAP_DATA={
+ packages:[[-36.292,37.263],[-33.4848,34.5307],[-31.3454,39.048],[-35.6515,36.549],[-33.5498,35.3047],[-32.6484,35.208],[-28.9677,34.7767],[-29.3042,34.1625],[-28.8429,35.1247],[-26.0252,34.371],[-26.0599,42.459],[-25.4875,38.5568],[-22.2923,33.0427],[-25.1812,37.944],[-26.2672,37.8668],[-26.9447,39.426],[-26.6067,36.0863],[-26.975,37.6583],[-29.0766,36.2828],[-34.2842,38.85],[-37.8733,41.739],[-24.6367,36.2265],[-25.9646,41.5883],[-35.1569,37.4423],[-33.8901,38.478],[-26.3685,35.2822],[-37.7811,35.751],[-34.9459,38.346],[-33.7676,41.6445],[-28.3726,39.846],[-29.7247,35.1908],[-28.5586,39.6705],[-39.1748,35.2583],[-30.3653,24.441],[-27.3289,28.9725],[-39.106,26.442],[-28.2122,24.9322],[-21.0014,25.4505],[-23.5114,24.5925],[-33.3063,24.8167],[-37.6117,23.952],[-40.7312,22.3837],[-41.7657,23.718],[-38.8035,25.3448],[-38.9268,26.619],[-42.5038,27.696],[-41.582,29.6227],[-37.0868,28.2608],[-29.8034,27.7485],[-29.3595,27.867],[-33.5695,31.0403],[-36.3858,30.051],[-39.1899,26.0888],[-35.5448,26.985],[-30.8046,24.657],[-41.9798,23.076],[-26.7496,30.672],[-41.3044,23.5418],[-23.956,26.337],[-27.2435,26.6767],[-26.6392,23.7832],[-29.6272,23.169],[-31.5919,20.7518],[-30.965,23.2898],[-37.6903,28.713],[-43.1164,25.74],[-28.0685,29.1367],[-35.814,28.2127],[-41.9495,21.339],[-24.8666,9.6832],[-22.3566,10.914],[-24.1073,11.814],[-26.187,14.139],[-26.4834,13.8112],[-20.2633,15.1635],[-20.2164,15.8632],[-20.4811,16.6898],[-20.0772,20.0452],[-17.1407,9.3472],[-16.625,10.4175],[-18.2479,10.8195],[-20.0152,9.5032],[-19.7407,9.4057],[-25.9692,9.4575],[-24.043,9.6577],[-19.9721,21.5175],[-22.2318,14.9618],[-26.153,15.6255],[-33.7147,15.0195],[-24.493,18.1215],[-23.1325,16.4055],[-23.8207,17.439],[-30.8878,11.6092],[-36.6134,17.496],[-34.9096,5.3235],[-31.5087,8.076],[-32.969,15.1515],[-33.3396,8.6557],[-37.2267,6.0637],[-29.6272,13.947]],
+ rampages:[[-34.9277,35.8507],[-29.1651,35.496],[-36.1634,35.7885],[-34.3545,36.9225],[-28.5488,38.514],[-27.7698,39.747],[-30.8818,39.0465],[-33.7049,34.599],[-30.7986,38.1503],[-32.9365,39.2963],[-33.8327,37.4948],[-29.9743,38.343],[-40.7834,29.283],[-38.9222,26.4488],[-37.4619,23.7278],[-42.4252,23.7353],[-30.6383,25.6103],[-34.961,24.096],[-25.7378,29.211],[-28.0421,26.1728],[-40.7297,22.7835],[-36.9061,23.31],[-31.3234,28.4925],[-33.574,28.7145],[-28.3068,26.121],[-29.4162,23.5012],[-22.008,10.2097],[-20.5053,16.9755],[-28.9564,16.4153],[-24.2351,17.277],[-27.6193,12.732],[-25.709,13.596],[-27.1535,9.8175],[-31.4217,15.5295],[-21.4287,11.0377],[-26.4434,12.1478],[-24.4605,9.9577],[-23.4539,9.765],[-22.4254,14.4195],[-22.6084,18.8212]],
+ jumps:[[-35.1563,33.1406],[-35.2188,34.5938],[-29.7188,35.8125],[-37.8672,37.8359],[-37.6797,38.6328],[-35.6406,37.5938],[-34.8359,40.7031],[-30.9375,33.4375],[-31.1172,27.3594],[-34.8047,29.5078],[-34.8047,27.9219],[-35.9844,26.1016],[-30.9297,10.1016],[-31.4063,7.4141],[-34.1797,7.7266],[-34.1875,11.0313],[-25.9922,15.5469],[-22.5469,9.8125],[-23.6484,9.7266],[-21.0391,12.1875]]
+};
+let gta3Leaflet=null,gta3MapMarkers=[],gta3MapReady=false;
+function gta3MapIsland(y){return y>30?"Portland":y>20?"Staunton Island":"Shoreside Vale"}
+function gta3MapTask(type,index){
+ const g=state.gta3;
+ if(type==="package")return g.tasks.find(t=>t.id==="gta3-package-"+(index+1));
+ if(type==="jump"){
+  const island=index<8?"portland":index<12?"staunton-island":"shoreside-vale";
+  const n=index<8?index+1:index<12?index-7:index-11;
+  return g.tasks.find(t=>t.id==="gta3-jump-"+island+"-"+n);
+ }
+ const island=index<12?"portland":index<26?"staunton-island":"shoreside-vale";
+ const n=index<12?Math.floor(index/2)+1:index<26?Math.floor((index-12)/2)+1:Math.floor((index-26)/2)+1;
+ return g.tasks.find(t=>t.id==="gta3-rampage-"+island+"-"+n);
+}
+function gta3MapBuildPoints(){
+ const points=[];
+ GTA3_MAP_DATA.packages.forEach((p,i)=>points.push({type:"package",index:i,lat:p[0],lng:p[1],name:"Скрытый пакет №"+String(i+1).padStart(3,"0")}));
+ GTA3_MAP_DATA.rampages.forEach((p,i)=>points.push({type:"rampage",index:i,lat:p[0],lng:p[1],name:"Буйство №"+(Math.floor(i/2)+1)+(i%2?" · альтернативное место":"")}));
+ GTA3_MAP_DATA.jumps.forEach((p,i)=>points.push({type:"jump",index:i,lat:p[0],lng:p[1],name:"Уникальный прыжок №"+(i+1)}));
+ return points;
+}
+function gta3MapUpdate(){
+ if(!gta3Leaflet)return;
+ const island=$("gta3MapIsland").value,query=$("gta3MapSearch").value.trim().toLowerCase();
+ const enabled={};document.querySelectorAll("[data-map-type]").forEach(x=>enabled[x.dataset.mapType]=x.checked);
+ let shown=0,done=0;
+ gta3MapMarkers.forEach(item=>{
+  const task=gta3MapTask(item.point.type,item.point.index);
+  const ok=enabled[item.point.type]&&(island==="all"||gta3MapIsland(item.point.lng)===island)&&(!query||item.point.name.toLowerCase().includes(query));
+  if(ok){if(!gta3Leaflet.hasLayer(item.marker))item.marker.addTo(gta3Leaflet);shown++;if(task&&task.done)done++}
+  else if(gta3Leaflet.hasLayer(item.marker))gta3Leaflet.removeLayer(item.marker);
+  item.marker.setIcon(L.divIcon({className:"",html:'<span class="gta3-map-marker '+item.point.type+(task&&task.done?" done":"")+'"></span>',iconSize:[15,15],iconAnchor:[7,7]}));
+ });
+ const g=state.gta3;
+ const packages=g.tasks.filter(t=>t.collectible==="package"&&t.done).length;
+ const rampages=g.tasks.filter(t=>t.collectible==="rampage"&&t.done).length;
+ const jumps=g.tasks.filter(t=>t.collectible==="jump"&&t.done).length;
+ $("gta3MapCounts").textContent="Пакеты "+packages+"/100 · Буйства "+rampages+"/20 · Прыжки "+jumps+"/20 · На карте "+shown;
+}
+function initGta3Map(){
+ const node=$("gta3LeafletMap");if(!node)return;
+ if(!window.L){node.innerHTML='<div style="padding:22px;color:#102536">Не удалось загрузить движок карты. Проверь подключение к интернету и обнови страницу.</div>';return}
+ if(!gta3MapReady){
+  gta3Leaflet=L.map(node,{crs:L.CRS.Simple,minZoom:3,maxZoom:7,zoomControl:true,attributionControl:true,preferCanvas:true});
+  const bounds=L.latLngBounds(L.latLng(-48,0),L.latLng(0,48));
+  const base="https://jeanropke.b-cdn.net/assets/maps/gta3/base/";
+  const layers={
+   colorful:L.tileLayer(base+"colorful/{z}/{x}_{y}.png",{noWrap:true,bounds,maxNativeZoom:7,attribution:'Map data: <a href="https://github.com/jeanropke/GTA3Map" target="_blank" rel="noopener">GTA3Map contributors</a>'}),
+   game:L.tileLayer(base+"game/{z}/{x}_{y}.jpg",{noWrap:true,bounds,maxNativeZoom:7})
+  };
+  layers.colorful.addTo(gta3Leaflet);
+  $("gta3MapLayer").addEventListener("change",e=>{Object.values(layers).forEach(l=>gta3Leaflet.removeLayer(l));layers[e.target.value].addTo(gta3Leaflet)});
+  gta3Leaflet.fitBounds(bounds);
+  gta3MapBuildPoints().forEach(point=>{
+   const marker=L.marker([point.lat,point.lng],{icon:L.divIcon({className:"",html:'<span class="gta3-map-marker '+point.type+'"></span>',iconSize:[15,15],iconAnchor:[7,7]})});
+   marker.bindPopup("");
+   marker.on("click",()=>{
+    const task=gta3MapTask(point.type,point.index);if(!task)return;
+    const done=!task.done;task.done=done;save();renderProgress("gta3",state.gta3);
+    marker.setPopupContent('<div class="gta3-point-popup"><strong>'+point.name+'</strong><span>'+(done?"Выполнено":"Ещё не собрано")+'</span><br><button type="button">'+(done?"Снять отметку":"Отметить выполненным")+'</button></div>');
+    marker.openPopup();
+    marker.getPopup().getElement().querySelector("button").onclick=()=>{task.done=!task.done;save();gta3MapUpdate();renderProgress("gta3",state.gta3);marker.closePopup()};
+    gta3MapUpdate();
+   });
+   gta3MapMarkers.push({point,marker});
+  });
+  ["gta3MapIsland","gta3MapSearch"].forEach(id=>$(id).addEventListener(id==="gta3MapSearch"?"input":"change",gta3MapUpdate));
+  document.querySelectorAll("[data-map-type]").forEach(x=>x.addEventListener("change",gta3MapUpdate));
+  gta3MapReady=true;
+ }
+ setTimeout(()=>{gta3Leaflet.invalidateSize();gta3MapUpdate()},80);
+}
+
 function showLibrary(){currentView="library";render()}
 $("backToLibrary").onclick=showLibrary;
 $("menuNav").addEventListener("click",e=>{const b=e.target.closest("button[data-filter]");if(!b)return;currentFilter=b.dataset.filter;renderGameMenu()});
