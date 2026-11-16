@@ -601,6 +601,54 @@ const ratchetCatalog={
   ]
  }
 };
+
+const vcStory=["The Party","Back Alley Brawl","Jury Fury","Riot","Four Iron","Demolition Man","Two Bit Hit","Treacherous Swine","Mall Shootout","Guardian Angels","Sir, Yes Sir!","All Hands On Deck!","The Chase","Phnom Penh '86","The Fastest Boat","Supply & Demand","Rub Out","Death Row","Cap the Collector","Keep Your Friends Close..."];
+const vcGang=[["Umberto Robina",["Stunt Boat Challenge","Cannon Fodder","Naval Engagement","Trojan Voodoo"]],["Auntie Poulet",["Juju Scramble","Bombs Away!","Dirty Lickin's"]],["Love Fist",["Love Juice","Psycho Killer","Publicity Tour"]],["Mitch Baker",["Alloy Wheels of Steel","Messing with the Man","Hog Tied"]]];
+const vcAssets=[["Boatyard",["Checkpoint Charlie"]],["Cherry Popper",["Distribution — продать 50 мороженых за один заход"]],["InterGlobal Studios",["Recruitment Drive","Dildo Dodo","Martha's Mug Shot","G-Spotlight"]],["Kaufman Cabs",["V.I.P.","Friendly Rivalry","Cabmageddon"]],["Malibu Club",["No Escape?","The Shootist","The Driver","The Job"]],["Phil's Place",["Gun Runner","Boomshine Saigon"]],["Print Works",["Spilling the Beans","Hit the Courier"]],["Sunshine Autos",["Список 1 — Street Cars","Список 2 — Expensive Cars","Список 3 — Sports Cars","Список 4 — Unique Cars"]],["Pole Position Club",["Потратить $300 в танцевальной комнате"]],["Vercetti Estate",["Shakedown","Bar Brawl","Cop Land"]]];
+const vcAssassinations=["Road Kill","Waste the Wife","Autocide","Check Out at the Check In","Loose Ends"];
+const vcVehicle=["Пожарный — пройти 12 уровней за один заход","Медик — пройти 12 уровней за один заход","Полицейский / Vigilante — пройти 12 уровней за один заход","Pizza Boy — пройти 10 уровней за один заход","Такси — выполнить 100 поездок"];
+const vcOffroad=["PCJ Playground","Cone Crazy","Trial by Dirt","Test Track"],vcRC=["RC Bandit Race","RC Baron Race","RC Raider Pickup"],vcRaces=["Terminal Velocity","Ocean Drive","Border Run","Capital Cruise","Tour!","V.C. Endurance"],vcStadium=["Hotring — занять 1-е место","Bloodring — продержаться 1 минуту","Dirtring — собрать все контрольные точки"],vcChoppers=["Ocean Beach","Vice Point","Little Haiti","Downtown"];
+const saStory=["In the Beginning","Big Smoke","Sweet & Kendl","Ryder","Home Invasion","Catalyst","Robbing Uncle Sam","Tagging Up Turf","Cleaning the Hood","Drive-Thru","Nines and AKs","Drive-By","Sweet's Girl","Cesar Vialpando","Doberman","Los Sepulcros","Reuniting the Families","The Green Sabre","Beat Down on B Dup","Grove 4 Life","Los Desperados","End of the Line","OG Loc","Running Dog","Wrong Side of the Tracks","Just Business","High Stakes, Low Rider","King in Exile","Wu Zi Mu","Farewell, My Love...","Photo Opportunity","Jizzy (вступительная встреча)","Pier 69","Life's a Beach","Madd Dogg's Rhymes","Management Issues","House Party","Burning Desire","Gray Imports","Badlands","555 We Tip","Snail Trail","Misappropriation","High Noon","First Date","First Base","Gone Courting","Made in Heaven","Tanker Commander","Local Liquor Store","Against All Odds","Small Town Bank","Body Harvest","Are You Going to San Fierro?","Black Project","Green Goo","Wear Flowers in Your Hair","Ice Cold Killa","Riot","Deconstruction","Jizzy","T-Bone Mendez","Mike Toreno","Outrider","Mountain Cloud Boys","Ran Fa Li","Lure","Amphibious Assault","The Da Nang Thang","Toreno's Last Flight","Yay Ka-Boom-Boom","Monster","Highjack","Interdiction","Verdant Meadows","Learning to Fly","N.O.E.","Stowaway","Vertical Bird","Home Coming","Fender Ketchup","Explosive Situation","You've Had Your Chips","Don Peyote","Fish in a Barrel","A Home in the Hills","Architectural Espionage","Key to Her Heart","Dam and Blast","Cop Wheels","Up, Up and Away!","Breaking the Bank at Caligula's","Intensive Care","The Meat Business","Freefall","Saint Mark's Bistro","Madd Dogg","Cut Throat Business"];
+const saAssets=[["Курьер",["Roboi's Food Mart — все 4 уровня","Hippy Shopper — все 4 уровня","Burger Shot — все 4 уровня"]],["Грузоперевозки",Array.from({length:8},(_,i)=>"Trucking — задание "+(i+1)+" / 8")],["Карьер",Array.from({length:7},(_,i)=>"Quarry — задание "+(i+1)+" / 7")],["Zero RC",["Air Raid","Supply Lines...","New Model Army"]],["Wang Cars",["Zeroing In","Test Drive","Customs Fast Track","Puncture Wounds"]],["Парковщик",["Valet — пройти 5-й уровень"]]];
+const saVehicle=["Пожарный — пройти 12 уровней за один заход","Медик — пройти 12 уровней за один заход","Полицейский — пройти 12 уровней за один заход","Сутенёр — пройти 10 уровней за один заход","Грузовой поезд — завершить 2 уровня","Такси — выполнить 50 поездок"];
+function ensureViceSanAndreasChecklists(){
+ for(const key of ["vice","sa"]){const g=state[key];if(!g)continue;const old=new Map(g.tasks.map(t=>[t.id,t])),tasks=[];
+ const add=(id,name,category,extra={})=>{const prev=old.get(id);tasks.push({id,name,category,done:prev?!!prev.done:false,...extra})};
+ const many=(prefix,names,category,extra={})=>names.forEach((name,i)=>add(prefix+"-"+(i+1),name,category,extra));
+ if(key==="vice"){
+  many("vc-story",vcStory,"Сюжет");vcGang.forEach(([giver,names])=>many("vc-gang-"+giver.toLowerCase().replace(/[^a-z0-9]+/g,"-"),names,"Задания банд",{giver}));
+  many("vc-assassination",vcAssassinations,"Телефонные миссии");vcAssets.forEach(([asset,names])=>many("vc-asset-"+asset.toLowerCase().replace(/[^a-z0-9]+/g,"-"),names,"Миссии предприятий",{giver:asset}));
+  many("vc-vehicle",vcVehicle,"Миссии-профессии");many("vc-offroad",vcOffroad,"Внедорожные испытания");many("vc-rc",vcRC,"RC-миссии");many("vc-race",vcRaces,"Гонки");many("vc-stadium",vcStadium,"Стадион");many("vc-chopper",vcChoppers.map(x=>"Чекпоинты вертолётом — "+x),"Вертолётные испытания");
+  for(let i=1;i<=100;i++)add("vc-package-"+i,"Скрытый пакет №"+String(i).padStart(3,"0"),"Коллекционные",{collectible:"package"});
+  for(let i=1;i<=35;i++)add("vc-rampage-"+i,"Буйство №"+String(i).padStart(2,"0"),"Коллекционные",{collectible:"rampage"});
+  for(let i=1;i<=36;i++)add("vc-jump-"+i,"Уникальный прыжок №"+String(i).padStart(2,"0"),"Коллекционные",{collectible:"jump"});
+  add("vc-rifle-range","Стрельбище Ammu-Nation — набрать не менее 45 очков","Испытания");
+  for(let i=1;i<=7;i++)add("vc-safehouse-"+i,"Купить безопасное убежище №"+i,"Недвижимость");
+  for(let i=1;i<=10;i++)add("vc-asset-buy-"+i,"Купить предприятие №"+i,"Недвижимость");
+  for(let i=1;i<=15;i++)add("vc-store-"+i,"Ограбить магазин №"+i,"Ограбления");
+ }else{
+  many("sa-story",saStory,"Сюжет");saAssets.forEach(([group,names])=>many("sa-asset-"+group.toLowerCase().replace(/[^a-z0-9]+/g,"-"),names,"Миссии предприятий",{giver:group}));
+  many("sa-vehicle",saVehicle,"Миссии-профессии");
+  [["Los Santos",9],["San Fierro",6],["Las Venturas",4],["Checkpoint Races Las Venturas",6]].forEach(([label,n])=>{for(let i=1;i<=n;i++)add("sa-race-"+label.toLowerCase().replace(/[^a-z0-9]+/g,"-")+"-"+i,label+" — гонка "+i+" / "+n,"Гонки")});
+  many("sa-stadium",["8-Track — занять 1-е место","Blood Bowl — завершить первое событие","Dirt Track — занять 1-е место","Kickstart — набрать не менее 26 очков"],"Стадион");
+  const schools=[["Driving School",["The 360","The 180","Whip and Terminate","Pop and Control","Burn and Lap","Cone Coil","The '90'","Wheelie Weave","Spin and Go","P.I.T. Maneuver","Alley Oop","City Slicking"]],["Bike School",["The 360","The 180","The Wheelie","Jump and Stop","Stoppie","Jump and Stoppie"]],["Boat School",["Basic Seamanship","Plot a Course","Fresh Slalom","Flying Fish","Land, Sea and Air"]],["Flying School",["Takeoff","Land Plane","Circle Airstrip","Circle Airstrip and Land","Helicopter Takeoff","Land Helicopter","Destroy Targets","Loop-the-Loop","Barrel Roll","Parachute onto Target"]]];
+  schools.forEach(([school,names])=>many("sa-school-"+school.toLowerCase().replace(/[^a-z]+/g,"-"),names.map(n=>school+" — "+n+" (минимум бронза)"),"Автошколы"));
+  many("sa-challenge",["BMX Challenge — собрать все контрольные точки","NRG-500 Challenge — собрать все контрольные точки","Chiliad Challenge — Scotch Bonnet Yellow Route","Chiliad Challenge — Birdseye Winder","Chiliad Challenge — Cobra Run"],"Автоиспытания");
+  for(let i=1;i<=100;i++)add("sa-tag-"+i,"Граффити №"+String(i).padStart(3,"0"),"Коллекционные",{collectible:"tag"});
+  for(let i=1;i<=50;i++)add("sa-snapshot-"+i,"Снимок №"+String(i).padStart(2,"0"),"Коллекционные",{collectible:"snapshot"});
+  for(let i=1;i<=50;i++)add("sa-horseshoe-"+i,"Подкова №"+String(i).padStart(2,"0"),"Коллекционные",{collectible:"horseshoe"});
+  for(let i=1;i<=50;i++)add("sa-oyster-"+i,"Устрица №"+String(i).padStart(2,"0"),"Коллекционные",{collectible:"oyster"});
+  many("sa-import",["Импорт/Экспорт — список 1 (10 автомобилей)","Импорт/Экспорт — список 2 (10 автомобилей)","Импорт/Экспорт — список 3 (10 автомобилей)"],"Импорт/Экспорт");
+  many("sa-ammo",["Пистолет — пройти испытание Ammu-Nation","Micro SMG — пройти испытание Ammu-Nation","Дробовик — пройти испытание Ammu-Nation","AK-47 — пройти испытание Ammu-Nation"],"Тир");
+  for(let i=1;i<=29;i++)add("sa-property-"+i,"Купить недвижимость №"+i,"Недвижимость");
+  for(let i=1;i<=3;i++)add("sa-asset-property-"+i,"Купить актив №"+i,"Недвижимость");
+  many("sa-gym",["Изучить все приёмы в спортзале Los Santos","Изучить все приёмы в спортзале San Fierro","Изучить все приёмы в спортзале Las Venturas"],"Единоборства");
+ }
+ old.forEach((t,id)=>{if((t.category==="Своё"||String(id).startsWith("custom-"))&&!tasks.some(x=>x.id===id))tasks.push(t)});g.tasks=tasks;
+ }save();
+}
+ensureViceSanAndreasChecklists();
+
 function ensureRatchetChecklists(){
  const make=(id,name,category,planet,extra={})=>({id,name,category,planet,done:false,...extra});
  const story={
@@ -797,6 +845,10 @@ function renderGameMenu(){
   nav.innerHTML=categories.map(([v,l])=>'<button data-filter="'+v+'">'+l+'</button>').join("")+'<div class="planet-nav-label">ПЛАНЕТЫ И ЛОКАЦИИ</div>'+ratchetCatalog[active].places.map(([p])=>'<button class="planet-nav-button" data-filter="planet:'+p+'"><img src="'+(ratchetPlanetImages[active][p]||"")+'" alt="" loading="lazy">'+p+'</button>').join("");
  }else if(nav.dataset.ratchetBuilt==="1"){nav.innerHTML=nav.dataset.original;delete nav.dataset.ratchetBuilt}
  if(isRatchet)nav.dataset.ratchetBuilt="1";
+ if(active==="vice"||active==="sa"){
+  const cats=[...new Set(state[active].tasks.map(t=>t.category).filter(x=>x!=="Своё"))];
+  nav.innerHTML='<button data-filter="all">Все задания</button>'+cats.map(cat=>'<button data-filter="'+cat+'">'+cat+'</button>').join("")+'<button data-filter="Своё">Мои задания</button>';
+ }
  const mapButton=nav.querySelector('button[data-filter="map"]');if(mapButton)mapButton.style.display=active==="gta3"?"":"none";
  $("menuSectionTitle").textContent=titles[currentFilter]||(currentFilter.startsWith("planet:")?currentFilter.slice(7):currentFilter==="map"?"Карта Liberty City":"Все задания");
  nav.querySelectorAll("button").forEach(b=>b.classList.toggle("selected",b.dataset.filter===currentFilter));
