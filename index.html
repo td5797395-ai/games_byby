@@ -420,14 +420,14 @@ const gta3Portraits={
 function gta3Task(id,name,category,island,extra={}){return {id,name,category,island,done:false,...extra}}
 function ensureGta3Checklist(){
  const g=state.gta3;if(!g)return;
- const oldParamedicDone=!!g.tasks.find(t=>t.id==="gta3-paramedic"&&t.done)||!!g.tasks.find(t=>t.id===\"gta3-paramedic-level12\"&&t.done);
+ const oldParamedicDone=!!g.tasks.find(t=>t.id==="gta3-paramedic"&&t.done)||!!g.tasks.find(t=>t.id==="gta3-paramedic-level12"&&t.done);
  const oldHiddenDone=!!g.tasks.find(t=>t.id==="gta3-hidden"&&t.done),oldRampagesDone=!!g.tasks.find(t=>t.id==="gta3-rampages"&&t.done),oldJumpsDone=!!g.tasks.find(t=>t.id==="gta3-jumps"&&t.done);
  const oldVigilanteDone={Portland:!!g.tasks.find(t=>t.id==="gta3-vigilante-portland"&&t.done),"Staunton Island":!!g.tasks.find(t=>t.id==="gta3-vigilante-staunton"&&t.done),"Shoreside Vale":!!g.tasks.find(t=>t.id==="gta3-vigilante-shoreside"&&t.done)};
  g.tasks=g.tasks.filter(t=>!["gta3-story-all","gta3-hidden","gta3-rampages","gta3-jumps","gta3-paramedic","gta3-vigilante-portland","gta3-vigilante-staunton","gta3-vigilante-shoreside"].includes(t.id));
  const legacyStoryTwo=g.tasks.find(t=>t.id==="gta3-story-2"&&t.name==="Don't Spank Ma Bitch Up");if(legacyStoryTwo)legacyStoryTwo.id="gta3-story-3";
  const byId=new Map(g.tasks.map(t=>[t.id,t]));
  const add=t=>{if(!byId.has(t.id)){g.tasks.push(t);byId.set(t.id,t)}};
- add(gta3Task(\"gta3-paramedic-level12\",\"Медик — пройти 12 уровней за один заход (78 пациентов)\",\"Миссии-профессии\",\"Любой остров\",{done:oldParamedicDone}));
+ add(gta3Task("gta3-paramedic-level12","Медик — пройти 12 уровней за один заход (78 пациентов)","Миссии-профессии","Любой остров",{done:oldParamedicDone}));
  ["Portland","Staunton Island","Shoreside Vale"].forEach(island=>{
   const slug=island.toLowerCase().replaceAll(" ","-");
   const oldDone=oldVigilanteDone[island];
