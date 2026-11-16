@@ -319,6 +319,14 @@ body.in-game{background:#142d3d}body.in-game .wrap{max-width:none;padding:0}body
 .audio-settings label{display:flex;align-items:center;gap:6px;color:#bdb5ce}
 @media(max-width:520px){header{gap:8px;flex-wrap:wrap;margin-bottom:22px}.audio-settings{order:3;width:100%;justify-content:space-between;padding:6px 8px}.audio-settings input{width:88px}}
 
+.gta3-map-panel{padding:12px;background:#142b3b;border-bottom:1px solid #b6cbd355}
+.gta3-map-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:5px 4px 11px;color:#f2e5c8}
+.gta3-map-toolbar strong{display:block;font-size:12px;letter-spacing:.13em}
+.gta3-map-toolbar span{display:block;margin-top:4px;font-size:10px;color:#c2d4df}
+.gta3-map-toolbar a{color:#9de5f5;font-size:11px;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.gta3-map-panel iframe{display:block;width:100%;height:min(72vh,780px);min-height:520px;border:1px solid #9db9c866;background:#101820}
+.gta3-map-note{margin:9px 3px 2px;color:#c2d2dc;font-size:10px;line-height:1.5}
+@media(max-width:760px){.gta3-map-panel{padding:8px}.gta3-map-panel iframe{height:68vh;min-height:460px}.gta3-map-toolbar{align-items:flex-start}.gta3-map-toolbar a{font-size:10px}}
 </style>
 </head>
 <body><div class="wrap">
@@ -337,8 +345,12 @@ body.in-game{background:#142d3d}body.in-game .wrap{max-width:none;padding:0}body
 </main></div><section id="gameView" class="game-view hidden theme-gta3" aria-label="Game checklist menu"><div class="cityline"></div><div class="game-menu-inner">
 <div class="game-menu-top"><div id="gameLogoWrap"><img id="gameLogo" class="game-wordmark-img" src="https://upload.wikimedia.org/wikipedia/commons/1/10/Grand_Theft_Auto_III_-_The_Definitive_Edition_logo.svg" alt="Grand Theft Auto III — The Definitive Edition"><div class="game-edition" id="gameEdition">Liberty City · The Definitive Edition</div></div><button class="menu-back" id="backToLibrary">← Библиотека</button></div>
 <div class="game-menu-body"><aside class="menu-sidebar"><div class="menu-kicker">Меню прохождения</div><nav class="menu-nav" id="menuNav">
-<button class="selected" data-filter="all">Все задания</button><button data-filter="Сюжет">Сюжетные миссии</button><button data-filter="Телефонные миссии">Телефонные миссии</button><button data-filter="Побочные">Побочные задания</button><button data-filter="Миссии-профессии">Профессии</button><button data-filter="Импорт/Экспорт">Импорт / Экспорт</button><button data-filter="Коллекционные">Коллекционные</button><button data-filter="Своё">Мои задания</button></nav></aside>
-<div class="menu-content"><div class="menu-content-head"><div><h2 id="menuSectionTitle">Все задания</h2><p>Путь к 100% завершению</p></div><div class="menu-progress"><strong id="menuPercent">—</strong><span>Выполнено</span></div></div>
+<button class="selected" data-filter="all">Все задания</button><button data-filter="map">🗺 Карта Liberty City</button><button data-filter="Сюжет">Сюжетные миссии</button><button data-filter="Телефонные миссии">Телефонные миссии</button><button data-filter="Побочные">Побочные задания</button><button data-filter="Миссии-профессии">Профессии</button><button data-filter="Импорт/Экспорт">Импорт / Экспорт</button><button data-filter="Коллекционные">Коллекционные</button><button data-filter="Своё">Мои задания</button></nav></aside>
+<div class="menu-content"><div class="gta3-map-panel hidden" id="gta3MapPanel">
+ <div class="gta3-map-toolbar"><div><strong>LIBERTY CITY · INTERACTIVE MAP</strong><span>100 пакетов · 20 буйств · 20 уникальных прыжков</span></div><a href="https://bloxodes.com/maps/gta-iii" target="_blank" rel="noopener noreferrer">Открыть карту отдельно ↗</a></div>
+ <iframe src="https://bloxodes.com/maps/gta-iii" title="Интерактивная карта Grand Theft Auto III — Liberty City" loading="lazy" referrerpolicy="no-referrer" allow="fullscreen"></iframe>
+ <p class="gta3-map-note">На карте можно включать нужные категории и скрывать уже отмеченные точки. Прогресс самой внешней карты хранится отдельно от чек-листа ZETA.</p>
+ </div><div class="menu-content-head"><div><h2 id="menuSectionTitle">Все задания</h2><p>Путь к 100% завершению</p></div><div class="menu-progress"><strong id="menuPercent">—</strong><span>Выполнено</span></div></div>
 <div class="menu-meter"><span id="menuBar"></span></div><div class="overall-game-progress"><label>Общее прохождение игры</label><output id="gameProgressValue">0.0%</output><div class="overall-progress-track"><span id="gameProgressBar"></span></div><small id="gameProgressNote">Начисляется автоматически за выполненные пункты чек-листа</small></div><div class="gta3-character-strip" id="gta3CharacterStrip" aria-label="Персонажи игры"></div><div class="game-hud-icons" aria-label="Игровые значки"><div class="hud-icon"><b>♥</b><span>ЗДОРОВЬЕ</span></div><div class="hud-icon"><b>⬟</b><span>БРОНЯ</span></div><div class="hud-icon"><b>✚</b><span>АПТЕЧКА</span></div><div class="hud-icon"><b>⚔</b><span>ОРУЖИЕ</span></div><div class="hud-icon"><b>★</b><span>РОЗЫСК</span></div></div><div class="menu-warnings hidden" id="gta3Warnings"><strong>ВАЖНО: НЕПРОПУСКАЕМЫЕ УСЛОВИЯ GTA III</strong><ul><li>До «Last Requests» завершить все задания Луиджи Готерелли и Джоуи Леоне.</li><li>До «Waka-Gashira Wipeout!» завершить все задания Кэндзи Касена.</li><li>«Two-Faced Tanner» Асуки пройти до «Grand Theft Aero» Дональда.</li><li>Медика лучше пройти в самом начале, пока банды Портленда не враждебны.</li><li>Портлендские части пожарного и полицейского также желательно выполнить заранее.</li><li>Телефонные миссии Эль-Бурро лучше пройти до обострения отношений с Триадами.</li></ul></div><div class="menu-task-list" id="menuTasks"></div><div class="menu-add"><input id="menuNewTask" maxlength="100" placeholder="Добавить личное задание"><button id="menuAddBtn">Добавить</button></div>
 <div class="menu-footer"><span id="menuLocation">Liberty City · 2001</span><span id="menuTaskCount">0 заданий</span></div></div></div></div></section>
 <div class="footer">ZETA TRACKER · EARLY BUILD 0.1 · Данные сохраняются в этом браузере</div></div>
@@ -737,8 +749,16 @@ function renderGameMenu(){
   nav.innerHTML=categories.map(([v,l])=>'<button data-filter="'+v+'">'+l+'</button>').join("")+'<div class="planet-nav-label">ПЛАНЕТЫ И ЛОКАЦИИ</div>'+ratchetCatalog[active].places.map(([p])=>'<button class="planet-nav-button" data-filter="planet:'+p+'"><img src="'+(ratchetPlanetImages[active][p]||"")+'" alt="" loading="lazy">'+p+'</button>').join("");
  }else if(nav.dataset.ratchetBuilt==="1"){nav.innerHTML=nav.dataset.original;delete nav.dataset.ratchetBuilt}
  if(isRatchet)nav.dataset.ratchetBuilt="1";
- $("menuSectionTitle").textContent=titles[currentFilter]||(currentFilter.startsWith("planet:")?currentFilter.slice(7):"Все задания");
+ const mapButton=nav.querySelector('button[data-filter="map"]');if(mapButton)mapButton.style.display=active==="gta3"?"":"none";
+ $("menuSectionTitle").textContent=titles[currentFilter]||(currentFilter.startsWith("planet:")?currentFilter.slice(7):currentFilter==="map"?"Карта Liberty City":"Все задания");
  nav.querySelectorAll("button").forEach(b=>b.classList.toggle("selected",b.dataset.filter===currentFilter));
+ const mapPanel=$("gta3MapPanel");
+ if(mapPanel){
+  const mapMode=active==="gta3"&&currentFilter==="map";
+  mapPanel.classList.toggle("hidden",!mapMode);
+  [".menu-content-head",".menu-meter",".overall-game-progress",".gta3-character-strip",".game-hud-icons",".menu-warnings","#menuTasks",".menu-add"].forEach(sel=>{const el=document.querySelector("#gameView "+sel);if(el)el.style.display=mapMode?"none":""});
+  if(mapMode){$("menuTaskCount").textContent="Карта Liberty City";return}
+ }
  const list=$("menuTasks");list.innerHTML="";
  const filtered=game.tasks.filter(t=>currentFilter==="all"||(currentFilter.startsWith("planet:")?t.planet===currentFilter.slice(7):(currentFilter.startsWith("island:")?t.island===currentFilter.slice(7):(currentFilter==="Побочные"?["Миссии по бездорожью","RC-миссии"].includes(t.category):t.category===currentFilter))));
  const sectionDone=filtered.filter(t=>t.done).length,sectionTotal=filtered.length,sectionPct=sectionTotal?Math.round(sectionDone/sectionTotal*100):0;
